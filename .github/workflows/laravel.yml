@@ -15,9 +15,9 @@ jobs:
       DB_CONNECTION: pgsql
       DB_HOST: 127.0.0.1
       DB_PORT: 5432
-      DB_DATABASE: nombre_de_tu_base_de_datos
-      DB_USERNAME: usuario_de_tu_base_de_datos
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: chaja
+      DB_USERNAME: root
+      DB_PASSWORD: root
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
