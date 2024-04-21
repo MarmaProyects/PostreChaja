@@ -15,9 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::updateOrCreate(
-            ['email' => 'admin@example.com'],
-            ['name' => 'Admin']
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'), // Asegúrate de establecer una contraseña segura
+            ]
         );
 
         $this->call(RoleSeeder::class);
