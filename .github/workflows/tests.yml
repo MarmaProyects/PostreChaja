@@ -9,30 +9,18 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-permissions:
-  contents: read
-
 jobs:
   tests:
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: true
-      matrix:
-        php: [8.2, 8.3]
-
-    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest 
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
-          coverage: none
+        php-version: '8.2'
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
