@@ -1,0 +1,2 @@
+index
+{{csrf_field()}}
