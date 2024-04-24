@@ -21,6 +21,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 10, 100),
             'description' => $this->faker->sentence(),
             'amount' => $this->faker->numberBetween(1, 100),
+            'image' => $this->faker->sentence(),
             'type_id' => function () {
                 return \App\Models\Type::inRandomOrder()->first()->id;
             },

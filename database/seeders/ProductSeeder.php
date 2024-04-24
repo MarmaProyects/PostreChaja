@@ -20,8 +20,8 @@ class ProductSeeder extends Seeder
                 'price' => 700,
                 'amount' => 1,
                 'type_id' => '3',
-                'category_id' => '1'
-                //'image' => 'postre-chaja.jpg'
+                'category_id' => '1',
+                'image' => 'postre-chaja.jpg'
             ],
 
             [
@@ -30,8 +30,8 @@ class ProductSeeder extends Seeder
                 'price' => 800,
                 'amount' => 1,
                 'type_id' => '3',
-                'category_id' => '1'
-                //'image' => 'postre-chaja.jpg'
+                'category_id' => '1',
+                'image' => 'postre-chaja.jpg'
             ],
 
             [
@@ -40,8 +40,8 @@ class ProductSeeder extends Seeder
                 'price' => 900,
                 'amount' => 1,
                 'type_id' => '3',
-                'category_id' => '1'
-                //'image' => 'postre-chaja.jpg'
+                'category_id' => '1',
+                'image' => 'postre-chaja.jpg'
             ],
             [
                 'name' => 'Sandwich de jamón y queso',
@@ -49,8 +49,8 @@ class ProductSeeder extends Seeder
                 'price' => 40,
                 'amount' => 1,
                 'type_id' => '1',
-                'category_id' => '3'
-                //'image' => 'Sandwich-jamon-queso.jpg'
+                'category_id' => '3',
+                'image' => 'Sandwich-jamon-queso.jpg'
             ],
             [
                 'name' => 'Coca cola 1LT',
@@ -58,8 +58,8 @@ class ProductSeeder extends Seeder
                 'price' => 120,
                 'amount' => 1,
                 'type_id' => '2',
-                'category_id' => '2'
-                //'image' => 'Coca-cola-1lt.jpg'
+                'category_id' => '2',
+                'image' => 'Coca-cola-1lt.jpg'
             ],
             [
                 'name' => 'Coca cola 2LT',
@@ -67,8 +67,8 @@ class ProductSeeder extends Seeder
                 'price' => 160,
                 'amount' => 1,
                 'type_id' => '2',
-                'category_id' => '2'
-                //'image' => 'Coca-cola-2lt.jpg'
+                'category_id' => '2',
+                'image' => 'Coca-cola-2lt.jpg'
             ],
             [
                 'name' => 'Fanta 2LT',
@@ -76,8 +76,8 @@ class ProductSeeder extends Seeder
                 'price' => 160,
                 'amount' => 1,
                 'type_id' => '2',
-                'category_id' => '2'
-                //'image' => 'Fanta-2lt.jpg'
+                'category_id' => '2',
+                'image' => 'Fanta-2lt.jpg'
             ],
             [
                 'name' => 'Sprite 2LT',
@@ -85,8 +85,8 @@ class ProductSeeder extends Seeder
                 'price' => 140,
                 'amount' => 1,
                 'type_id' => '2',
-                'category_id' => '2'
-                //'image' => 'Sprite-2lt.jpg'
+                'category_id' => '2',
+                'image' => 'Sprite-2lt.jpg'
             ]];
 
             foreach ($products as $productData) {
