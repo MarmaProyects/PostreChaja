@@ -1,0 +1,10 @@
+.custom-red {
+  background-color: #FFC0CB; /* Color rojo/rosa personalizado */
+}
+.navbar-items {
+  margin-right: 20px; /* Agrega un margen a la derecha para crear espacio */
+}
+
+body {
+  background-color: red; /* Establece el color de fondo a rojo */
+}
