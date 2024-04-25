@@ -6,6 +6,14 @@ use App\Models\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
+
 class ClientController extends Controller
 {
     /**
@@ -13,7 +21,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+      return view('clients.index');
     }
 
     /**
@@ -21,7 +29,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -29,7 +37,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Client::create($request->all());
+            return redirect()->route('clients.index');
+        } catch (QueryException $e) {
+            Log::error('Error creating client: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error creating client.');
+        }
     }
 
     /**
@@ -45,7 +59,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+      return view('clients.edit', compact('client'));
     }
 
     /**
@@ -53,7 +67,12 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        try {
+            $client->update($request->all()); 
+        } catch (QueryException $e) {
+            Log::error('Error creating client: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error updating client.');
+        }
     }
 
     /**
@@ -61,6 +80,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('clients.index');
     }
 }
