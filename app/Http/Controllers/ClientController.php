@@ -67,8 +67,12 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        $client->update($request->all());
-        return redirect()->route('clientes.index');
+        try {
+            $client->update($request->all()); 
+        } catch (QueryException $e) {
+            Log::error('Error creating client: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error updating client.');
+        }
     }
 
     /**
