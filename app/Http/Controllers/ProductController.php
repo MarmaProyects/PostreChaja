@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -29,8 +31,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
-        return redirect()->route('products.index');
+        try {
+            Product::create($request->all());
+            return redirect()->route('products.index');
+        } catch (QueryException $e) {
+            Log::error('Error creating Product: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error creating client.');
+        }
     }
 
     /**
@@ -54,8 +61,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
-        return redirect()->route('products.index');
+        try {
+            $product->update($request->all());
+            return redirect()->route('products.index');
+        } catch (QueryException $e) {
+            Log::error('Error Updating Product: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error updating client.');
+        }
     }
 
     /**
