@@ -13,9 +13,30 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
+
+        $order = $request->input('order', 'created_at_desc');
+        switch ($order) {
+            case 'price_asc':
+                $productsQuery->orderBy('price');
+                break;
+            case 'price_desc':
+                $productsQuery->orderByDesc('price');
+                break;
+            case 'created_at_desc':
+                $productsQuery->orderByDesc('created_at');
+                break;
+            case 'category_asc':
+                $productsQuery->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                    ->orderBy('categories.name');
+                break;
+            default:
+                $productsQuery->orderByDesc('created_at');
+                break;
+        }
+        $products = $productsQuery->get();
         return view('products.index', compact('products'));
     }
 
