@@ -1,3 +1,4 @@
 @import "bootstrap/dist/css/bootstrap";
+@import url("products/show.css");
 @import url("products/");
 @import "bootstrap-icons/font/bootstrap-icons.css";
