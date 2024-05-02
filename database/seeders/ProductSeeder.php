@@ -6,7 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\Image;
-use App\Services\img_to_base64;
 
 class ProductSeeder extends Seeder
 {
