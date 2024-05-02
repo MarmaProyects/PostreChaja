@@ -20,12 +20,11 @@
         @foreach ($products as $product)
             <div class="col-md-3 m-3 px-0 card">
                 <a href="{{ route('productos.show', $product->id) }}" class="card-button">
-                    <img class="card-img-top" src="{{ asset('images/torta.png') }}" alt="Card image cap">
+                    <img class="card-img-top" src="data:image/jpg;base64, {{$product->images()->first()->base64}}" alt="Card image cap">
                     <!-- Change for $product->image -->
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text text-danger fw-bold">$ {{ $product->price }}</p>
-
                     </div>
                 </a>
                 <a href="#" class="btn btn-primary">Añadir al carrito</a>
