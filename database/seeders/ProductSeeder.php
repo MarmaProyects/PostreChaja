@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\Image;
 
 class ProductSeeder extends Seeder
 {
@@ -21,7 +22,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '3',
                 'category_id' => '1',
-                'image' => 'postre-chaja.jpg'
             ],
 
             [
@@ -31,7 +31,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '3',
                 'category_id' => '1',
-                'image' => 'postre-chaja.jpg'
             ],
 
             [
@@ -41,7 +40,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '3',
                 'category_id' => '1',
-                'image' => 'postre-chaja.jpg'
             ],
             [
                 'name' => 'Sandwich de jamón y queso',
@@ -50,7 +48,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '1',
                 'category_id' => '3',
-                'image' => 'Sandwich-jamon-queso.jpg'
             ],
             [
                 'name' => 'Coca cola 1LT',
@@ -59,7 +56,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '2',
                 'category_id' => '2',
-                'image' => 'Coca-cola-1lt.jpg'
             ],
             [
                 'name' => 'Coca cola 2LT',
@@ -68,7 +64,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '2',
                 'category_id' => '2',
-                'image' => 'Coca-cola-2lt.jpg'
             ],
             [
                 'name' => 'Fanta 2LT',
@@ -77,7 +72,6 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '2',
                 'category_id' => '2',
-                'image' => 'Fanta-2lt.jpg'
             ],
             [
                 'name' => 'Sprite 2LT',
@@ -86,11 +80,26 @@ class ProductSeeder extends Seeder
                 'amount' => 1,
                 'type_id' => '2',
                 'category_id' => '2',
-                'image' => 'Sprite-2lt.jpg'
             ]];
 
+            $imagenes = [
+                file_get_contents(public_path("img/postre_chocolate.jpg")),
+                file_get_contents(public_path("img/postre_vainilla.jpg")),
+                file_get_contents(public_path("img/postre_frutilla.png")),
+                file_get_contents(public_path("img/Sandwich.jpg")),
+                file_get_contents(public_path("img/Coca1lt.jpg")),
+                file_get_contents(public_path("img/Coca2lt.jpg")),
+                file_get_contents(public_path("img/Coca3lt.jpg")),
+                file_get_contents(public_path("img/Fanta2lt.jpg")),
+                file_get_contents(public_path("img/Sprite2lt.jpg")),
+            ];
+
+            $i = 0;
+
             foreach ($products as $productData) {
-                Product::updateOrCreate($productData);
+                $producto = Product::updateOrCreate($productData);
+                Image::updateOrCreate(['product_id' => $producto->id], ['base64' => base64_encode($imagenes[$i])]);
+                $i += 1;
             }
 
             //Product::factory()->count(20)->create();
