@@ -18,7 +18,7 @@
 
 <body>
     <div>
-        <main>
+        <main class="container">
             {{ $slot }}
         </main>
     </div>
