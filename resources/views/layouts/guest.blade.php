@@ -17,11 +17,10 @@
 </head>
 
 <body>
-    <div>
-        <main class="container">
-            {{ $slot }}
-        </main>
-    </div>
+    <main class="container">
+        {{ $slot }}
+    </main>
+    @include('includes.footer')
 </body>
 
 </html>
