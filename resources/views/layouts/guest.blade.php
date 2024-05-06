@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    @include('includes.navbar')
     <main class="container">
         {{ $slot }}
     </main>
