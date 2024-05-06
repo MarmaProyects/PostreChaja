@@ -61,6 +61,8 @@
     border-radius: 6px 6px 0 0;
     background-color: #e01010;
     background: radial-gradient(#e5f89e, #e00101);
+    max-width: 300px;
+    max-height: 400px;
 }
 
 .photo-main .controls {
@@ -82,11 +84,18 @@
     filter: saturate(150%) contrast(120%) hue-rotate(10deg) drop-shadow(1px 20px 10px rgba(0, 0, 0, 0.3));
 }
 
+.photo-main .carousel-inner img {
+    max-width: 300px;
+    max-height: 200px;
+}
+
 .photo-album {
     display: flex;
     padding-top: 10px;
     border-radius: 0 0 6px 6px;
     background-color: #fff;
+    max-width: 300px;
+    overflow-x: auto;
 }
 
 .photo-album ul {
@@ -99,7 +108,6 @@
     float: left;
     width: 55px;
     height: 55px;
-    padding: 7px;
     border: 1px solid #a6a6a6;
     border-radius: 3px;
 }
@@ -243,7 +251,10 @@ div.price {
     background-color: transparent;
     border: none;
     padding: 0%;
-    opacity: 0;
+    max-width: 100px;
+    min-width: 50px;
+    max-height: 100px;
+    min-height: 50px;
 }
 
 .buy--btn {

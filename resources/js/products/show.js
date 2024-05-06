@@ -1,7 +1,15 @@
-// Función para cambiar la imagen principal del carrusel al hacer clic en los botones del photo-album
-document.querySelectorAll('.album-btn').forEach((button) => {
-    button.addEventListener('click', () => {
-        const imgUrl = button.getAttribute('data-img');
-        document.querySelector('.carousel-inner').innerHTML = `<div class="carousel-item active"><img src="${imgUrl}" class="d-block w-100" alt="${button.alt}"></div>`;
+document.addEventListener('DOMContentLoaded', function() {
+    const albumButtons = document.querySelectorAll('.album-btn');
+    albumButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = button.getAttribute('id_imagen_album');
+            const carouselItem = document.querySelector(`#main-carousel [id_imagen_carrusel="${id}"]`);
+            if (carouselItem) {
+                document.querySelectorAll('.carousel-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                carouselItem.classList.add('active');
+            }
+        });
     });
 });

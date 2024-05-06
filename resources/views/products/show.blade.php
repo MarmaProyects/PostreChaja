@@ -15,21 +15,11 @@
                             </div>
                             <div id="main-carousel" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://w7.pngwing.com/pngs/7/52/png-transparent-cheesecake-bavarian-cream-sponge-cake-torte-cheesecake-cream-food-strawberries.png" class="d-block w-100" alt="green apple slice">
+                                    @foreach ($product->images as $index => $image)
+                                    <div id_imagen_carrusel="{{$index}}" class="carousel-item {{$index == 0 ? 'active' : ''}}">
+                                        <img src="data:image/jpg;base64, {{$image->base64}}" class="d-block w-100" alt="green apple slice">
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src="https://c0.klipartz.com/pngpicture/486/996/gratis-png-tarta-de-tarta-de-tarta-de-tarta-de-pastel-de-frutas-torta-de-crema-de-fresa-masa-para-pastel-thumbnail.png" class="d-block w-100" alt="green apple">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://e7.pngegg.com/pngimages/329/65/png-clipart-strawberry-cheesecake-fruitcake-chocolate-cake-cream-strawberry-cream-strawberries.png" class="d-block w-100" alt="half apple">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://w7.pngwing.com/pngs/369/94/png-transparent-strawberry-pie-fruitcake-tart-cheesecake-torte-cake-cream-food-strawberries.png" class="d-block w-100" alt="green apple">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://c0.klipartz.com/pngpicture/442/302/gratis-png-pastel-de-trufa-de-chocolate-strudel-brownie-de-chocolate-tiramisu-material-de-sandwich-de-helado-de-fresa.png" class="d-block w-100" alt="apple top">
-                                    </div>
+                                    @endforeach
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#main-carousel" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -43,10 +33,9 @@
                         </div>
                         <div class="photo-album">
                             <ul>
-                                <li><button class="album-btn" data-img="https://w7.pngwing.com/pngs/7/52/png-transparent-cheesecake-bavarian-cream-sponge-cake-torte-cheesecake-cream-food-strawberries.png" alt="green apple"> <img src="https://w7.pngwing.com/pngs/7/52/png-transparent-cheesecake-bavarian-cream-sponge-cake-torte-cheesecake-cream-food-strawberries.png" alt="alo"></button></li>
-                                <li><button class="album-btn" data-img="https://c0.klipartz.com/pngpicture/486/996/gratis-png-tarta-de-tarta-de-tarta-de-tarta-de-pastel-de-frutas-torta-de-crema-de-fresa-masa-para-pastel-thumbnail.png" alt="green apple"> <img src="https://c0.klipartz.com/pngpicture/486/996/gratis-png-tarta-de-tarta-de-tarta-de-tarta-de-pastel-de-frutas-torta-de-crema-de-fresa-masa-para-pastel-thumbnail.png" alt="alo"></button></li>
-                                <li><button class="album-btn" data-img="https://e7.pngegg.com/pngimages/329/65/png-clipart-strawberry-cheesecake-fruitcake-chocolate-cake-cream-strawberry-cream-strawberries.png" alt="green apple"> <img src="https://e7.pngegg.com/pngimages/329/65/png-clipart-strawberry-cheesecake-fruitcake-chocolate-cake-cream-strawberry-cream-strawberries.png" alt="alo"></button></li>
-                                <li><button class="album-btn" data-img="https://w7.pngwing.com/pngs/369/94/png-transparent-strawberry-pie-fruitcake-tart-cheesecake-torte-cake-cream-food-strawberries.png" alt="green apple"> <img src="https://w7.pngwing.com/pngs/369/94/png-transparent-strawberry-pie-fruitcake-tart-cheesecake-torte-cake-cream-food-strawberries.png" alt="alo"></button></li>
+                                @foreach ($product->images as $index => $image)
+                                <li><button class="album-btn" id_imagen_album="{{$index}}"><img src="data:image/jpg;base64, {{$image->base64}}" alt="alo"></button></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
