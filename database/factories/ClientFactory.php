@@ -21,7 +21,6 @@ class ClientFactory extends Factory
         $user = User::firstOrCreate(
             ['email' => $this->faker->email],
             [
-                'name' => $this->faker->name,
                 'password' => bcrypt('password'), 
             ]
         );
