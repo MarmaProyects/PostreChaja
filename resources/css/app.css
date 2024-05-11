@@ -1,3 +1,4 @@
 @import "bootstrap/dist/css/bootstrap";
 @import url("products/");
+@import url("user/register.css");
 @import "bootstrap-icons/font/bootstrap-icons.css";
