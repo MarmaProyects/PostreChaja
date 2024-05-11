@@ -15,6 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        @include('includes.navbar')
+        @if (Route::current()->uri() == '/')
+            <img src="img/banner.png" alt="Banner" class="banner-image">
+        @endif
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 

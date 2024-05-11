@@ -11,12 +11,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
+    @include('includes.navbar')
+    @if (Route::current()->uri() == '/')
+        <img src="img/banner.png" alt="Banner" class="banner-image">
+    @endif
     <main class="container">
         {{ $slot }}
     </main>

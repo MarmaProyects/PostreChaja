@@ -20,4 +20,9 @@ class Client extends User
     {
         return 'Client';
     }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
