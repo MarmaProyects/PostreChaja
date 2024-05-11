@@ -1,3 +1,73 @@
 @import "bootstrap/dist/css/bootstrap";
 @import url("products/");
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import "swiper/css/bundle";
+
+header {
+    background: white;
+}
+
+body {
+    background: linear-gradient(to right, #880a0a, #880a0a);
+    color: white;
+}
+
+.text-muted {
+    color: white;
+}
+
+.white-icon {
+    filter: brightness(0) invert(1); /* Invertir los colores para hacer que la imagen sea blanca */
+}
+
+.banner-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.cake-home {
+    border-radius: 20px;
+}
+
+main .banner {
+    margin: 40px 0 40px 0;
+}
+.btn-home {
+    background: #9e5353;
+}
+.swiper {
+    width: 600px;
+    height: 300px;
+}
+
+swiper-container {
+    width: 100%;
+    height: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    height: 250px;
+    width: 250px;
+    background: #9e5353;
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    overflow: hidden;
+}
+
+swiper-slide img {
+    height: 125px;
+    margin-top: 0px;
+    width: 100%;
+    object-fit: cover;
+}
+
+swiper-slide .swiper-body { 
+    margin-top: 20px;
+}
