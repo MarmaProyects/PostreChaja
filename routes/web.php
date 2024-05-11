@@ -3,11 +3,10 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -16,4 +15,4 @@ Route::get('/dashboard', function () {
 Route::resource('clientes', ClientController::class);
 Route::resource('productos', ProductController::class);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

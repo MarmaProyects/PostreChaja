@@ -1,4 +1,15 @@
 @import "bootstrap/dist/css/bootstrap";
-@import url("products/");
-@import url("user/register.css");
+@import url("products/"); 
+@import url("user/register.css"); 
+@import url("home/");
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import "swiper/css/bundle";
+
+header {
+    background: white;
+}
+
+body {
+    background: linear-gradient(to right, #880a0a, #880a0a);
+    color: white;
+} 
