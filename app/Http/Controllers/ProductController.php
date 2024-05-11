@@ -65,9 +65,15 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+            return view('products.show', compact('product'));
+        } catch (\Exception $e) {
+            Log::error('Error showing Product: ' . $e->getMessage());
+            return redirect()->route('products.index')->with('error', 'Product not found.');
+        }
     }
 
     /**
