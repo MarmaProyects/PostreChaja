@@ -2,6 +2,8 @@
     <h2>Lista de Productos</h2>
     <form id="orderForm" action="{{ route('productos.index') }}" method="GET" class="mb-3">
         <div class="row">
+            <input type="search" class="d-none" placeholder="Buscar" name="search"
+                value="{{ request('search') }}">
             <div class="col-md-6">
                 <select id="orderSelect" name="order" class="form-select">
                     <option value="created_at_desc" {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
@@ -20,7 +22,8 @@
         @foreach ($products as $product)
             <div class="col-md-3 m-3 px-0 card">
                 <a href="{{ route('productos.show', $product->id) }}" class="card-button">
-                    <img class="card-img-top" src="data:image/jpg;base64, {{$product->images()->first()->base64}}" alt="Card image cap">
+                    <img class="card-img-top" src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}"
+                        alt="Card image cap">
                     <!-- Change for $product->image -->
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $product->name }}</h5>
