@@ -14,6 +14,16 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $clientData = [
+            'fullname' => 'Text client',
+            'address' => 'text@text.com',
+            'phone' => '123456789',
+            'stars' => 0,
+            'notifications' => 1,
+        ];
+
+        $user->client()->create($clientData);
+
         $response = $this->actingAs($user)->get('/confirm-password');
 
         $response->assertStatus(200);

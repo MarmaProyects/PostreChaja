@@ -19,6 +19,16 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
+        $clientData = [
+            'fullname' => 'Text client',
+            'address' => 'text@text.com',
+            'phone' => '123456789',
+            'stars' => 0,
+            'notifications' => 1,
+        ];
+
+        $user->client()->create($clientData);
+
         $response = $this->actingAs($user)->get('/verify-email');
 
         $response->assertStatus(200);
@@ -42,7 +52,7 @@ class EmailVerificationTest extends TestCase
 
         Event::assertDispatched(Verified::class);
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(route('dashboard', absolute: false).'?verified=1');
+        $response->assertRedirect(route('dashboard', absolute: false) . '?verified=1');
     }
 
     public function test_email_is_not_verified_with_invalid_hash(): void
