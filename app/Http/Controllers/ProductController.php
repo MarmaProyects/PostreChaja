@@ -17,6 +17,17 @@ class ProductController extends Controller
     {
         $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
 
+        $search = $request->input('search');
+
+        if ($search) {
+            $searchTerm = strtolower($search);
+            
+            $productsQuery->where(function ($query) use ($searchTerm) {
+                $query->whereRaw('LOWER(products.name) LIKE ?', ['%' . $searchTerm . '%'])
+                    ->orWhereRaw('LOWER(products.description) LIKE ?', ['%' . $searchTerm . '%']);
+            });
+        }
+
         $order = $request->input('order', 'created_at_desc');
         switch ($order) {
             case 'price_asc':

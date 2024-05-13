@@ -3,6 +3,7 @@
 @import url("products/"); 
 @import url("user/register.css"); 
 @import url("home/");
+@import url("home/navbar.css");
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "swiper/css/bundle";
 
