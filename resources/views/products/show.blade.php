@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="product_container">
         <div class="product_body">
-            <section class="product">
+            <section class="product my-5">
                 <div class="product__photo">
                     <div class="photo-container">
                         <div class="photo-container-content">

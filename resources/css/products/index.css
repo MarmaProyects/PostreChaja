@@ -5,3 +5,24 @@
 .card-button h5 {
     color: black;
 }
+
+.product-card {
+    background-color: white;
+    border-radius: 7px;
+}
+
+.product-card a img {
+    width: 100%;
+    border-radius: 7px 7px 0 0;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.product-card .buy--btn {
+    width: 100%; 
+    margin: 0px;
+}
+
+.product-card a:hover {
+    opacity: 0.5; 
+}

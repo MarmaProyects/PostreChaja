@@ -26,21 +26,29 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                             <form action="{{ route('productos.index') }}" method="GET"
-                                class="d-flex input-group w-auto my-auto mb-3 mb-md-0">
-                                <input autocomplete="off" class="input input-search"
-                                    placeholder="Search" name="search" value="{{ request('search') }}">
-                                <button type="submit" class="input-group-text border-0 d-none d-lg-flex"><i class="bi bi-search"></i></button>
+                                class="d-flex input-group w-auto my-auto mb-3 mb-md-0"> 
+                                <div class="search">
+                                    <input autocomplete="off" class="search__input" placeholder="Search" name="search"
+                                    value="{{ request('search') }}">
+                                    <button class="search__button">
+                                        <i class="bi bi-search search__icon"></i> 
+                                    </button>
+                                </div>
                                 <div class="d-none">
                                     <select name="order" class="form-select">
-                                        <option value="created_at_desc" {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
+                                        <option value="created_at_desc"
+                                            {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
                                             Recientes</option>
-                                        <option value="price_asc" {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio
+                                        <option value="price_asc"
+                                            {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio
                                         </option>
-                                        <option value="price_desc" {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio
+                                        <option value="price_desc"
+                                            {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio
                                         </option>
-                                        <option value="category_asc" {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria
+                                        <option value="category_asc"
+                                            {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria
                                         </option>
                                     </select>
                                 </div>

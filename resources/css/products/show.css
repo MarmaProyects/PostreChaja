@@ -154,6 +154,7 @@
 }
 
 .title h1 {
+    max-width: 250px;
     margin-bottom: 0.1em;
     color: #000000;
     font-size: 1.5em;
@@ -223,24 +224,20 @@ div.price {
 .description {
     display: flex;
     margin: 2em 0;
+    color: black;
+    max-width: 250px;
     flex-direction: column;
 }
 
-.description h3 {
+.description p{ 
+    text-align: justify;
+}
+
+.description h3 { 
     margin-bottom: 1em;
-    align-self: self-start;
-}
-
-.description ul {
-    font-size: 0.8em;
-    list-style: disc;
     margin-left: 1em;
-}
-
-.description li {
-    text-indent: -0.6em;
-    margin-bottom: 0.5em;
-}
+    align-self: self-start;
+} 
 
 .buy--btn {
     padding: 1.5em 3.1em;
@@ -250,13 +247,16 @@ div.price {
     font-weight: 700;
     letter-spacing: 1.3px;
     color: #fff;
-    background-color: #ff3f40;
-    box-shadow: 2px 2px 25px -7px #a6a6a6;
+    background-color: #ff3f40; 
     cursor: pointer;
 }
 
 .buy--btn:active {
     transform: scale(0.97);
+}
+
+.buy--btn:hover{
+    background-color: #ff1212; 
 }
 
 /* ----- Footer Section ----- */
