@@ -26,8 +26,8 @@
                         <img src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}"
                             alt="Card image cap">
                         <div class=" text-center">
-                            <h5 class="">{{ $product->name }}</h5>
-                            <p class="text-danger fw-bold">$ {{ $product->price }}</p>
+                            <h5 class="">{{ ucfirst($product->name) }}</h5>
+                            <p class="text-danger fw-bold">${{ $product->price }}</p>
                         </div>
                     </a>
                     <div class="align-self-end p-0 m-0">

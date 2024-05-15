@@ -80,7 +80,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '2',
             ],
             [
-                'name' => 'milhoja',
+                'name' => 'Milhoja',
                 'description' => 'Deliciosa milhoja con capas crujientes y relleno de crema, perfecta para disfrutar en cualquier momento del día.',
                 'price' => 100,
                 'amount' => 1,
@@ -88,7 +88,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '1',
             ],
             [
-                'name' => 'yo-yo',
+                'name' => 'Yo-yo',
                 'description' => 'Deliciosos dulces de caramelo en forma de yo-yo, perfectos para disfrutar en cualquier momento.',
                 'price' => 95,
                 'amount' => 1,
@@ -96,7 +96,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '1',
             ],
             [
-                'name' => 'pasta frola',
+                'name' => 'Pasta frola',
                 'description' => 'Exquisita pasta frola casera con dulce de membrillo, ideal para acompañar el mate o el café.',
                 'price' => 187,
                 'amount' => 1,
@@ -104,7 +104,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '1',
             ],
             [
-                'name' => 'cañon de dulce de leche',
+                'name' => 'Cañon de dulce de leche',
                 'description' => 'Irresistibles cañones de masa hojaldrada rellenos de dulce de leche, una delicia para los amantes del dulce.',
                 'price' => 145,
                 'amount' => 1,
@@ -120,7 +120,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'empanada de carne',
+                'name' => 'Empanada de carne',
                 'description' => 'Deliciosas empanadas caseras rellenas de jugosa carne y condimentadas al punto justo.',
                 'price' => 80,
                 'amount' => 1,
@@ -128,7 +128,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'empanada de pollo',
+                'name' => 'Empanada de pollo',
                 'description' => 'Exquisitas empanadas caseras rellenas de tierno pollo desmenuzado y condimentadas con especias.',
                 'price' => 80,
                 'amount' => 1,
@@ -136,7 +136,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'empanada de jamón y queso',
+                'name' => 'Empanada de jamón y queso',
                 'description' => 'Deliciosas empanadas caseras rellenas de jamón y queso derretido, una combinación clásica que nunca falla.',
                 'price' => 80,
                 'amount' => 1,
@@ -144,7 +144,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'pizza',
+                'name' => 'Pizza',
                 'description' => 'Pizza artesanal con una masa crujiente y toppings frescos, una delicia que nunca pasa de moda.',
                 'price' => 120,
                 'amount' => 1,
@@ -152,7 +152,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'pizza muzzarela',
+                'name' => 'Pizza muzzarela',
                 'description' => 'Pizza con una generosa capa de queso muzzarella fundido, perfecta para los amantes del queso.',
                 'price' => 200,
                 'amount' => 1,
@@ -160,7 +160,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'pizza napolitana',
+                'name' => 'Pizza napolitana',
                 'description' => 'Pizza con salsa de tomate, ajo, aceitunas y anchoas, un clásico de la cocina italiana con un toque de sabor mediterráneo.',
                 'price' => 230,
                 'amount' => 1,
@@ -168,7 +168,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'pizza con panceta',
+                'name' => 'Pizza con panceta',
                 'description' => 'Pizza con panceta crujiente y cebolla caramelizada, una combinación irresistible de sabores.',
                 'price' => 260,
                 'amount' => 1,
@@ -176,7 +176,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'hamburguesa',
+                'name' => 'Hamburguesa',
                 'description' => 'Hamburguesa casera con carne jugosa, lechuga, tomate y queso, todo en un pan suave y esponjoso.',
                 'price' => 170,
                 'amount' => 1,
@@ -184,7 +184,7 @@ class ProductSeeder extends Seeder
                 'category_id' => '3',
             ],
             [
-                'name' => 'pascualina',
+                'name' => 'Pascualina',
                 'description' => 'Pascualina casera con masa hojaldrada, rellena de espinacas, huevo duro y queso, horneada hasta dorarse.',
                 'price' => 130,
                 'amount' => 1,

@@ -46,10 +46,10 @@
                 </div>
                 <div class="product__info">
                     <div class="title">
-                        <h1>{{$product->name}}</h1>
+                        <h1>{{ucfirst($product->name)}}</h1>
                     </div>
                     <div class="price">
-                        <p>$U</p>
+                        <p>$</p>
                         <span>{{$product->price}}</span>
                     </div>
                     <div class="size">
