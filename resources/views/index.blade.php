@@ -7,8 +7,8 @@
                     <img src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}" class=""
                         alt="Images">
                     <div class="swiper-body">
-                        <h5>{{ $product->name }}</h5>
-                        <p class="" style="font: bold">{{ $product->price }} </p>
+                        <h5>{{ ucfirst($product->name) }}</h5>
+                        <p class="text-white" style="font: bold">${{ $product->price }} </p>
                     </div>
                 </div>
             </swiper-slide>
