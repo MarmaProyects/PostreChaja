@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Delicioso postre de chocolate con una combinación perfecta de sabores.',
                 'price' => 700,
                 'amount' => 1,
-                'type_id' => '3',
+                'section_id' => '3',
                 'category_id' => '1',
             ],
             [
@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Suave y cremoso postre de vainilla, ideal para satisfacer tu antojo de algo dulce.',
                 'price' => 800,
                 'amount' => 1,
-                'type_id' => '3',
+                'section_id' => '3',
                 'category_id' => '1',
             ],
             [
@@ -36,7 +36,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Refrescante postre de frutilla con una mezcla irresistible de dulzura y acidez.',
                 'price' => 900,
                 'amount' => 1,
-                'type_id' => '3',
+                'section_id' => '3',
                 'category_id' => '1',
             ],
             [
@@ -44,7 +44,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Sandwich caliente con jamón y queso, perfecto para una comida rápida y deliciosa.',
                 'price' => 40,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -52,7 +52,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Refrescante bebida de cola en una botella de 1 litro, perfecta para acompañar tus comidas.',
                 'price' => 120,
                 'amount' => 1,
-                'type_id' => '2',
+                'section_id' => '2',
                 'category_id' => '2',
             ],
             [
@@ -60,7 +60,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Refrescante Coca Cola en una botella de 2 litros, perfecta para compartir en cualquier ocasión.',
                 'price' => 160,
                 'amount' => 1,
-                'type_id' => '2',
+                'section_id' => '2',
                 'category_id' => '2',
             ],
             [
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Deliciosa Fanta en una botella de 2 litros, con su característico sabor afrutado y refrescante.',
                 'price' => 160,
                 'amount' => 1,
-                'type_id' => '2',
+                'section_id' => '2',
                 'category_id' => '2',
             ],
             [
@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Refrescante Sprite en una botella de 2 litros, con su sabor cítrico y burbujeante.',
                 'price' => 140,
                 'amount' => 1,
-                'type_id' => '2',
+                'section_id' => '2',
                 'category_id' => '2',
             ],
             [
@@ -84,7 +84,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Deliciosa milhoja con capas crujientes y relleno de crema, perfecta para disfrutar en cualquier momento del día.',
                 'price' => 100,
                 'amount' => 1,
-                'type_id' => '3',
+                'section_id' => '3',
                 'category_id' => '1',
             ],
             [
@@ -92,7 +92,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Deliciosos dulces de caramelo en forma de yo-yo, perfectos para disfrutar en cualquier momento.',
                 'price' => 95,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '1',
             ],
             [
@@ -100,7 +100,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Exquisita pasta frola casera con dulce de membrillo, ideal para acompañar el mate o el café.',
                 'price' => 187,
                 'amount' => 1,
-                'type_id' => '2',
+                'section_id' => '2',
                 'category_id' => '1',
             ],
             [
@@ -108,7 +108,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Irresistibles cañones de masa hojaldrada rellenos de dulce de leche, una delicia para los amantes del dulce.',
                 'price' => 145,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '1',
             ],
             [
@@ -116,7 +116,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Sabroso sandwich de copetín con una variedad de fiambres y quesos, perfecto para cualquier ocasión.',
                 'price' => 70,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -124,7 +124,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Deliciosas empanadas caseras rellenas de jugosa carne y condimentadas al punto justo.',
                 'price' => 80,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -132,7 +132,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Exquisitas empanadas caseras rellenas de tierno pollo desmenuzado y condimentadas con especias.',
                 'price' => 80,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -140,7 +140,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Deliciosas empanadas caseras rellenas de jamón y queso derretido, una combinación clásica que nunca falla.',
                 'price' => 80,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -148,7 +148,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pizza artesanal con una masa crujiente y toppings frescos, una delicia que nunca pasa de moda.',
                 'price' => 120,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -156,7 +156,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pizza con una generosa capa de queso muzzarella fundido, perfecta para los amantes del queso.',
                 'price' => 200,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -164,7 +164,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pizza con salsa de tomate, ajo, aceitunas y anchoas, un clásico de la cocina italiana con un toque de sabor mediterráneo.',
                 'price' => 230,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -172,7 +172,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pizza con panceta crujiente y cebolla caramelizada, una combinación irresistible de sabores.',
                 'price' => 260,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -180,7 +180,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Hamburguesa casera con carne jugosa, lechuga, tomate y queso, todo en un pan suave y esponjoso.',
                 'price' => 170,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -188,7 +188,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Pascualina casera con masa hojaldrada, rellena de espinacas, huevo duro y queso, horneada hasta dorarse.',
                 'price' => 130,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -196,7 +196,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Croissant de hojaldre relleno de jamón y queso fundido, una delicia para disfrutar en cualquier momento del día.',
                 'price' => 70,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ],
             [
@@ -204,7 +204,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Croquetas caseras de jamón y queso, crujientes por fuera y suaves por dentro, un bocado irresistible.',
                 'price' => 70,
                 'amount' => 1,
-                'type_id' => '1',
+                'section_id' => '1',
                 'category_id' => '3',
             ]
         ];

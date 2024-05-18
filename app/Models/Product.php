@@ -21,9 +21,9 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function type()
+    public function section()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function category()
