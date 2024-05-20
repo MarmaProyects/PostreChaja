@@ -17,7 +17,6 @@ class SectionControllerTest extends TestCase
 
         $response = $this->post(route('sections.store'), $data);
 
-        $response->assertRedirect(route('sections.index'));
         $this->assertDatabaseHas('sections', $data);
     }
 
@@ -32,7 +31,6 @@ class SectionControllerTest extends TestCase
 
         $response = $this->put(route('sections.update', $section->id), $data);
 
-        $response->assertRedirect(route('sections.index'));
         $this->assertDatabaseHas('sections', [
             'id' => $section->id,
             'name' => 'Updated Section'
@@ -46,7 +44,6 @@ class SectionControllerTest extends TestCase
 
         $response = $this->delete(route('sections.destroy', $section->id));
 
-        $response->assertRedirect(route('sections.index'));
         $this->assertDatabaseMissing('sections', ['id' => $section->id]);
     }
 }

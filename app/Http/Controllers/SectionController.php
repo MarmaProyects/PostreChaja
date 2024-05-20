@@ -33,10 +33,8 @@ class SectionController extends Controller
     {
         try {
             Section::create($request->all());
-            return redirect()->route('sections.index');
         } catch (QueryException $e) {
             Log::error('Error creating Section: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error creating section.');
         }
     }
 
@@ -63,10 +61,8 @@ class SectionController extends Controller
     {
         try {
             $section->update($request->all());
-            return redirect()->route('sections.index');
         } catch (QueryException $e) {
             Log::error('Error Updating Section: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error updating section.');
         }
     }
 
@@ -76,6 +72,5 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         $section->delete();
-        return redirect()->route('sections.index');
     }
 }
