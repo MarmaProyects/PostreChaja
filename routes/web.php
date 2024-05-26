@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +15,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('clientes', ClientController::class);
 Route::resource('productos', ProductController::class);
-Route::resource('sections', SectionController::class);
+Route::resource('secciones', SectionController::class);
+Route::resource('categorias', CategoryController::class);
 
 require __DIR__ . '/auth.php';

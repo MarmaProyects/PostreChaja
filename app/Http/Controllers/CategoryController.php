@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -29,7 +31,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Category::create($request->all());
+        } catch (QueryException $e) {
+            Log::error('Error creating Category: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -53,7 +59,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        try {
+            $category->update($request->all());
+        } catch (QueryException $e) {
+            Log::error('Error Updating category: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -61,6 +71,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
     }
 }
