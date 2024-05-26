@@ -15,7 +15,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('clientes', ClientController::class);
 Route::resource('productos', ProductController::class);
-Route::resource('secciones', SectionController::class);
-Route::resource('categorias', CategoryController::class);
+Route::resource('sections', SectionController::class);
+Route::resource('category', CategoryController::class);
 
 require __DIR__ . '/auth.php';
