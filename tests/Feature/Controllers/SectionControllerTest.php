@@ -9,6 +9,8 @@ use Tests\TestCase;
 class SectionControllerTest extends TestCase
 {
     use RefreshDatabase;
+    
+    /** @test */
     public function it_can_store_a_section()
     {
         $data = [

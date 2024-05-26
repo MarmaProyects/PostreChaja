@@ -16,16 +16,25 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'id' => 1,
-                'name' => 'Postres'
+                'name' => 'Salados'
             ],
             [
                 'id' => 2,
-                'name' => 'Bebidas'
+                'name' => 'Coca cola'
             ],
             [
                 'id' => 3,
-                'name' => 'Comidas'
+                'name' => 'Vinos'
+            ],
+            [
+                'id' => 4,
+                'name' => 'Alfajores'
+            ],
+            [
+                'id' => 5,
+                'name' => 'Postres'
             ]
+            
         ];
 
         foreach ($categories as $categoryData) {
