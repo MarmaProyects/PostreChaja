@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('ingreso') }}">
         @csrf
         <div class="row d-flex justify-content-center align-items-center mt-5 mb-5">
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
