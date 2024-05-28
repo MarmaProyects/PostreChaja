@@ -45,6 +45,9 @@
                                 {{ __('Iniciar sesión') }}
                             </x-primary-button>
                         </div>
+                        <div class="form-check d-flex justify-content-center mb-5">
+                            <p>¿No tienes cuenta? <a href="{{Route('registro')}}">Crear cuenta</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
