@@ -54,7 +54,7 @@
                                 </x-primary-button>
                             </div>
                         </div>
-                        <p class="text-center text-muted mt-5 mb-0">¿Ya tienes una cuenta? <a href="#!"
+                        <p class="text-center text-muted mt-5 mb-0">¿Ya tienes una cuenta? <a href="{{Route('ingreso')}}"
                                 class="fw-bold text-danger"><u>Iniciar sesión</u></a></p>
                     </div>
                 </div>
