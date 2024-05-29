@@ -19,10 +19,5 @@ class RoleSeeder extends Seeder
         $funcionario = Role::updateOrCreate(['name' => 'Funcionario']);
         $cliente = Role::updateOrCreate(['name' => 'Cliente']);
         $guest = Role::updateOrCreate(['name' => 'Guest']);
-        $user = User::find(12);
-
-        $adminRole = Role::where('name', 'Admin')->first();
-
-        $user->assignRole($adminRole);
     }
 }
