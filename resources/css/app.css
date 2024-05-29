@@ -3,12 +3,17 @@
 @import url("products/"); 
 @import url("user/register.css"); 
 @import url("home/");
+@import url("styles.css");
 @import url("home/navbar.css");
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "swiper/css/bundle";
 
-header {
+body header {
     background: white;
+}
+
+section header {
+    background: #880a0a;
 }
 
 body {
