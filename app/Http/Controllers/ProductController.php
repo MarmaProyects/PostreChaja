@@ -6,6 +6,8 @@ use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Section;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,42 +16,55 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
+{
+    $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
 
-        $search = $request->input('search');
+    $categories = Category::all();
+    $sections = Section::all();
 
-        if ($search) {
-            $searchTerm = strtolower($search);
-            
-            $productsQuery->where(function ($query) use ($searchTerm) {
-                $query->whereRaw('LOWER(products.name) LIKE ?', ['%' . $searchTerm . '%'])
-                    ->orWhereRaw('LOWER(products.description) LIKE ?', ['%' . $searchTerm . '%']);
-            });
-        }
-
-        $order = $request->input('order', 'created_at_desc');
-        switch ($order) {
-            case 'price_asc':
-                $productsQuery->orderBy('price');
-                break;
-            case 'price_desc':
-                $productsQuery->orderByDesc('price');
-                break;
-            case 'created_at_desc':
-                $productsQuery->orderByDesc('created_at');
-                break;
-            case 'category_asc':
-                $productsQuery->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-                    ->orderBy('categories.name');
-                break;
-            default:
-                $productsQuery->orderByDesc('created_at');
-                break;
-        }
-        $products = $productsQuery->get();
-        return view('products.index', compact('products'));
+    $search = $request->input('search');
+    if ($search) {
+        $searchTerm = strtolower($search);
+        $productsQuery->where(function ($query) use ($searchTerm) {
+            $query->whereRaw('LOWER(products.name) LIKE ?', ['%' . $searchTerm . '%'])
+                ->orWhereRaw('LOWER(products.description) LIKE ?', ['%' . $searchTerm . '%']);
+        });
     }
+
+    $categoryFilter = $request->input('categories', []);
+    if (!empty($categoryFilter)) {
+        $productsQuery->whereIn('category_id', $categoryFilter);
+    }
+
+    $sectionFilter = $request->input('sections', []);
+    if (!empty($sectionFilter)) {
+        $productsQuery->whereIn('section_id', $sectionFilter);
+    }
+
+    $order = $request->input('order', 'created_at_desc');
+    switch ($order) {
+        case 'price_asc':
+            $productsQuery->orderBy('price');
+            break;
+        case 'price_desc':
+            $productsQuery->orderByDesc('price');
+            break;
+        case 'created_at_desc':
+            $productsQuery->orderByDesc('created_at');
+            break;
+        case 'category_asc':
+            $productsQuery->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                ->orderBy('categories.name');
+            break;
+        default:
+            $productsQuery->orderByDesc('created_at');
+            break;
+    }
+
+    $products = $productsQuery->get();
+    return view('products.index', compact('products', 'categories', 'sections'));
+}
+
 
     /**
      * Show the form for creating a new resource.
