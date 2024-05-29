@@ -58,4 +58,5 @@
                     alt="scotiabank" height="20"></li>
         </ul>
     </section>
+    <br>
 </footer>
