@@ -90,7 +90,7 @@
                                 </ul>
                             </div>
                         @else
-                            <a class="btn-navbar mx-1" href="{{ route('login') }}">Mi cuenta</a>
+                            <a class="btn-navbar mx-1" href="{{ route('ingreso') }}">Mi cuenta</a>
                         @endif
                     </div>
                 </div>

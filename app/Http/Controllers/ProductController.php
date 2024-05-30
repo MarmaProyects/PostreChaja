@@ -6,6 +6,8 @@ use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Section;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,15 +19,26 @@ class ProductController extends Controller
     {
         $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
 
-        $search = $request->input('search');
+        $categories = Category::all();
+        $sections = Section::all();
 
+        $search = $request->input('search');
         if ($search) {
             $searchTerm = strtolower($search);
-            
             $productsQuery->where(function ($query) use ($searchTerm) {
                 $query->whereRaw('LOWER(products.name) LIKE ?', ['%' . $searchTerm . '%'])
                     ->orWhereRaw('LOWER(products.description) LIKE ?', ['%' . $searchTerm . '%']);
             });
+        }
+
+        $categoryFilter = $request->input('categories', []);
+        if (!empty($categoryFilter)) {
+            $productsQuery->whereIn('category_id', $categoryFilter);
+        }
+
+        $sectionFilter = $request->input('sections', []);
+        if (!empty($sectionFilter)) {
+            $productsQuery->whereIn('section_id', $sectionFilter);
         }
 
         $order = $request->input('order', 'created_at_desc');
@@ -47,9 +60,11 @@ class ProductController extends Controller
                 $productsQuery->orderByDesc('created_at');
                 break;
         }
+
         $products = $productsQuery->get();
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'categories', 'sections'));
     }
+
 
     /**
      * Show the form for creating a new resource.
