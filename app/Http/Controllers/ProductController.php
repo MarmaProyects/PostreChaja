@@ -65,6 +65,56 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories', 'sections'));
     }
 
+    public function table(Request $request)
+    {
+
+        $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
+
+        $categories = Category::all();
+        $sections = Section::all();
+
+        $search = $request->input('search');
+        if ($search) {
+            $searchTerm = strtolower($search);
+            $productsQuery->where(function ($query) use ($searchTerm) {
+                $query->whereRaw('LOWER(products.name) LIKE ?', ['%' . $searchTerm . '%'])
+                    ->orWhereRaw('LOWER(products.description) LIKE ?', ['%' . $searchTerm . '%']);
+            });
+        }
+
+        $categoryFilter = $request->input('categories', []);
+        if (!empty($categoryFilter)) {
+            $productsQuery->whereIn('category_id', $categoryFilter);
+        }
+
+        $sectionFilter = $request->input('sections', []);
+        if (!empty($sectionFilter)) {
+            $productsQuery->whereIn('section_id', $sectionFilter);
+        }
+
+        $order = $request->input('order', 'created_at_desc');
+        switch ($order) {
+            case 'price_asc':
+                $productsQuery->orderBy('price');
+                break;
+            case 'price_desc':
+                $productsQuery->orderByDesc('price');
+                break;
+            case 'created_at_desc':
+                $productsQuery->orderByDesc('created_at');
+                break;
+            case 'category_asc':
+                $productsQuery->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                    ->orderBy('categories.name');
+                break;
+            default:
+                $productsQuery->orderByDesc('created_at');
+                break;
+        }
+
+        $products = $productsQuery->paginate(10);
+        return view('products.table', compact('products', 'categories', 'sections'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -129,7 +179,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('products.index');
+        try {
+            $product->delete();
+            return redirect()->route('products.table')->with('success', 'Producto eliminado satisfactoriamente.');
+        } catch (\Exception $e) {
+            Log::error('Error deleting Product: ' . $e->getMessage());
+            return redirect()->route('products.table')->with('error', 'Fallo en la eliminación.');
+        }
     }
 }

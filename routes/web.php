@@ -20,6 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('perfil.destroy');
 });
 
+Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
+    Route::get('/dashboard/products', [ProductController::class, 'table'])->name('products.table');
+});
+
 Route::resource('clientes', ClientController::class);
 Route::resource('productos', ProductController::class);
 Route::resource('sections', SectionController::class);

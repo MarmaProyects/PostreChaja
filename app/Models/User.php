@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Client::class);
     }
+
+    /**
+     * Check if the user has an admin role.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('Admin');
+    }
 }

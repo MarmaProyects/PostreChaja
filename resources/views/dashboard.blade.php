@@ -1,1 +1,3 @@
-@extends('layouts.auth')
+<x-auth-layout>
+    
+</x-auth-layout>
