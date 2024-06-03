@@ -83,4 +83,13 @@ class ClientController extends Controller
         $client->delete();
         return redirect()->route('clients.index');
     }
+
+    public function API_get()
+    {
+        $clientes = Client::all();
+        if($clientes->isEmpty()) {
+            return response()->json(['message' => 'No hay clientes registrados'], 200);
+        }
+        return response()->json($clientes, 200);
+    }
 }
