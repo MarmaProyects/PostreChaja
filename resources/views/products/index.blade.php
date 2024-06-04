@@ -28,10 +28,12 @@
                                 <div class="col-md-6 mb-3">
                                     <h4>Secciones</h4>
                                     @foreach ($sections as $section)
+                                    @if ($section->name !== 'Catering')
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="sections[]" id="section_{{ $section->id }}" value="{{ $section->id }}" {{ in_array($section->id, request('sections', [])) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="section_{{ $section->id }}">{{ $section->name }}</label>
                                     </div>
+                                    @endif
                                     @endforeach
                                 </div>
                                 <button type="submit" class="btn btn-danger">Filtrar</button>
