@@ -34,6 +34,11 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                <div class="mb-3">
+                                    <h4>Precio</h4>
+                                    <input type="range" class="form-range" min="100" max="1500" step="100" id="priceRange" name="price" value="{{ request('price', 1500) }}" oninput="updatePriceLabel(this.value)">
+                                    <span id="priceLabel">{{ request('price', 'Cualquier precio') }}</span>
+                                </div>
                                 <button type="submit" class="btn btn-danger">Filtrar</button>
                             </div>
                         </div>
