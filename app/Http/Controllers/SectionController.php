@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Section;
 use App\Http\Controllers\Controller;
-use Doctrine\DBAL\Query\QueryException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -15,7 +15,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        $sections = Section::query()->select('sections.*')->paginate(10);
+        return view('sections.index', compact('sections'));
     }
 
     /**
@@ -23,7 +24,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('sections.create');
     }
 
     /**
@@ -31,10 +32,17 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
         try {
-            Section::create($request->all());
+            Section::create([
+                'name' => $request['name'],
+            ]);
+            return redirect()->route('secciones.index')->with('success', 'Sección creada exitosamente.');
         } catch (QueryException $e) {
             Log::error('Error creating Section: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error creando la sección.');
         }
     }
 
@@ -69,8 +77,17 @@ class SectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Section $section)
+    public function destroy(int $section_id)
     {
-        $section->delete();
+        try {
+            Section::destroy($section_id);
+            return redirect()->route('secciones.index')->with('success', 'Sección eliminada satisfactoriamente.');
+        } catch (QueryException $e) {
+            Log::error('Error deleting Category: ' . $e->getMessage());
+            if ($e->getCode() == '23503') {
+                return redirect()->route('secciones.index')->with('error', 'Esta sección tiene productos asociados aun.');
+            }
+            return redirect()->route('secciones.index')->with('error', 'Fallo en la eliminación.');
+        }
     }
 }

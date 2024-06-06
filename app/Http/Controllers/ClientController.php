@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-      return view('clients.index');
+        $clients = Client::query()->select('clients.*')->paginate(10);
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -59,7 +61,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-      return view('clients.edit', compact('client'));
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -68,7 +70,7 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
         try {
-            $client->update($request->all()); 
+            $client->update($request->all());
         } catch (QueryException $e) {
             Log::error('Error creating client: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error updating client.');
@@ -78,9 +80,19 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client)
+    public function destroy(int $client_id)
     {
-        $client->delete();
-        return redirect()->route('clients.index');
+        try {
+            $client = Client::find($client_id);
+            User::destroy($client->user_id);
+            Client::destroy($client_id);
+            return redirect()->route('clientes.index')->with('success', 'Cliente eliminado satisfactoriamente.');
+        } catch (QueryException $e) {
+            Log::error('Error deleting Category: ' . $e->getMessage());
+            if ($e->getCode() == '23503') {
+                return redirect()->route('clientes.index')->with('error', 'Este cliente no pudo ser eliminado.');
+            }
+            return redirect()->route('clientes.index')->with('error', 'Fallo en la eliminación.');
+        }
     }
 }

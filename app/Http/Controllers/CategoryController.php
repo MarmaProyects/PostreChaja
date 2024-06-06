@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::query()->select('categories.*')->paginate(10);
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -23,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -31,10 +32,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
         try {
-            Category::create($request->all());
+            Category::create([
+                'name' => $request['name'],
+            ]);
+            return redirect()->route('categorias.index')->with('success', 'Categoria creada exitosamente.');
         } catch (QueryException $e) {
-            Log::error('Error creating Category: ' . $e->getMessage());
+            Log::error('Error creando la categoria: ' . $e->getMessage() . ' : ' . $request['section_id']);
+            return redirect()->back()->with('error', 'Error creando la categoría.');
         }
     }
 
@@ -69,8 +78,17 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(int $category_id)
     {
-        $category->delete();
+        try {
+            Category::destroy($category_id);
+            return redirect()->route('categorias.index')->with('success', 'Categoría eliminada satisfactoriamente.');
+        } catch (QueryException $e) {
+            Log::error('Error deleting Category: ' . $e->getMessage());
+            if ($e->getCode() == '23503') {
+                return redirect()->route('categorias.index')->with('error', 'Esta categoría tiene productos asociados aun.');
+            }
+            return redirect()->route('categorias.index')->with('error', 'Fallo en la eliminación.');
+        }
     }
 }

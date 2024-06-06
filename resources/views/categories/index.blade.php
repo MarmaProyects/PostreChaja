@@ -1,9 +1,12 @@
+{{-- resources/views/categories/table.blade.php --}}
 <x-auth-layout>
     <div class="dashboard-table">
-        <div class="d-flex justify-content-between  mb-3">
+        <div class="d-flex justify-content-between mb-3">
             <div>
-                <h1>{{ __('Clients') }}</h1>
-                {{ __('All Clients') }}
+                <h1>{{ __('Categories') }}</h1>
+                <div class="mt-8 text-2xl">
+                    {{ __('All Categories') }}
+                </div>
             </div>
             <div>
                 @if (session('success'))
@@ -20,7 +23,7 @@
             </div>
             <div>
                 <button class="dashboard-btn">
-                    <a class="nav-link" href="{{ route('clientes.create') }}">
+                    <a class="nav-link" href="{{ route('categorias.create') }}">
                         {{ __('Add') }}
                     </a>
                 </button>
@@ -30,23 +33,17 @@
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col">Dirección</th>
-                    <th scope="col">Teléfono</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($clients as $client)
+                @foreach ($categories as $categoria)
                     <tr>
-                        <td>{{ $client->fullname }}</td>
-                        <td>{{ $client->user->email }}</td>
-                        <td>{{ $client->address }}</td>
-                        <td>{{ $client->phone }}</td>
+                        <td>{{ $categoria->name }}</td>
                         <td>
-                            <button href="{{ route('clientes.edit', $client->id) }}"
+                            <button href="{{ route('categorias.edit', $categoria->id) }}"
                                 class="dashboard-btn">{{ __('Edit') }}</button>
-                            <form action="{{ route('clientes.destroy', $client->id) }}" method="POST"
+                            <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST"
                                 style="display:inline">
                                 @csrf
                                 @method('DELETE')
@@ -58,7 +55,7 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center">
-            {{ $clients->links() }}
+            {{ $categories->links() }}
         </div>
     </div>
 </x-auth-layout>

@@ -11,6 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,9 +20,10 @@
 <body class="font-sans antialiased">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{ route('index') }}">Dashboard</a>
+        <a class="navbar-brand ps-3" href="{{ route('index') }}"><i class="bi bi-house-door-fill"></i></a>
+        <a class="navbar-brand ps-3" href="{{ route('dashboard') }}">Dashboard</a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><span
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><span
                 class="navbar-toggler-icon"></span> </button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -33,7 +35,7 @@
             </div>
         </form>
         <!-- Navbar-->
-        <div class="">
+        <div class="logueo">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <i class="bi bi-person"></i>
@@ -56,18 +58,26 @@
         </div>
     </nav>
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div id="layoutSidenav_nav" class="layoutSidenav_nav">
+            <nav class="sb-sidenav sb-sidenav-dark" id=" ">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Models</div>
-                        <a class="nav-link" href="{{ route('products.table') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        <div class="sb-sidenav-menu-heading">Modelos</div>
+                        <a class="nav-link" href="{{ route('productos.table') }}">
+                            <div class="sb-nav-link-icon"></div>
                             Productos
                         </a>
-                        <a class="nav-link" href=" ">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Categorias
+                        <a class="nav-link" href="{{ route('categorias.index') }}">
+                            <div class="sb-nav-link-icon"></div>
+                            Categoías
+                        </a>
+                        <a class="nav-link" href="{{ route('secciones.index') }}">
+                            <div class="sb-nav-link-icon"></div>
+                            Secciones
+                        </a>
+                        <a class="nav-link" href="{{ route('clientes.index') }}">
+                            <div class="sb-nav-link-icon"></div>
+                            Clientes
                         </a>
                     </div>
                 </div>

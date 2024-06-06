@@ -2,11 +2,17 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
+Route::get('/login', function () {
+    return redirect('/ingreso');
+})->name('login');
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -21,12 +27,19 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
-    Route::get('/dashboard/products', [ProductController::class, 'table'])->name('products.table');
+    Route::resource('/dashboard/productos', ProductController::class); 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/dashboard/clientes', ClientController::class);
+    Route::resource('/dashboard/secciones', SectionController::class);
+    Route::resource('/dashboard/categorias', CategoryController::class);
+    Route::get('/dashboard/productos', [ProductController::class, 'table'])->name('productos.table');
 });
 
-Route::resource('clientes', ClientController::class);
-Route::resource('productos', ProductController::class);
-Route::resource('sections', SectionController::class);
-Route::resource('category', CategoryController::class);
+Route::get('/productos', [ProductController::class, 'index'])->name('productos.index');
+Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
+
+Route::fallback(function () {
+    return redirect('/');
+});
 
 require __DIR__ . '/auth.php';

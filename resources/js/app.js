@@ -4,6 +4,7 @@ import "../js/products/";
 import Alpine from "alpinejs";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import '../js/products/show.js';
+import './dashboard/index.js';
 window.Alpine = Alpine;
 
 Alpine.start();
