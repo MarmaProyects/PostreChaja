@@ -41,6 +41,11 @@ class ProductController extends Controller
             $productsQuery->whereIn('section_id', $sectionFilter);
         }
 
+        $price = $request->input('price', 1500);
+        if ($price != 1500) {
+            $productsQuery->where('price', '<=', $price);
+        }
+
         $order = $request->input('order', 'created_at_desc');
         switch ($order) {
             case 'price_asc':
