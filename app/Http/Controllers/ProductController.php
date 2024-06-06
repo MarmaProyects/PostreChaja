@@ -137,4 +137,13 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+
+    public function API_get()
+    {
+        $productos = Product::all();
+        if($productos->isEmpty()) {
+            return response()->json(['message' => 'No hay productos registrados'], 200);
+        }
+        return response()->json($productos, 200);
+    }
 }

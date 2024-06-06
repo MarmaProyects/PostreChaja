@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Section;
 use App\Http\Controllers\Controller;
-use Doctrine\DBAL\Query\QueryException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -72,5 +72,14 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         $section->delete();
+    }
+
+    public function API_get()
+    {
+        $seccion = Section::withCount('products')->get();
+        if($seccion->isEmpty()) {
+            return response()->json(['message' => 'No hay secciones registradas'], 200);
+        }
+        return response()->json($seccion, 200);
     }
 }

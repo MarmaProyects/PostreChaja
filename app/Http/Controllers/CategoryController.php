@@ -73,4 +73,13 @@ class CategoryController extends Controller
     {
         $category->delete();
     }
+
+    public function API_get()
+    {
+        $categoria = Category::withCount('products')->get();
+        if($categoria->isEmpty()) {
+            return response()->json(['message' => 'No hay categorias registradas'], 200);
+        }
+        return response()->json($categoria, 200);
+    }
 }
