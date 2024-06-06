@@ -76,7 +76,7 @@ class SectionController extends Controller
 
     public function API_get()
     {
-        $seccion = Section::all();
+        $seccion = Section::withCount('products')->get();
         if($seccion->isEmpty()) {
             return response()->json(['message' => 'No hay secciones registradas'], 200);
         }

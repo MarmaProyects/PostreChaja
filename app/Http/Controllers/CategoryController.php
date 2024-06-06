@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
     public function API_get()
     {
-        $categoria = Category::all();
+        $categoria = Category::withCount('products')->get();
         if($categoria->isEmpty()) {
             return response()->json(['message' => 'No hay categorias registradas'], 200);
         }
