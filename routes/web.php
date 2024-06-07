@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
@@ -17,5 +18,10 @@ Route::resource('clientes', ClientController::class);
 Route::resource('productos', ProductController::class);
 Route::resource('sections', SectionController::class);
 Route::resource('category', CategoryController::class);
+Route::resource('carrito', CartController::class);
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
+
 
 require __DIR__ . '/auth.php';

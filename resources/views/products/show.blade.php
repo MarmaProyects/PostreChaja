@@ -81,7 +81,11 @@
                                 <option value="10">10</option>
                             </select>
                         </div>
-                        <button class="buy--btn">Añadir al carrito</button>
+                        <button class="buy--btn" onclick="event.preventDefault(); document.getElementById('add-to-cart-form').submit();">Añadir al carrito</button>
+                        <form id="add-to-cart-form" action="{{ route('cart.add', $product->id) }}" method="POST" class="d-none">
+                            @csrf
+                            <input type="hidden" name="quantity" value="1">
+                        </form>
                     </div>
                 </div>
             </section>

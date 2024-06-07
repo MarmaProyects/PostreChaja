@@ -1,0 +1,91 @@
+.card{
+    margin: auto;
+    max-width: 950px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+@media(max-width:767px){
+    .card{
+        margin: 3vh auto;
+    }
+}
+.cart{
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+@media(max-width:767px){
+    .cart{
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+}
+.summary{
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+@media(max-width:767px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
+}
+
+.main{
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+}
+
+main input {
+    padding: 0.7rem 1rem;
+    border-radius: 7px;
+    border: 1.5px solid grey;
+    width: 16em;
+    padding-right: 30px;
+    transition: all ease-in-out 0.2s;
+    margin-right: -35px;
+}
+
+main input:hover,
+main input:focus {
+    outline: none;
+    box-shadow: 0 0 1em #00000013;
+    border: 1.5px solid rgb(224, 32, 32);
+}
+
+main input:active {
+    transform: scale(0.95);
+}
+
+main .btn{
+    background-color: #880a0a;
+    color: white;
+}
+
+main .btn:hover {
+    background-color: #b32a2a;
+    color: white;
+}
+
+main .btn:focus {
+    background-color: #d31b1b;
+    color: rgb(255, 255, 255);
+}
+
+main .btn-remove{
+    background-color: transparent;
+    border: none;
+}
+
+main .btn-remove:hover{
+    color: red;
+}
+

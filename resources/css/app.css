@@ -2,6 +2,7 @@
 @import url("products/show.css"); 
 @import url("products/"); 
 @import url("user/register.css"); 
+@import url("products/cart.css");
 @import url("home/");
 @import url("home/navbar.css");
 @import "bootstrap-icons/font/bootstrap-icons.css";

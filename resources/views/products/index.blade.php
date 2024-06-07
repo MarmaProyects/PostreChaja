@@ -39,6 +39,9 @@
                         </div>
                     </div>
                     <div class="row">
+                        <form method="POST" class="add-to-cart-form d-none">
+                            @csrf
+                        </form>
                         @foreach ($products as $product)
                         <div class="row col-md-3 m-3 px-0 product-card">
                             <a href="{{ route('productos.show', $product->id) }}" class="card-button p-0 m-0">
@@ -49,10 +52,14 @@
                                 </div>
                             </a>
                             <div class="align-self-end p-0 m-0">
-                                <button class="buy--btn">Añadir al carrito</button>
+                                <button class="buy--btn" data-product-id="{{ $product->id }}">Añadir al carrito</button>
+                                <form id="add-to-cart-form-{{ $product->id }}" action="{{ route('cart.add', $product->id) }}" method="POST" class="add-to-cart-form d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                         @endforeach
+
                     </div>
                 </div>
             </div>
