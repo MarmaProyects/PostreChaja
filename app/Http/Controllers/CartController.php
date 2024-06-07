@@ -89,7 +89,7 @@ class CartController extends Controller
             session()->decrement("cart.$id");
         }
 
-        return redirect()->route('cart.index')->with('success', 'Carrito actualizado.');
+        return redirect()->route('carrito.index')->with('success', 'Carrito actualizado.');
     }
 
     public function remove($productId)

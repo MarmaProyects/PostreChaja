@@ -89,3 +89,24 @@ main .btn-remove:hover{
     color: red;
 }
 
+
+main .increment-btn{
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+main .increment-btn:hover{
+    color: red;
+}
+
+main .decrement-btn:hover{
+    color: red;
+}
+
+main .decrement-btn{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+}
+

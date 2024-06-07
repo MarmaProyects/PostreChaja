@@ -35,8 +35,7 @@ $(document).ready(function() {
     });
 
     function updateCart(productId, action) {
-        let url = '{{ route("cart.update", ":productId") }}';
-        url = url.replace(':productId', productId);
+        let url = 'cart/update/' + productId;
         let token = $('meta[name="csrf-token"]').attr('content');
 
         $.ajax({

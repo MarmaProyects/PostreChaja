@@ -27,13 +27,14 @@
                                 <div class="row text-muted">{{ $product->category->name }}</div>
                             </div>
                         </div>
-                        <div class="col-4 d-flex justify-content-center align-content-center">
+                        <div class="col-4 d-flex justify-content-center align-items-center">
                             <button class="decrement-btn" data-product-id="{{ $product->id }}">-</button>
-                            {{ $cart[$product->id] }}
+                            <span>{{ $cart[$product->id] }}</span>
                             <button class="increment-btn" data-product-id="{{ $product->id }}">+</button>
                         </div>
-                        <div class="col-2 d-flex justify-content-between align-content-center">${{ $product->price * $cart[$product->id] }}
-                            <form action="{{ route('cart.remove', $product->id) }}" method="POST" class="d-inline">
+
+                        <div class="col-2 d-flex justify-content-between align-items-center">${{ $product->price * $cart[$product->id] }}
+                            <form action="{{ route('cart.remove', $product->id) }}" method="POST" class="d-flex align-items-center">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-remove">&#10005;</button>
