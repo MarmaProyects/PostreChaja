@@ -35,8 +35,8 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::get('/dashboard/productos', [ProductController::class, 'table'])->name('productos.table');
 });
 
-Route::get('/productos', [ProductController::class, 'index'])->name('productos.index');
-Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
+Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
+Route::get('/productos/{id}', [ProductController::class, 'show'])->name('products.show');
 
 Route::fallback(function () {
     return redirect('/');

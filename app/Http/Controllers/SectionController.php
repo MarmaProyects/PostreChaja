@@ -57,20 +57,27 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Section $section)
+    public function edit($id)
     {
-        //
+        $section = Section::findOrFail($id);
+        return view('sections.edit', compact('section'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request, int $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
         try {
-            $section->update($request->all());
+            $section = Section::findOrFail($id);
+            $section->update($request->only('name'));
+            return redirect()->route('secciones.index')->with('success', 'Sección actualizada exitosamente.');
         } catch (QueryException $e) {
-            Log::error('Error Updating Section: ' . $e->getMessage());
+            Log::error('Error Updating category: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al editar la sección.');
         }
     }
 

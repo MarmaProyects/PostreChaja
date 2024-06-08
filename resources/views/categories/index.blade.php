@@ -24,7 +24,7 @@
             <div>
                 <button class="dashboard-btn">
                     <a class="nav-link" href="{{ route('categorias.create') }}">
-                        {{ __('Add') }}
+                        {{ __('Add') }} <i class="bi bi-plus"></i>
                     </a>
                 </button>
             </div>
@@ -41,13 +41,14 @@
                     <tr>
                         <td>{{ $categoria->name }}</td>
                         <td>
-                            <button href="{{ route('categorias.edit', $categoria->id) }}"
-                                class="dashboard-btn">{{ __('Edit') }}</button>
+                            <a href="{{ route('categorias.edit', $categoria->id) }}"><button 
+                                    class="dashboard-btn">{{ __('Edit') }} <i class="bi bi-pencil"></i></button></a>
                             <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST"
                                 style="display:inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="dashboard-btn">{{ __('Delete') }}</button>
+                                <button type="submit" class="dashboard-btn">{{ __('Delete') }} <i
+                                        class="bi bi-trash3"></i></button>
                             </form>
                         </td>
                     </tr>

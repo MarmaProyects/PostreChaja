@@ -58,20 +58,27 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, int $id)
     {
-        try {
-            $category->update($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        try { 
+            $category = Category::findOrFail($id);
+            $category->update($request->only('name'));
+            return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente.');
         } catch (QueryException $e) {
             Log::error('Error Updating category: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al editar la categoría.');
         }
     }
 

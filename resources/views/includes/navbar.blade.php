@@ -27,7 +27,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <form action="{{ route('productos.index') }}" method="GET"
+                            <form action="{{ route('products.index') }}" method="GET"
                                 class="d-flex input-group w-auto my-auto mb-3 mb-md-0">
                                 <div class="search">
                                     <input autocomplete="off" class="search__input" placeholder="Search" name="search"

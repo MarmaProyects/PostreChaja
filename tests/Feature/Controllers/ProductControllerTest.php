@@ -17,7 +17,7 @@ class ProductControllerTest extends TestCase
      */
     public function test_index_returns_view(): void
     {
-        $response = $this->get(route('productos.index'));
+        $response = $this->get(route('products.index'));
         $response->assertViewIs('products.index');
         $response->assertStatus(200); // O el código de estado correcto
     }
@@ -73,7 +73,7 @@ class ProductControllerTest extends TestCase
     //     ];
 
     //     $response = $this->put(route('productos.update', $product), $data);
-    //     $response->assertRedirect(route('productos.index'));
+    //     $response->assertRedirect(route('products.index'));
 
     //     // Verificar que el producto se ha actualizado correctamente en la base de datos
     //     $this->assertDatabaseHas('products', $data);

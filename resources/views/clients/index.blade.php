@@ -21,7 +21,7 @@
             <div>
                 <button class="dashboard-btn">
                     <a class="nav-link" href="{{ route('clientes.create') }}">
-                        {{ __('Add') }}
+                        {{ __('Add') }} <i class="bi bi-plus"></i>
                     </a>
                 </button>
             </div>
@@ -44,13 +44,14 @@
                         <td>{{ $client->address }}</td>
                         <td>{{ $client->phone }}</td>
                         <td>
-                            <button href="{{ route('clientes.edit', $client->id) }}"
-                                class="dashboard-btn">{{ __('Edit') }}</button>
+                            <a href="{{ route('clientes.edit', $client->id) }}"><button
+                                    class="dashboard-btn">{{ __('Edit') }} <i class="bi bi-pencil"></i></button></a>
                             <form action="{{ route('clientes.destroy', $client->id) }}" method="POST"
                                 style="display:inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="dashboard-btn">{{ __('Delete') }}</button>
+                                <button type="submit" class="dashboard-btn">{{ __('Delete') }} <i
+                                        class="bi bi-trash3"></i></button>
                             </form>
                         </td>
                     </tr>

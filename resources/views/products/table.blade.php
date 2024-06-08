@@ -52,13 +52,9 @@
                             <a href="{{ route('productos.show', $product->id) }}"><button class="dashboard-btn">
                                     {{ __('View') }}
                                     <i class="bi bi-eye"></i>
-
                                 </button></a>
-                            <a href="{{ route('productos.edit', $product->id) }}"><button class="dashboard-btn">
-                                    {{ __('Edit') }}
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </a>
+                            <a href="{{ route('productos.edit', $product->id) }}"><button
+                                    class="dashboard-btn">{{ __('Edit') }} <i class="bi bi-pencil"></i></button></a>
                             <form action="{{ route('productos.destroy', $product->id) }}" method="POST"
                                 style="display:inline">
                                 @csrf

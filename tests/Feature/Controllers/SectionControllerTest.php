@@ -17,7 +17,7 @@ class SectionControllerTest extends TestCase
             'name' => 'Drinks'
         ];
 
-        $response = $this->post(route('sections.store'), $data);
+        $response = $this->post(route('secciones.store'), $data);
 
         $this->assertDatabaseHas('sections', $data);
     }
@@ -31,7 +31,7 @@ class SectionControllerTest extends TestCase
             'name' => 'Updated Section'
         ];
 
-        $response = $this->put(route('sections.update', $section->id), $data);
+        $response = $this->put(route('secciones.update', $section->id), $data);
 
         $this->assertDatabaseHas('sections', [
             'id' => $section->id,
@@ -44,7 +44,7 @@ class SectionControllerTest extends TestCase
     {
         $section = Section::factory()->create();
 
-        $response = $this->delete(route('sections.destroy', $section->id));
+        $response = $this->delete(route('secciones.destroy', $section->id));
 
         $this->assertDatabaseMissing('sections', ['id' => $section->id]);
     }

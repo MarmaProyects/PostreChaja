@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="my-5">
         <h2 class="text-center mb-5">Lista de Productos</h2>
-        <form id="filterForm" action="{{ route('productos.index') }}" method="GET" class="mb-3">
+        <form id="filterForm" action="{{ route('products.index') }}" method="GET" class="mb-3">
             <div class="row justify-content-end mb-3">
                 <input type="search" class="d-none" placeholder="Buscar" name="search" value="{{ request('search') }}">
                 <div class="col-md-auto">

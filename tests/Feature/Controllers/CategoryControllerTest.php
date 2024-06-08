@@ -17,7 +17,7 @@ class CategoryControllerTest extends TestCase
             'name' => 'Beverages'
         ];
 
-        $response = $this->post(route('category.store'), $data);
+        $response = $this->post(route('categorias.store'), $data);
 
         $this->assertDatabaseHas('categories', $data);
     }
@@ -31,7 +31,7 @@ class CategoryControllerTest extends TestCase
             'name' => 'Updated Category'
         ];
 
-        $response = $this->put(route('category.update', $category->id), $data);
+        $response = $this->put(route('categorias.update', $category->id), $data);
 
         $this->assertDatabaseHas('categories', [
             'id' => $category->id,
@@ -44,7 +44,7 @@ class CategoryControllerTest extends TestCase
     {
         $category = Category::factory()->create();
 
-        $response = $this->delete(route('category.destroy', $category->id));
+        $response = $this->delete(route('categorias.destroy', $category->id));
 
         $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }

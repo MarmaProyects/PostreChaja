@@ -23,7 +23,7 @@
             <div>
                 <button class="dashboard-btn">
                     <a class="nav-link" href="{{ route('secciones.create') }}">
-                        {{ __('Add') }}
+                        {{ __('Add') }} <i class="bi bi-plus"></i>
                     </a>
                 </button>
             </div>
@@ -39,14 +39,15 @@
                 @foreach ($sections as $section)
                     <tr>
                         <td>{{ $section->name }}</td>
-                        <td>
-                            <button href="{{ route('secciones.edit', $section->id) }}"
-                                class="dashboard-btn">{{ __('Edit') }}</button>
+                        <td> 
+                            <a href="{{ route('secciones.edit', $section->id) }}"><button
+                                    class="dashboard-btn">{{ __('Edit') }} <i class="bi bi-pencil"></i></button></a>
                             <form action="{{ route('secciones.destroy', $section->id) }}" method="POST"
                                 style="display:inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="dashboard-btn">{{ __('Delete') }}</button>
+                                <button type="submit" class="dashboard-btn">{{ __('Delete') }} <i
+                                        class="bi bi-trash3"></i></button>
                             </form>
                         </td>
                     </tr>
