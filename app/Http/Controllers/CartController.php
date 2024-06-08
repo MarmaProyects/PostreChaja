@@ -99,9 +99,10 @@ class CartController extends Controller
         if (isset($cart[$productId])) {
             unset($cart[$productId]);
             Session::put('cart', $cart);
+            return response()->json(['success' => true, 'message' => 'Producto eliminado del carrito.']);
         }
 
-        return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito.');
+        return response()->json(['success' => false, 'message' => 'El producto no se encontró en el carrito.']);
     }
 
 

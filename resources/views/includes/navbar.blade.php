@@ -27,28 +27,22 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <form action="{{ route('productos.index') }}" method="GET"
-                                class="d-flex input-group w-auto my-auto mb-3 mb-md-0"> 
+                            <form action="{{ route('productos.index') }}" method="GET" class="d-flex input-group w-auto my-auto mb-3 mb-md-0">
                                 <div class="search">
-                                    <input autocomplete="off" class="search__input" placeholder="Search" name="search"
-                                    value="{{ request('search') }}">
+                                    <input autocomplete="off" class="search__input" placeholder="Search" name="search" value="{{ request('search') }}">
                                     <button class="search__button">
-                                        <i class="bi bi-search search__icon"></i> 
+                                        <i class="bi bi-search search__icon"></i>
                                     </button>
                                 </div>
                                 <div class="d-none">
                                     <select name="order" class="form-select">
-                                        <option value="created_at_desc"
-                                            {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
+                                        <option value="created_at_desc" {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
                                             Recientes</option>
-                                        <option value="price_asc"
-                                            {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio
+                                        <option value="price_asc" {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio
                                         </option>
-                                        <option value="price_desc"
-                                            {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio
+                                        <option value="price_desc" {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio
                                         </option>
-                                        <option value="category_asc"
-                                            {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria
+                                        <option value="category_asc" {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria
                                         </option>
                                     </select>
                                 </div>
@@ -58,36 +52,36 @@
                 </div>
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                     <div class="d-flex">
-                        <button class="btn-navbar mx-1" type="button">
-                            <i class="bi bi-cart"></i>
-                        </button>
+                        <a href="/carrito">
+                            <button class="btn-navbar mx-1" type="button">
+                                <i class="bi bi-cart"></i>
+                            </button>
+                        </a>
                         <button class="btn-navbar mx-1" type="button">
                             <i class="bi bi-bell"></i>
                         </button>
                         @if (auth()->check())
-                            <div class="dropdown">
-                                <button class="btn-navbar dropdown-toggle" type="button" id="navbarDropdownMenuLink"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person"></i>
-                                    {{ Auth::user()->client->fullname }}
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
-                                    <li><a class="dropdown-item" href="#">Configuración</a></li>
-                                    <li>
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <a class="dropdown-item" href="#" :href="route('logout')"
-                                                onclick="event.preventDefault();
+                        <div class="dropdown">
+                            <button class="btn-navbar dropdown-toggle" type="button" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person"></i>
+                                {{ Auth::user()->client->fullname }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                <li><a class="dropdown-item" href="#">Configuración</a></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="#" :href="route('logout')" onclick="event.preventDefault();
                                                             this.closest('form').submit();">
-                                                Salir
-                                            </a>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
+                                            Salir
+                                        </a>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                         @else
-                            <a class="btn-navbar mx-1" href="{{ route('ingreso') }}">Mi cuenta</a>
+                        <a class="btn-navbar mx-1" href="{{ route('ingreso') }}">Mi cuenta</a>
                         @endif
                     </div>
                 </div>

@@ -22,6 +22,31 @@ $(document).ready(function() {
         });
     });
 
+    $('.btn-remove').on('click', function(event) {
+        event.preventDefault();
+        let productId = $(this).closest('.main').data('product-id');
+        
+        $.ajax({
+            type: 'DELETE',
+            url: $(this).closest('form').attr('action'),
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    $(`[data-product-id="${productId}"]`).closest('.row').remove();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(response) {
+                alert('Hubo un problema al eliminar el producto del carrito.');
+            }
+        });
+    });
+    
+
     $('.decrement-btn').on('click', function(event) {
         event.preventDefault();
         let productId = $(this).data('product-id');

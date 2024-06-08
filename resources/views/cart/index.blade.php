@@ -21,18 +21,20 @@
                 <div class="row border-top border-bottom">
                     <div class="main d-flex">
                         <div class="row">
-                            <div class="col-3"><img src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}" class="card-img-top" alt="{{ $product->name }}"></div>
+                            <div class="col-5"><a href="/productos/{{$product->id}}"><img src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}" class="card-img-top" alt="{{ $product->name }}"></a></div>
                             <div class="col">
-                                <div class="row">{{ $product->name }}</div>
+                                <div class="row fw-bold">{{ $product->name }}</div>
                                 <div class="row text-muted">{{ $product->category->name }}</div>
+                                <div class="row text-muted">${{ $product->price }} c/u</div>
                             </div>
                         </div>
                         <div class="col-4 d-flex justify-content-center align-items-center">
+                            @if ($cart[$product->id] > 1)
                             <button class="decrement-btn" data-product-id="{{ $product->id }}">-</button>
+                            @endif
                             <span>{{ $cart[$product->id] }}</span>
                             <button class="increment-btn" data-product-id="{{ $product->id }}">+</button>
                         </div>
-
                         <div class="col-2 d-flex justify-content-between align-items-center">${{ $product->price * $cart[$product->id] }}
                             <form action="{{ route('cart.remove', $product->id) }}" method="POST" class="d-flex align-items-center">
                                 @csrf
@@ -43,7 +45,7 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="mt-5"><a href="#">&leftarrow;</a><span class="text-muted">Volver a la tienda</span></div>
+                <div class="mt-5 back-button"><a href="/productos">&leftarrow;<span>Volver a la tienda</span></a></div>
             </div>
             <div class="col-md-4 summary">
                 <div>
@@ -51,24 +53,23 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col" style="padding-left:0;">{{count($cart)}} productos</div>
-                    <div class="col text-right">${{ $product->price * $cart[$product->id] }}</div>
+                    <div class="col">Cantidad de productos: {{count($cart)}}</div>
                 </div>
+                <br>
                 <form>
                     <figure>
                         <blockquote class="blockquote">
-                            <p>Envío</p>
+                            <p>Envío (no disponible)</p>
                         </blockquote>
                         <figcaption class="blockquote-footer">
                             Retiro en sucursal.
                         </figcaption>
                     </figure>
                     <p>Código de descuento</p>
-                    <input id="code" placeholder="Ingresar código">
+                    <input placeholder="Ingresar código">
                 </form>
-                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                    <div class="col">Precio total</div>
-                    <div class="col text-right">${{$total}}</div>
+                <div class="row mt-5 mb-3">
+                    <div class="col d-flex">Precio total: ${{$total}}</div>
                 </div>
                 <button class="btn">Pagar</button>
             </div>
