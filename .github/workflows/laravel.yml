@@ -30,9 +30,10 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: Clear config
+      run: php artisan config:clear
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan cache:clear
       run: php artisan test
