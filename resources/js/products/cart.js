@@ -13,9 +13,6 @@ $(document).ready(function() {
             data: {
                 _token: token
             },
-            success: function(response) {
-                alert('Producto añadido al carrito.');
-            },
             error: function(response) {
                 alert('Hubo un problema al añadir el producto al carrito.');
             }
@@ -34,8 +31,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response.success) {
-                    alert(response.message);
-                    $(`[data-product-id="${productId}"]`).closest('.row').remove();
+                    location.reload();
                 } else {
                     alert(response.message);
                 }
@@ -45,7 +41,6 @@ $(document).ready(function() {
             }
         });
     });
-    
 
     $('.decrement-btn').on('click', function(event) {
         event.preventDefault();

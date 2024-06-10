@@ -1,4 +1,4 @@
-.card{
+.vista_carrito .card{
     margin: auto;
     max-width: 950px;
     width: 90%;
@@ -7,7 +7,7 @@
     border: transparent;
 }
 @media(max-width:767px){
-    .card{
+    .vista_carrito .card{
         margin: 3vh auto;
     }
 }
@@ -44,7 +44,7 @@
     width: 100%;
 }
 
-main input {
+.summary input {
     padding: 0.7rem 1rem;
     border-radius: 7px;
     border: 1.5px solid grey;
@@ -54,58 +54,58 @@ main input {
     margin-right: -35px;
 }
 
-main input:hover,
-main input:focus {
+.summary input:hover,
+.summary input:focus {
     outline: none;
     box-shadow: 0 0 1em #00000013;
     border: 1.5px solid rgb(224, 32, 32);
 }
 
-main input:active {
+.summary input:active {
     transform: scale(0.95);
 }
 
-main .btn{
+.summary .btn{
     background-color: #880a0a;
     color: white;
     width: 100%;
 }
 
-main .btn:hover {
+.summary .btn:hover {
     background-color: #b32a2a;
     color: white;
 }
 
-main .btn:focus {
+.summary .btn:focus {
     background-color: #d31b1b;
     color: rgb(255, 255, 255);
 }
 
-main .btn-remove{
+.main .btn-remove{
     background-color: transparent;
     border: none;
 }
 
-main .btn-remove:hover{
+.main .btn-remove:hover{
     color: red;
 }
 
 
-main .increment-btn{
+.main .increment-btn{
     background-color: transparent;
     border: none;
     font-size: 20px;
 }
 
-main .increment-btn:hover{
+.main .increment-btn:hover{
     color: red;
 }
 
-main .decrement-btn:hover{
+.main .decrement-btn:hover{
     color: red;
 }
 
-main .decrement-btn{
+.main .decrement-btn{
     background-color: transparent;
     border: none;
     font-size: 25px;
