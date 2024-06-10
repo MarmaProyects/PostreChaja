@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
@@ -13,6 +15,11 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function it_can_store_a_category()
     {
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $user = User::factory()->create();
+        $user->assignRole($adminRole);
+        $this->actingAs($user);
+
         $data = [
             'name' => 'Beverages'
         ];
@@ -25,6 +32,11 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function it_can_update_a_category()
     {
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $user = User::factory()->create();
+        $user->assignRole($adminRole);
+        $this->actingAs($user);
+
         $category = Category::factory()->create();
 
         $data = [
@@ -42,6 +54,11 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function it_can_destroy_a_category()
     {
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $user = User::factory()->create();
+        $user->assignRole($adminRole);
+        $this->actingAs($user);
+
         $category = Category::factory()->create();
 
         $response = $this->delete(route('categorias.destroy', $category->id));
