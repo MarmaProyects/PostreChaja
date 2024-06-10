@@ -10,16 +10,16 @@
                         <div class="container justify-content-center justify-content-md-between">
                             <ul class="navbar-nav flex-row">
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [2]]) }}">Confitería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [3]]) }}">Rotisería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [4]]) }}">Panadería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [5]]) }}">Cafetería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
                                     <a class="nav-link" href="#">Catering</a>
