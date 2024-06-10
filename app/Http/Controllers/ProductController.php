@@ -215,8 +215,7 @@ class ProductController extends Controller
             $product->update($request->only('name', 'price', 'amount', 'description', 'section_id', 'category_id'));
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
-                    $imagePath = $image->store('product_images', 'public');
-                    $product->images()->create(['path' => $imagePath]);
+                    $product->images()->create(['base64' => base64_encode(file_get_contents($image))]);
                 }
             }
             return redirect()->route('productos.table')->with('success', 'Producto actualizado exitosamente.');
@@ -248,7 +247,7 @@ class ProductController extends Controller
 
     public function API_get()
     {
-        $productos = Product::all();
+        $productos = Product::with('images')->get();
         if($productos->isEmpty()) {
             return response()->json(['message' => 'No hay productos registrados'], 200);
         }

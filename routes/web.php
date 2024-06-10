@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
@@ -32,7 +33,8 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::resource('/dashboard/clientes', ClientController::class);
     Route::resource('/dashboard/secciones', SectionController::class);
     Route::resource('/dashboard/categorias', CategoryController::class);
-    Route::get('/dashboard/productos', [ProductController::class, 'table'])->name('productos.table');
+    Route::get('/dashboard/productos', [ProductController::class, 'table'])->name('productos.table'); 
+    Route::delete('/images/{image}', [ImagesController::class, 'destroy'])->name('images.destroy');
 });
 
 Route::get('/productos', [ProductController::class, 'index'])->name('products.index');

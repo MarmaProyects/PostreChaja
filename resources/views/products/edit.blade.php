@@ -1,12 +1,20 @@
 <x-auth-layout>
-    <form method="POST" action="{{ route('productos.update', $product->id) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="row d-flex justify-content-center align-items-center mt-5 mb-5">
-            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                <div class="card" style="border-radius: 15px; padding: 20px">
-                    <div class="card-body p-5">
+
+    <div class="row d-flex justify-content-center align-items-center mt-5 mb-5">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px; padding: 20px">
+                <form method="POST" action="{{ route('productos.update', $product->id) }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body px-5 pt-5">
                         <h2 class="text-uppercase text-center text-red mb-5">Editar Producto</h2>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         @if (session('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
@@ -71,18 +79,37 @@
                         <div data-mdb-input-init class="form-outline mb-2">
                             <x-input-label class="form-label" for="images" value="{{ __('Images') }}" />
 
-                            <input type="file" id="images" name="images[]" accept="image/*"
+                            <input for='formprincipal' type="file" id="images" name="images[]" accept="image/*"
                                 class="input form-control form-control-lg" multiple />
                             <x-input-error :messages="$errors->get('images')" class="mt-2" />
                         </div>
-                        <div class="form-check d-flex justify-content-center mb-5">
+                        <div class="form-check d-flex justify-content-center">
                             <x-primary-button class="button_register">
                                 {{ __('Update') }}
                             </x-primary-button>
                         </div>
                     </div>
+                </form>
+                <div class="card-body px-5">
+                    <div class="form-outline mb-2">
+                        <label class="form-label" for="current_images">{{ __('Current Images') }}</label>
+                        @foreach ($product->images as $image)
+                            <div class="my-2" style=" border-radius: 5px; overflow:hidden">
+                                @if ($product->images->count() > 1)
+                                    <form method="POST" action="{{ route('images.destroy', $image->id) }}"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger position-absolute">{{ __('Delete') }}</button>
+                                    </form>
+                                @endif
+                                <img src="data:image/jpg;base64, {{ $image->base64 }}" alt="Product Image"
+                                    style="width: 100%;">
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </x-auth-layout>
