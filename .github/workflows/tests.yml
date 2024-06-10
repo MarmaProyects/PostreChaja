@@ -47,4 +47,5 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
+        run: php artisan cache:clear
         run: vendor/bin/phpunit
