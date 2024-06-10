@@ -42,6 +42,11 @@ class ProductController extends Controller
             $productsQuery->whereIn('section_id', $sectionFilter);
         }
 
+        $price = $request->input('price', 1500);
+        if ($price != 1500) {
+            $productsQuery->where('price', '<=', $price);
+        }
+
         $order = $request->input('order', 'created_at_desc');
         switch ($order) {
             case 'price_asc':
@@ -239,5 +244,14 @@ class ProductController extends Controller
         $products = Product::orderBy('visits', 'desc')->take(10)->get();
 
         return $products;
+    }
+
+    public function API_get()
+    {
+        $productos = Product::all();
+        if($productos->isEmpty()) {
+            return response()->json(['message' => 'No hay productos registrados'], 200);
+        }
+        return response()->json($productos, 200);
     }
 }

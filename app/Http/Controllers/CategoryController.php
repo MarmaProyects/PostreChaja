@@ -98,4 +98,13 @@ class CategoryController extends Controller
             return redirect()->route('categorias.index')->with('error', 'Fallo en la eliminación.');
         }
     }
+
+    public function API_get()
+    {
+        $categoria = Category::withCount('products')->get();
+        if($categoria->isEmpty()) {
+            return response()->json(['message' => 'No hay categorias registradas'], 200);
+        }
+        return response()->json($categoria, 200);
+    }
 }

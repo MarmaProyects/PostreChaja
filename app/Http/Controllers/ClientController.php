@@ -134,4 +134,13 @@ class ClientController extends Controller
             return redirect()->route('clientes.index')->with('error', 'Fallo en la eliminación.');
         }
     }
+
+    public function API_get()
+    {
+        $clientes = Client::with('user')->get();
+        if($clientes->isEmpty()) {
+            return response()->json(['message' => 'No hay clientes registrados'], 200);
+        }
+        return response()->json($clientes, 200);
+    }
 }

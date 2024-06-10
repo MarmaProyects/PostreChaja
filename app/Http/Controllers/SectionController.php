@@ -97,4 +97,13 @@ class SectionController extends Controller
             return redirect()->route('secciones.index')->with('error', 'Fallo en la eliminación.');
         }
     }
+
+    public function API_get()
+    {
+        $seccion = Section::withCount('products')->get();
+        if($seccion->isEmpty()) {
+            return response()->json(['message' => 'No hay secciones registradas'], 200);
+        }
+        return response()->json($seccion, 200);
+    }
 }
