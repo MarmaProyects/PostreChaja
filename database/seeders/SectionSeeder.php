@@ -27,7 +27,7 @@ class SectionSeeder extends Seeder
                 'name' => 'Panadería'
             ],
             [
-                'name' => 'Cafeterìa'
+                'name' => 'Cafetería'
             ],
             [
                 'name' => 'Catering'

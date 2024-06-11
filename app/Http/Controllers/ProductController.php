@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Section;
 use Illuminate\Http\Request;
 
@@ -70,13 +71,65 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories', 'sections'));
     }
 
+    public function table(Request $request)
+    {
+
+        $productsQuery = Product::query()->select('products.*', 'products.name as product_name');
+
+        $categories = Category::all();
+        $sections = Section::all();
+
+        $search = $request->input('search');
+        if ($search) {
+            $searchTerm = strtolower($search);
+            $productsQuery->where(function ($query) use ($searchTerm) {
+                $query->whereRaw('LOWER(products.name) LIKE ?', ['%' . $searchTerm . '%'])
+                    ->orWhereRaw('LOWER(products.description) LIKE ?', ['%' . $searchTerm . '%']);
+            });
+        }
+
+        $categoryFilter = $request->input('categories', []);
+        if (!empty($categoryFilter)) {
+            $productsQuery->whereIn('category_id', $categoryFilter);
+        }
+
+        $sectionFilter = $request->input('sections', []);
+        if (!empty($sectionFilter)) {
+            $productsQuery->whereIn('section_id', $sectionFilter);
+        }
+
+        $order = $request->input('order', 'created_at_desc');
+        switch ($order) {
+            case 'price_asc':
+                $productsQuery->orderBy('price');
+                break;
+            case 'price_desc':
+                $productsQuery->orderByDesc('price');
+                break;
+            case 'created_at_desc':
+                $productsQuery->orderByDesc('created_at');
+                break;
+            case 'category_asc':
+                $productsQuery->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                    ->orderBy('categories.name');
+                break;
+            default:
+                $productsQuery->orderByDesc('created_at');
+                break;
+        }
+
+        $products = $productsQuery->paginate(10);
+        return view('products.table', compact('products', 'categories', 'sections'));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('products.create');
+        $sections = Section::all();
+        $categories = Category::all();
+        return view('products.create', compact('sections', 'categories'));
     }
 
     /**
@@ -84,12 +137,35 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'amount' => 'required|integer',
+            'category_id' => 'required|string',
+            'section_id' => 'required|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
         try {
-            Product::create($request->all());
-            return redirect()->route('products.index');
+            $product = Product::create([
+                'name' => $request['name'],
+                'price' => $request['price'],
+                'description' => $request['description'],
+                'amount' => $request['amount'],
+                'category_id' => $request['category_id'],
+                'section_id' => $request['section_id'],
+            ]);
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $product->images()->create(['base64' => base64_encode(file_get_contents($image))]);
+                }
+            }
+
+            return redirect()->route('productos.table')->with('success', 'Producto creado exitosamente.');
         } catch (QueryException $e) {
-            Log::error('Error creating Product: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error creating client.');
+            Log::error('Error creando el producto: ' . $e->getMessage() . ' : ' . $request['section_id']);
+            return redirect()->back()->with('error', 'Error creando el producto.');
         }
     }
 
@@ -100,6 +176,7 @@ class ProductController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
+            $product->increment('visits');
             return view('products.show', compact('product'));
         } catch (\Exception $e) {
             Log::error('Error showing Product: ' . $e->getMessage());
@@ -110,37 +187,67 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        return view('products.edit', compact('product'));
+        $product = Product::findOrFail($id);
+        $sections = Section::all();
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'sections', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, int $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'amount' => 'required|integer',
+            'description' => 'required|string',
+            'section_id' => 'required|exists:sections,id',
+            'category_id' => 'required|exists:categories,id',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         try {
-            $product->update($request->all());
-            return redirect()->route('products.index');
+            $product = Product::findOrFail($id);
+            $product->update($request->only('name', 'price', 'amount', 'description', 'section_id', 'category_id'));
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $product->images()->create(['base64' => base64_encode(file_get_contents($image))]);
+                }
+            }
+            return redirect()->route('productos.table')->with('success', 'Producto actualizado exitosamente.');
         } catch (QueryException $e) {
             Log::error('Error Updating Product: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error updating client.');
+            return redirect()->back()->with('error', 'Error updating product.');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(int $product_id)
     {
-        $product->delete();
-        return redirect()->route('products.index');
+        $deleted = Product::destroy($product_id);
+        if ($deleted) {
+            return back()->with('success', 'Producto eliminado satisfactoriamente.');
+        } else {
+            return back()->with('error', 'Fallo en la eliminación.');
+        }
+    }
+
+    public function mostVisitedProducts()
+    {
+        $products = Product::orderBy('visits', 'desc')->take(10)->get();
+
+        return $products;
     }
 
     public function API_get()
     {
-        $productos = Product::all();
+        $productos = Product::with('images')->get();
         if($productos->isEmpty()) {
             return response()->json(['message' => 'No hay productos registrados'], 200);
         }

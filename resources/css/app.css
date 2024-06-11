@@ -1,17 +1,64 @@
-@import "bootstrap/dist/css/bootstrap"; 
-@import url("products/show.css"); 
-@import url("products/"); 
-@import url("user/register.css"); 
+@import "bootstrap/dist/css/bootstrap";
+@import url("products/show.css");
+@import url("products/");
+@import url("user/register.css");
 @import url("home/");
+@import url("dashboard/products.css");
+@import url("dashboard/styles.css");
 @import url("home/navbar.css");
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "swiper/css/bundle";
 
-header {
+body header {
     background: white;
+}
+
+section header {
+    background: #880a0a;
 }
 
 body {
     background: linear-gradient(to right, #880a0a, #880a0a);
     color: white;
-}  
+}
+
+.pagination .page-item .page-link {
+    color: #880a0a;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #880a0a;
+    border-color: #880a0a;
+    color: white;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #c60202;
+    border-color: #844545;
+    color: white;
+}
+.pagination .page-item .page-link:active {
+    box-shadow: none;
+}
+.pagination .page-item .page-link:focus {
+    box-shadow: none;
+}
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+.pagination .page-link {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+.pagination .page-item.active .page-link {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+.pagination{
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.5);
+}

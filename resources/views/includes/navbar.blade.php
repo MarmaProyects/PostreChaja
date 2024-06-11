@@ -10,16 +10,16 @@
                         <div class="container justify-content-center justify-content-md-between">
                             <ul class="navbar-nav flex-row">
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [2]]) }}">Confitería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [3]]) }}">Rotisería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [4]]) }}">Panadería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
+                                    <a class="nav-link" href="{{ route('products.index', ['sections' => [5]]) }}">Cafetería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
                                     <a class="nav-link" href="#">Catering</a>
@@ -27,11 +27,13 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <form action="{{ route('productos.index') }}" method="GET" class="d-flex input-group w-auto my-auto mb-3 mb-md-0"> 
+                            <form action="{{ route('products.index') }}" method="GET"
+                                class="d-flex input-group w-auto my-auto mb-3 mb-md-0">
                                 <div class="search">
-                                    <input autocomplete="off" class="search__input" placeholder="Search" name="search" value="{{ request('search') }}">
+                                    <input autocomplete="off" class="search__input" placeholder="Search" name="search"
+                                        value="{{ request('search') }}"> 
                                     <button class="search__button">
-                                        <i class="bi bi-search search__icon"></i> 
+                                        <i class="bi bi-search search__icon"></i>
                                     </button>
                                 </div>
                                 <div class="d-none">
@@ -62,12 +64,15 @@
                                     {{ Auth::user()->client->fullname }}
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('perfil.edit') }}">Perfil</a></li>
+                                    @if (Auth::user()->hasRole('Admin'))
+                                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                                    @endif
                                     <li><a class="dropdown-item" href="#">Configuración</a></li>
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                                            <a class="dropdown-item" href="#" :href="route('logout')"
+                                            <a class="dropdown-item" :href="route('logout')"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">
                                                 Salir

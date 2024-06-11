@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::query()->select('categories.*')->paginate(10);
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -23,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -31,10 +32,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
         try {
-            Category::create($request->all());
+            Category::create([
+                'name' => $request['name'],
+            ]);
+            return redirect()->route('categorias.index')->with('success', 'Categoria creada exitosamente.');
         } catch (QueryException $e) {
-            Log::error('Error creating Category: ' . $e->getMessage());
+            Log::error('Error creando la categoria: ' . $e->getMessage() . ' : ' . $request['section_id']);
+            return redirect()->back()->with('error', 'Error creando la categoría.');
         }
     }
 
@@ -49,29 +58,45 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, int $id)
     {
-        try {
-            $category->update($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        try { 
+            $category = Category::findOrFail($id);
+            $category->update($request->only('name'));
+            return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente.');
         } catch (QueryException $e) {
             Log::error('Error Updating category: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al editar la categoría.');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(int $category_id)
     {
-        $category->delete();
+        try {
+            Category::destroy($category_id);
+            return redirect()->route('categorias.index')->with('success', 'Categoría eliminada satisfactoriamente.');
+        } catch (QueryException $e) {
+            Log::error('Error deleting Category: ' . $e->getMessage());
+            if ($e->getCode() == '23503') {
+                return redirect()->route('categorias.index')->with('error', 'Esta categoría tiene productos asociados aun.');
+            }
+            return redirect()->route('categorias.index')->with('error', 'Fallo en la eliminación.');
+        }
     }
 
     public function API_get()
