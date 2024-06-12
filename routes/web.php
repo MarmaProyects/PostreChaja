@@ -27,18 +27,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('perfil.destroy');
 });
 
-Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
-    Route::resource('/dashboard/productos', ProductController::class); 
+Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () { 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/dashboard/clientes', ClientController::class);
     Route::resource('/dashboard/secciones', SectionController::class);
     Route::resource('/dashboard/categorias', CategoryController::class);
     Route::get('/dashboard/productos', [ProductController::class, 'table'])->name('productos.table'); 
+    Route::post('/dashboard/productos', [ProductController::class, 'store'])->name('productos.store'); 
+    Route::get('/dashboard/productos/{id}/edit', [ProductController::class, 'edit'])->name('productos.edit'); 
+    Route::put('/dashboard/productos/{id}', [ProductController::class, 'update'])->name('productos.update'); 
+    Route::get('/dashboard/productos/create', [ProductController::class, 'create'])->name('productos.create'); 
+    Route::delete('/dashboard/productos/{product}', [ProductController::class, 'destroy'])->name('productos.destroy');
     Route::delete('/images/{image}', [ImagesController::class, 'destroy'])->name('images.destroy');
 });
 
-Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
-Route::get('/productos/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/productos', [ProductController::class, 'index'])->name('productos.index');
+Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
 
 Route::fallback(function () {
     return redirect('/');

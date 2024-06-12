@@ -15,23 +15,18 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'id' => 1,
                 'name' => 'Salados'
             ],
             [
-                'id' => 2,
                 'name' => 'Coca cola'
             ],
             [
-                'id' => 3,
                 'name' => 'Vinos'
             ],
             [
-                'id' => 4,
                 'name' => 'Alfajores'
             ],
             [
-                'id' => 5,
                 'name' => 'Postres'
             ]
             
