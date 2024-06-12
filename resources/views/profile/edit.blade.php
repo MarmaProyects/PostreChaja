@@ -1,5 +1,22 @@
 <x-app-layout>
     <div class="row my-3">
+        <div class="col-5">
+        </div>
+        <div class="col-3">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+        <div class="col-4">
+        </div>
         <div class="col-3">
         </div>
         <div class="col-7">
