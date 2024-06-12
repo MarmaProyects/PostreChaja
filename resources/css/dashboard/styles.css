@@ -1,0 +1,30 @@
+.alerts-dashboard {
+    justify-content: center;
+}
+
+.dashboard .contenedor {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 50%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.dashboard canvas {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.dashboard h2 {
+    text-align: center;
+}
+.chart-container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.chart-container canvas {
+    max-width: 95%;
+    max-height: 90%;
+}

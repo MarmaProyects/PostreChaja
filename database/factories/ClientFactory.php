@@ -24,6 +24,7 @@ class ClientFactory extends Factory
                 'password' => bcrypt('password'), 
             ]
         );
+        $user->assignRole('Cliente');
         return [
             'user_id' => $user->id,
             'fullname' => $this->faker->name,

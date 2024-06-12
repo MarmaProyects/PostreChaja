@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class ClientControllerTest extends TestCase
@@ -18,6 +20,10 @@ class ClientControllerTest extends TestCase
     /** @test */
     public function it_displays_client_index_page()
     {
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $user = User::factory()->create();
+        $user->assignRole($adminRole);
+        $this->actingAs($user);
         $response = $this->get(route('clientes.index'));
 
         $response->assertStatus(200)
@@ -27,6 +33,10 @@ class ClientControllerTest extends TestCase
     /** @test */
     public function it_displays_client_create_page()
     {
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $user = User::factory()->create();
+        $user->assignRole($adminRole);
+        $this->actingAs($user);
         $response = $this->get(route('clientes.create'));
 
         $response->assertStatus(200)
@@ -40,7 +50,7 @@ class ClientControllerTest extends TestCase
 
         $this->assertModelExists($client);
     }
- 
+
     /** @test */
     // public function it_updates_client()
     // {
@@ -54,7 +64,7 @@ class ClientControllerTest extends TestCase
     //     ]; 
 
     //     $response = $this->put(route('clientes.update', $client), ["fullname" => $updatedData["fullname"]]);
-        
+
     //     $response->assertRedirect(route('clientes.index'));
     // }
 

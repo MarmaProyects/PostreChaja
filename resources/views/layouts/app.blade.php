@@ -20,8 +20,6 @@
             <img src="img/banner.png" alt="Banner" class="banner-image">
         @endif
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">

@@ -1,3 +1,4 @@
+
 <x-guest-layout>
     <div class="product_container">
         <div class="product_body">

@@ -1,12 +1,14 @@
 <?php
+
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\Section;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
-use Database\Factories\ProductFactory;
 
 
 class ProductControllerTest extends TestCase
@@ -17,65 +19,46 @@ class ProductControllerTest extends TestCase
      */
     public function test_index_returns_view(): void
     {
-        $response = $this->get(route('productos.index'));
+        $response = $this->get(route('products.index'));
         $response->assertViewIs('products.index');
         $response->assertStatus(200); // O el código de estado correcto
     }
 
     public function test_create_returns_view(): void
     {
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $user = User::factory()->create();
+        $user->assignRole($adminRole);
+        $this->actingAs($user);
+
+        $sections = Section::factory()->count(3)->create();
+        $categories = Category::factory()->count(3)->create();
+
         $response = $this->get(route('productos.create'));
+
+        $response->assertStatus(200);
         $response->assertViewIs('products.create');
-        $response->assertStatus(200); // O el código de estado correcto
+
+        $response->assertViewHas('sections', function ($viewSections) use ($sections) {
+            return $viewSections->count() === $sections->count() &&
+                $viewSections->pluck('id')->sort()->values()->all() === $sections->pluck('id')->sort()->values()->all();
+        });
+
+        $response->assertViewHas('categories', function ($viewCategories) use ($categories) {
+            return $viewCategories->count() === $categories->count() &&
+                $viewCategories->pluck('id')->sort()->values()->all() === $categories->pluck('id')->sort()->values()->all();
+        });
     }
 
-    // public function test_store_creates_product_and_redirects(): void
-    // {
-    //     $type = Type::create (['name' => 'Postre']);
-    //     $category = Category::create(['name' => 'confiteria']);
-    //     $data = [
-    //         'name' => 'Test Product',
-    //         'price' => 10.99,
-    //         'description' => 'Test Description',
-    //         'amount' => 5,
-    //         'type_id' => $type->id,
-    //         'category_id' => $category->id,
-    //     ];
-        
-    //     $response = $this->post(route('productos.store'), $data);
-    //     //$response->assertRedirect(route('productos.index'));
-
-    //     // Verificar que el producto se ha creado correctamente en la base de datos
-    //     $this->assertDatabaseHas('products', $data);
-    // }
-
-    // public function test_edit_returns_view(): void
-    // {
-    //     // Utiliza la clase ProductFactory para crear una instancia de Producto
-    //     $product = ProductFactory::new()->create(); // Aquí es donde creas una instancia de producto con la nueva ProductFactory
-
-    //     $response = $this->get(route('productos.edit', $product));
-    //     $response->assertViewIs('products.edit');
-    //     $response->assertStatus(200); // O el código de estado correcto
-    // }
-
-    // public function test_update_updates_product_and_redirects(): void
-    // {
-    //     $product = ProductFactory::new()->create();
-
-    //     $data = [
-    //         'name' => 'Updated Product Name',
-    //         'price' => 20.99,
-    //         'description' => 'Updated Description',
-    //         'amount' => 10,
-    //         'type_id' => 1,
-    //         'category_id' => 1,
-    //     ];
-
-    //     $response = $this->put(route('productos.update', $product), $data);
-    //     $response->assertRedirect(route('productos.index'));
-
-    //     // Verificar que el producto se ha actualizado correctamente en la base de datos
-    //     $this->assertDatabaseHas('products', $data);
-    // }
+    public function test_non_admin_cannot_access_create_product_page()
+    {
+        $user = User::factory()->create();
+ 
+        $this->actingAs($user);
+ 
+        $response = $this->get(route('productos.create'));
+ 
+        $response->assertStatus(302);
+        $response->assertRedirect('/');  
+    }
 }
