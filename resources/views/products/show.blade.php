@@ -82,7 +82,7 @@
                                 <option value="10">10</option>
                             </select>
                         </div>
-                        <button class="buy--btn" onclick="event.preventDefault(); document.getElementById('add-to-cart-form').submit();">Añadir al carrito</button>
+                        <button id='add-cart-{{$product->id}}' class="buy--btn" onclick="event.preventDefault(); document.getElementById('add-to-cart-form').submit();">Añadir al carrito</button>
                         <form id="add-to-cart-form" action="{{ route('cart.add', $product->id) }}" method="POST" class="d-none">
                             @csrf
                             <input type="hidden" name="quantity" value="1">
@@ -92,4 +92,13 @@
             </section>
         </div>
     </div>
+    <script>
+         function changeText(button) {
+            var originalText = button.textContent; 
+            button.textContent = 'Producto añadido!'; 
+            setTimeout(function() {
+                button.textContent = originalText;
+            }, 3000);
+        }
+    </script>
 </x-guest-layout>

@@ -23,7 +23,7 @@ class CartController extends Controller
         }
 
         Session::put('cart', $cart);
-        return redirect()->route('carrito.index')->with('success', 'Producto añadido al carrito.');
+        return redirect()->route('carrito.index');
     }
 
     public function index()

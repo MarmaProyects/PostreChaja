@@ -180,7 +180,7 @@ class ProductController extends Controller
             return view('products.show', compact('product'));
         } catch (\Exception $e) {
             Log::error('Error showing Product: ' . $e->getMessage());
-            return redirect()->route('products.index')->with('error', 'Product not found.');
+            return redirect()->route('productos.index')->with('error', 'Product not found.');
         }
     }
 

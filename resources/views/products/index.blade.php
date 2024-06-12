@@ -72,21 +72,20 @@
                                     </div>
                                 </a>
                                 <div class="align-self-end p-0 m-0">
-                                    <button class="buy--btn">Añadir al carrito</button>
+                                    <button class="buy--btn" data-product-id="{{ $product->id }}">Añadir al
+                                        carrito</button>
+                                    <form id="add-to-cart-form-{{ $product->id }}"
+                                        action="{{ route('cart.add', $product->id) }}" method="POST"
+                                        class="add-to-cart-form d-none">
+                                        @csrf
+                                    </form>
                                 </div>
-                            </a>
-                            <div class="align-self-end p-0 m-0">
-                                <button class="buy--btn" data-product-id="{{ $product->id }}">Añadir al carrito</button>
-                                <form id="add-to-cart-form-{{ $product->id }}" action="{{ route('cart.add', $product->id) }}" method="POST" class="add-to-cart-form d-none">
-                                    @csrf
-                                </form>
                             </div>
                         @endforeach
                         @if ($products->count() < 4)
                             <div class="row col-md-10 m-3 px-0 product-card invisible">
                                 <a href=" " class="card-button p-0 m-0">
-                                    <img src=""
-                                        alt="Card image cap">
+                                    <img src="" alt="Card image cap">
                                     <div class="text-center">
                                         <h5 class="">2342342342342342342342342342342</h5>
                                         <p class="text-danger fw-bold">$123123124234134651345613451345134513451</p>
@@ -95,7 +94,7 @@
                                 <div class="align-self-end p-0 m-0">
                                     <button class="buy--btn">rwetrqwertwertwertw</button>
                                 </div>
-                            </div> 
+                            </div>
                         @endif
                     </div>
                 </div>

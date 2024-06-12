@@ -44,11 +44,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
 Route::get('/productos', [ProductController::class, 'index'])->name('productos.index');
 Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
- 
-Route::resource('clientes', ClientController::class);
-Route::resource('productos', ProductController::class);
-Route::resource('sections', SectionController::class);
-Route::resource('category', CategoryController::class);
+  
 Route::resource('carrito', CartController::class);
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
 Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
