@@ -50,6 +50,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->client()->save($client);
+        $user->assignRole('Cliente');
 
         event(new Registered($user));
 

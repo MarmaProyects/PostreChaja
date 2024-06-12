@@ -58,6 +58,7 @@ class ClientController extends Controller
         ]);
 
         $user->client()->save($client);
+        $user->assignRole('Cliente');
         event(new Registered($user));
         return redirect()->route('clientes.index');
     }
@@ -138,7 +139,7 @@ class ClientController extends Controller
     public function API_get()
     {
         $clientes = Client::with('user')->get();
-        if($clientes->isEmpty()) {
+        if ($clientes->isEmpty()) {
             return response()->json(['message' => 'No hay clientes registrados'], 200);
         }
         return response()->json($clientes, 200);
