@@ -20,7 +20,16 @@
 <body>
     @include('includes.navbar')
     @if (Route::current()->uri() == '/')
-        <img src="img/banner.png" alt="Banner" class="banner-image">
+    <div class="banner">
+        <div class="filter-banner-div">
+            <img src="img/banner.jpg" alt="Banner" class="banner-image">
+        </div>
+        <div class="banner-text">
+            <h1>Descubre nuestros sabores</h1>
+            <p>Preparamos los mejores postres de Uruguay. Ven y disfruta de una experiencia inolvidable.</p>
+            <button class="details-button">Ver más</button>
+        </div>
+    </div>
     @endif
     <main class="container">
         {{ $slot }}
