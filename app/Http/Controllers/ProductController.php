@@ -175,14 +175,33 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $product = Product::findOrFail($id);
+            $product = Product::with(['section', 'category'])->findOrFail($id);
             $product->increment('visits');
-            return view('products.show', compact('product'));
+
+            $productName = strtolower($product->name);
+            $productSection = strtolower($product->section->name);
+            $productCategory = strtolower($product->category->name);
+            $productsQuery = Product::query();
+
+            $productsQuery->where(function ($query) use ($productName, $productSection, $productCategory) {
+                $query->whereRaw('LOWER(name) LIKE ?', ['%' . $productName . '%'])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ['%' . $productName . '%'])
+                    ->orWhereHas('section', function ($q) use ($productSection) {
+                        $q->whereRaw('LOWER(name) LIKE ?', ['%' . $productSection . '%']);
+                    })
+                    ->orWhereHas('category', function ($q) use ($productCategory) {
+                        $q->whereRaw('LOWER(name) LIKE ?', ['%' . $productCategory . '%']);
+                    });
+            });
+            $productsQuery->where('id', '!=', $id);
+            $products = $productsQuery->get();
+            return view('products.show', compact('product', 'products'));
         } catch (\Exception $e) {
             Log::error('Error showing Product: ' . $e->getMessage());
             return redirect()->route('products.index')->with('error', 'Product not found.');
         }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -248,7 +267,7 @@ class ProductController extends Controller
     public function API_get()
     {
         $productos = Product::with('images')->get();
-        if($productos->isEmpty()) {
+        if ($productos->isEmpty()) {
             return response()->json(['message' => 'No hay productos registrados'], 200);
         }
         return response()->json($productos, 200);
