@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +13,11 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('client_id');
-            $table->float('final_price');
-            $table->string('status');
+            $table->unsignedBigInteger('user_id');
+            $table->float('final_price')->default(0);
+            $table->string('status')->default('active');
             $table->timestamps();
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::create('cart_product', function (Blueprint $table) {
@@ -26,6 +27,7 @@ class CreateCartsTable extends Migration
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->primary(['cart_id', 'product_id']);
+            $table->timestamps();
         });
     }
 

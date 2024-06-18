@@ -1,7 +1,15 @@
 <x-guest-layout>
     <div class="my-5">
-        <h2 class="text-center mb-5">Lista de Productos</h2>
+        <h2 class="text-center mb-5">Lista de Productos</h2> 
+        @if (session('success'))
+            <div class="d-flex justify-content-center mt-3">
+                <div class="alert alert-success w-25">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
         <form id="filterForm" action="{{ route('productos.index') }}" method="GET" class="mb-3">
+            <label name="csrf-token" class="d-none">@csrf</label> 
             <div class="row justify-content-end mb-3">
                 <input type="search" class="d-none" placeholder="Buscar" name="search" value="{{ request('search') }}">
                 <div class="col-md-auto">
@@ -72,12 +80,13 @@
                                     </div>
                                 </a>
                                 <div class="align-self-end p-0 m-0">
-                                    <button class="buy--btn" data-product-id="{{ $product->id }}">Añadir al
-                                        carrito</button>
-                                    <form id="add-to-cart-form-{{ $product->id }}"
-                                        action="{{ route('cart.add', $product->id) }}" method="POST"
-                                        class="add-to-cart-form d-none">
+                                    <form action="{{ route('carrito.add') }}" method="POST" class="add-to-cart-form">
                                         @csrf
+                                        <button class="buy--btn">Añadir al
+                                            carrito</button>
+                                        <input name="productId" type="text" class="d-none"
+                                            value="{{ $product->id }}">
+                                        <input name="quantity" type="text" class="d-none" value="1">
                                     </form>
                                 </div>
                             </div>

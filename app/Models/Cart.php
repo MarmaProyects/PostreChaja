@@ -10,17 +10,30 @@ class Cart extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'status',
         'finalPrice'
     ];
-
+    public $timestamps = false;
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'cart_product')
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'completed');
     }
 }

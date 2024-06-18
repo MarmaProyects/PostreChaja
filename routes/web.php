@@ -46,11 +46,12 @@ Route::get('/productos', [ProductController::class, 'index'])->name('productos.i
 Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
   
 Route::resource('carrito', CartController::class);
-Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
-Route::get('cart/partial', 'CartController@cartPartial')->name('cart.partial');
+Route::post('/carrito/add', [CartController::class, 'add'])->name('carrito.add');
+Route::delete('/carrito/remove/{product}', [CartController::class, 'remove'])->name('carrito.remove');
+Route::post('/carrito/update/{product}', [CartController::class, 'update'])->name('carrito.update'); 
  
+Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('carrito.checkout');
 Route::fallback(function () {
     return redirect('/');
 }); 
