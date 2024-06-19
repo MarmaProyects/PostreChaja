@@ -314,3 +314,10 @@ div.price {
     -moz-box-shadow: 0px 10px 39px 6px rgba(48, 1, 1, 0.4);
     box-shadow: 0px 10px 39px 6px rgba(48, 1, 1, 0.4);
 }
+
+
+.btn-icon {
+    color: white;
+    background-color: transparent;
+    border: none;
+}
