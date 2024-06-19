@@ -51,10 +51,25 @@ class AuthenticatedSessionController extends Controller
     {
         $guestCart = Cart::where('user_id', session('guest_user_id'))->first();
         if ($guestCart) {
-            $guestCart->user_id = $user->id;
-            $guestCart->save();
+            $userCart = Cart::where('user_id', $user->id)->where('status', 'active')->first();
+
+            if ($userCart) {
+                foreach ($guestCart->products as $product) {
+                    $existingProduct = $userCart->products()->where('product_id', $product->id)->first();
+                    if ($existingProduct) {
+                        $userCart->products()->updateExistingPivot($product->id, ['quantity' => $existingProduct->pivot->quantity + $product->pivot->quantity]);
+                    } else {
+                        $userCart->products()->attach($product->id, ['quantity' => $product->pivot->quantity]);
+                    }
+                }
+                $guestCart->status = 'inactive';
+                $guestCart->save();
+            } else {
+                $guestCart->user_id = $user->id;
+                $guestCart->save();
+            }
         }
 
-        session()->forget('guest_user_id'); 
+        session()->forget('guest_user_id');
     }
 }

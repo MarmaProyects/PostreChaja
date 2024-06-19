@@ -62,7 +62,7 @@
                         <button class="btn-navbar mx-1" type="button">
                             <i class="bi bi-bell"></i>
                         </button>
-                        @if (auth()->check() && auth()->user()->is_guest)
+                        @if (auth()->check())
                             <div class="dropdown">
                                 <button class="btn-navbar dropdown-toggle" type="button" id="navbarDropdownMenuLink"
                                     data-bs-toggle="dropdown" aria-expanded="false">
