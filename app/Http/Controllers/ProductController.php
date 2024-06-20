@@ -180,7 +180,7 @@ class ProductController extends Controller
             return view('products.show', compact('product'));
         } catch (\Exception $e) {
             Log::error('Error showing Product: ' . $e->getMessage());
-            return redirect()->route('products.index')->with('error', 'Product not found.');
+            return redirect()->route('productos.index')->with('error', 'Product not found.');
         }
     }
 
@@ -247,8 +247,10 @@ class ProductController extends Controller
 
     public function API_get()
     {
-        $productos = Product::with('images')->get();
-        if($productos->isEmpty()) {
+        $productos = Product::with(['images' => function ($query) {
+            $query->limit(1); 
+        }])->get();
+        if ($productos->isEmpty()) {
             return response()->json(['message' => 'No hay productos registrados'], 200);
         }
         return response()->json($productos, 200);

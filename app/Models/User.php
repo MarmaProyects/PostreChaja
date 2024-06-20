@@ -18,7 +18,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    
+
     protected $fillable = [
         'name',
         'email',
@@ -45,12 +45,18 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_guest',
         ];
     }
 
     public function Client()
     {
         return $this->hasOne(Client::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 
     /**
@@ -61,5 +67,15 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('Admin');
+    }
+    public function countCartProducts()
+    {
+        $activeCart = $this->carts()->where('status', 'active')->first();
+
+        if ($activeCart) {
+            return $activeCart->products->count();
+        }
+
+        return 0;
     }
 }

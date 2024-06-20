@@ -10,16 +10,20 @@
                         <div class="container justify-content-center justify-content-md-between">
                             <ul class="navbar-nav flex-row">
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                    <a class="nav-link"
+                                        href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
+                                    <a class="nav-link"
+                                        href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
+                                    <a class="nav-link"
+                                        href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
+                                    <a class="nav-link"
+                                        href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
                                 </li>
                                 <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
                                     <a class="nav-link" href="#">Catering</a>
@@ -31,17 +35,25 @@
                                 class="d-flex input-group w-auto my-auto mb-3 mb-md-0">
                                 <div class="search">
                                     <input autocomplete="off" class="search__input" placeholder="Search" name="search"
-                                        value="{{ request('search') }}"> 
+                                        value="{{ request('search') }}">
                                     <button class="search__button">
                                         <i class="bi bi-search search__icon"></i>
                                     </button>
                                 </div>
                                 <div class="d-none">
                                     <select name="order" class="form-select">
-                                        <option value="created_at_desc" {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>Recientes</option>
-                                        <option value="price_asc" {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio</option>
-                                        <option value="price_desc" {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio</option>
-                                        <option value="category_asc" {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria</option>
+                                        <option value="created_at_desc"
+                                            {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
+                                            Recientes</option>
+                                        <option value="price_asc"
+                                            {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio
+                                        </option>
+                                        <option value="price_desc"
+                                            {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio
+                                        </option>
+                                        <option value="category_asc"
+                                            {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria
+                                        </option>
                                     </select>
                                 </div>
                             </form>
@@ -50,9 +62,14 @@
                 </div>
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                     <div class="d-flex">
-                        <button class="btn-navbar mx-1" type="button">
-                            <i class="bi bi-cart"></i>
-                        </button>
+                        <a href="/carrito" class="cart-container">
+                            <button class="btn-navbar mx-1" type="button">
+                                <i class="bi bi-cart"></i>
+                                @if (auth()->check())
+                                    <span class="cart-count">{{ auth()->user()->countCartProducts() }}</span>
+                                @endif
+                            </button>
+                        </a>
                         <button class="btn-navbar mx-1" type="button">
                             <i class="bi bi-bell"></i>
                         </button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Client;
 use Illuminate\Auth\Events\Registered;
@@ -32,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -56,6 +57,19 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $this->transferGuestCartToUser($user);
+
         return redirect(route('index', absolute: false));
+    }
+
+    protected function transferGuestCartToUser($user)
+    {
+        $guestCart = Cart::where('user_id', session('guest_user_id'))->first();
+        if ($guestCart) {
+            $guestCart->user_id = $user->id;
+            $guestCart->save();
+        }
+
+        session()->forget('guest_user_id');
     }
 }
