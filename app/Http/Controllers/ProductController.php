@@ -266,13 +266,9 @@ class ProductController extends Controller
 
     public function API_get()
     {
-<<<<<<< recomendarProductos
-        $productos = Product::with('images')->get();
-=======
         $productos = Product::with(['images' => function ($query) {
             $query->limit(1); 
         }])->get();
->>>>>>> main
         if ($productos->isEmpty()) {
             return response()->json(['message' => 'No hay productos registrados'], 200);
         }
