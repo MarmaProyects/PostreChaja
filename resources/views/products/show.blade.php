@@ -106,6 +106,24 @@
             </section>
         </div>
     </div>
+    <h2 class="text-center mt-2">Productos recomendados</h2>
+    <swiper-container class="mySwiper px-5" pagination="true" pagination-clickable="true" space-between="20" slides-per-view="5"
+        autoplay-delay="2500" autoplay-disable-on-interaction="false">
+        @foreach ($products as $index => $product)
+            <swiper-slide class="card-shadow my-5">
+                <a href="{{ route('productos.show', $product->id) }}" class="card-button bg-white p-0 m-0 w-100">
+                    <div class='col bg-white'>
+                        <img src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}" class=""
+                            alt="Images">
+                        <div class="col swiper-body align-content-center justify-content-center">
+                            <h5>{{ ucfirst($product->name) }}</h5>
+                            <p class="text-black" style="font: bold">${{ $product->price }} </p>
+                        </div>
+                    </div>
+                </a>
+            </swiper-slide>
+        @endforeach
+    </swiper-container>
     <script>
         function changeText(button) {
             var originalText = button.textContent;

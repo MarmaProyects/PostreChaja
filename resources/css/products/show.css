@@ -92,7 +92,12 @@
     justify-content: space-between;
     padding: 0.8em;
     color: #fff;
-    background: linear-gradient(90deg, rgba(182, 26, 26, 1) 0%, rgba(221, 37, 37, 1) 49%, rgba(182, 26, 26, 1) 100%);
+    background: linear-gradient(
+        90deg,
+        rgba(182, 26, 26, 1) 0%,
+        rgba(221, 37, 37, 1) 49%,
+        rgba(182, 26, 26, 1) 100%
+    );
 }
 
 .photo-main .controls i {
@@ -104,7 +109,8 @@
     left: -3.5em;
     top: 2em;
     max-width: 110%;
-    filter: saturate(150%) contrast(120%) hue-rotate(10deg) drop-shadow(1px 20px 10px rgba(0, 0, 0, 0.3));
+    filter: saturate(150%) contrast(120%) hue-rotate(10deg)
+        drop-shadow(1px 20px 10px rgba(0, 0, 0, 0.3));
 }
 
 .photo-main .carousel-inner img {
@@ -229,15 +235,15 @@ div.price {
     flex-direction: column;
 }
 
-.description p{ 
+.description p {
     text-align: justify;
 }
 
-.description h3 { 
+.description h3 {
     margin-bottom: 1em;
     margin-left: 1em;
     align-self: self-start;
-} 
+}
 
 .buy--btn {
     padding: 1.5em 3.1em;
@@ -247,7 +253,7 @@ div.price {
     font-weight: 700;
     letter-spacing: 1.3px;
     color: #fff;
-    background-color: #ff3f40; 
+    background-color: #ff3f40;
     cursor: pointer;
 }
 
@@ -255,8 +261,8 @@ div.price {
     transform: scale(0.97);
 }
 
-.buy--btn:hover{
-    background-color: #ff1212; 
+.buy--btn:hover {
+    background-color: #ff1212;
 }
 
 /* ----- Footer Section ----- */
@@ -301,4 +307,10 @@ div.price {
 
 .buy select {
     margin-right: 20px;
+}
+
+.card-shadow {
+    -webkit-box-shadow: 0px 10px 39px 6px rgba(48, 1, 1, 0.4);
+    -moz-box-shadow: 0px 10px 39px 6px rgba(48, 1, 1, 0.4);
+    box-shadow: 0px 10px 39px 6px rgba(48, 1, 1, 0.4);
 }
