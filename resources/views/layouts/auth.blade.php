@@ -69,7 +69,7 @@
                         </a>
                         <a class="nav-link" href="{{ route('categorias.index') }}">
                             <div class="sb-nav-link-icon"></div>
-                            Categoías
+                            Categorías
                         </a>
                         <a class="nav-link" href="{{ route('secciones.index') }}">
                             <div class="sb-nav-link-icon"></div>

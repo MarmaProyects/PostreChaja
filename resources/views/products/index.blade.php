@@ -1,7 +1,15 @@
 <x-guest-layout>
     <div class="my-5">
-        <h2 class="text-center mb-5">Lista de Productos</h2>
+        <h2 class="text-center mb-5">Lista de Productos</h2> 
+        @if (session('success'))
+            <div class="d-flex justify-content-center mt-3">
+                <div class="alert alert-success w-25">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
         <form id="filterForm" action="{{ route('productos.index') }}" method="GET" class="mb-3">
+            <label name="csrf-token" class="d-none">@csrf</label> 
             <div class="row justify-content-end mb-3">
                 <input type="search" class="d-none" placeholder="Buscar" name="search" value="{{ request('search') }}">
                 <div class="col-md-auto">
@@ -58,6 +66,9 @@
                         </div>
                     </div>
                     <div class="row">
+                        <form method="POST" class="add-to-cart-form d-none">
+                            @csrf
+                        </form>
                         @foreach ($products as $product)
                             <div class="row col-md-3 m-3 px-0 product-card">
                                 <a href="{{ route('productos.show', $product->id) }}" class="card-button p-0 m-0">
@@ -69,15 +80,21 @@
                                     </div>
                                 </a>
                                 <div class="align-self-end p-0 m-0">
-                                    <button class="buy--btn">Añadir al carrito</button>
+                                    <form action="{{ route('carrito.add') }}" method="POST" class="add-to-cart-form">
+                                        @csrf
+                                        <button class="buy--btn">Añadir al
+                                            carrito</button>
+                                        <input name="productId" type="text" class="d-none"
+                                            value="{{ $product->id }}">
+                                        <input name="quantity" type="text" class="d-none" value="1">
+                                    </form>
                                 </div>
                             </div>
                         @endforeach
                         @if ($products->count() < 4)
                             <div class="row col-md-10 m-3 px-0 product-card invisible">
                                 <a href=" " class="card-button p-0 m-0">
-                                    <img src=""
-                                        alt="Card image cap">
+                                    <img src="" alt="Card image cap">
                                     <div class="text-center">
                                         <h5 class="">2342342342342342342342342342342</h5>
                                         <p class="text-danger fw-bold">$123123124234134651345613451345134513451</p>
@@ -86,7 +103,7 @@
                                 <div class="align-self-end p-0 m-0">
                                     <button class="buy--btn">rwetrqwertwertwertw</button>
                                 </div>
-                            </div> 
+                            </div>
                         @endif
                     </div>
                 </div>

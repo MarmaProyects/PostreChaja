@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
@@ -43,9 +44,16 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
 Route::get('/productos', [ProductController::class, 'index'])->name('productos.index');
 Route::get('/productos/{id}', [ProductController::class, 'show'])->name('productos.show');
+  
+Route::resource('carrito', CartController::class);
+Route::post('/carrito/add', [CartController::class, 'add'])->name('carrito.add');
+Route::delete('/carrito/remove/{product}', [CartController::class, 'remove'])->name('carrito.remove');
+Route::post('/carrito/update/{product}', [CartController::class, 'update'])->name('carrito.update'); 
+Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('carrito.checkout');
 
 Route::fallback(function () {
     return redirect('/');
-});
+}); 
 
 require __DIR__ . '/auth.php';

@@ -2,6 +2,7 @@
 @import url("products/show.css");
 @import url("products/");
 @import url("user/register.css");
+@import url("products/cart.css");
 @import url("home/");
 @import url("dashboard/products.css");
 @import url("dashboard/styles.css");
@@ -61,4 +62,26 @@ body {
 .pagination{
     border-radius: 10px;
     box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.cart-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -2px;  
+    right: -2px; 
+    background-color: #c60202;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;  
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;  
+    height: 20px;
 }
