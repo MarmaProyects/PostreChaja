@@ -10,7 +10,6 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/login', function () {
     return redirect('/ingreso');
@@ -49,8 +48,12 @@ Route::resource('carrito', CartController::class);
 Route::post('/carrito/add', [CartController::class, 'add'])->name('carrito.add');
 Route::delete('/carrito/remove/{product}', [CartController::class, 'remove'])->name('carrito.remove');
 Route::post('/carrito/update/{product}', [CartController::class, 'update'])->name('carrito.update'); 
-Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial');
-Route::post('/checkout', [CartController::class, 'checkout'])->name('carrito.checkout');
+Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial'); 
+Route::get('/preference', [CartController::class, 'checkout'])->name('cart.checkout'); 
+Route::get('/checkout/success', [CartController::class, 'success'])->name('mercadopago.success');
+Route::get('/checkout/failed', [CartController::class, 'failed'])->name('mercadopago.failed');
+Route::get('/checkout/pending', [CartController::class, 'pending'])->name('mercadopago.pending');
+
 
 Route::fallback(function () {
     return redirect('/');

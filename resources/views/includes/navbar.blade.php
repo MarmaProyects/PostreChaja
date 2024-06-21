@@ -82,6 +82,7 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('perfil.edit') }}">Perfil</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('carrito.historial') }}">Historial de compras</a></li>
                                     @if (Auth::user()->hasRole('Admin'))
                                         <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
                                     @endif

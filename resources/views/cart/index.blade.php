@@ -10,7 +10,7 @@
                 </div>
             @endif
         </div>
-        @if ($cart->products->count() > 0)
+        @if ($products != null && $cart->products->count() > 0)
             <div class="card mb-5">
                 <div class="row">
                     <div class="col-md-8 cart">
@@ -90,12 +90,10 @@
                         <div class="row mt-5 mb-3">
                             <div class="col d-flex">Precio total: ${{ $cart->final_price }}</div>
                         </div>
-                        <button class="btn">Pagar</button>
+                        <button onclick="window.location.href='{{ route('cart.checkout') }}'" class="btn">Pagar</button>
                     </div>
                 @else
                     <p class="text-center">No hay productos en el carrito.</p>
         @endif
-    </div>
-    </div>
     </div>
 </x-guest-layout>
