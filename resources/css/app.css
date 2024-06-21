@@ -5,6 +5,7 @@
 @import url("products/cart.css");
 @import url("home/"); 
 @import url("cart/historial.css"); 
+@import url("cart/checkout.css"); 
 @import url("dashboard/products.css");
 @import url("dashboard/styles.css");
 @import url("home/navbar.css");

@@ -184,6 +184,8 @@ class CartController extends Controller
             $item->id = $product->id;
             $item->title = $product->name;
             $item->quantity = $product->pivot->quantity;
+            $item->description = $product->description;
+            $item->category_id = $product->category_id;
             $item->unit_price = $product->price;
             $items[] = $item;
         }
@@ -191,9 +193,12 @@ class CartController extends Controller
         $client = new PreferenceClient();
 
         $payer = array(
-            "name" => $user->name,
-            "surname" => $user->surname,
+            "name" => $user->client->fullname,
+            "surname" => '',
             "email" => $user->email,
+            "addres" => [  
+                "street_name" => $user->client->address,
+            ],
         );
         $request = $this->createPreferenceRequest($items, $payer);
 
