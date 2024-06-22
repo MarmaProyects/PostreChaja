@@ -24,7 +24,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'role:Admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::post('/product/{product}/favorite', [FavoriteController::class, 'add_removeFavorites'])->name('productos.favorite');
+    Route::post('/product/{product}/favorite', [FavoriteController::class, 'add_removeFavorites'])->name('productos.add_removeFavorite');
+    Route::get('/favoritos', [FavoriteController::class, 'show'])->name('favoritos');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('perfil.edit');
     Route::put('/perfil/{id}', [ProfileController::class, 'update'])->name('perfil.update');
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('perfil.destroy');

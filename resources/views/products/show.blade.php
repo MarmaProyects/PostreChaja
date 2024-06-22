@@ -15,7 +15,7 @@
                             <div class="photo-main">
                                 <div class="controls">
                                     <i class="bi bi-share-fill"></i>
-                                    <form id="favoriteForm" action="{{ route('productos.favorite', ['product' => $product->id]) }}" method="POST">
+                                    <form id="favoriteForm" action="{{ route('productos.add_removeFavorite', ['product' => $product->id]) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn-icon" favorite="{{$isFavorite ? "yes" : "no"}}" id="favoriteButton"><i id="heartIcon" class="bi bi-heart{{$isFavorite ? "-fill" : ""}}"></i></button>
                                     </form>
