@@ -321,3 +321,7 @@ div.price {
     background-color: transparent;
     border: none;
 }
+
+#ShareIcon{
+    cursor: pointer;
+}

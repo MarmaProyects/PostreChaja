@@ -12,7 +12,6 @@ class FavoriteController extends Controller
         try {
             $user = Auth::user();
             $isFavorite = $user->favorites()->where('product_id', $product_id)->exists();
-
             if ($request->ajax()) {
                 if ($isFavorite) {
                     $user->favorites()->detach($product_id);

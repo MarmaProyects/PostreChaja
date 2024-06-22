@@ -4,6 +4,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
+                    @if($products->isEmpty())
+                    <div class="text-center">
+                        <h4>No hay productos en tu lista de favoritos</h4>
+                    </div>
+                    @else
                     @foreach ($products as $product)
                     <div class="row bg-white my-4 p-3 card-shadow">
                         <div class="col-3 d-flex justify-content-center align-items-center py-3">
@@ -30,6 +35,7 @@
                         </div>
                     </div>
                     @endforeach
+                    @endif
                 </div>
             </div>
         </div>
