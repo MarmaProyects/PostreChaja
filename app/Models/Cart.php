@@ -14,7 +14,6 @@ class Cart extends Model
         'status',
         'finalPrice'
     ];
-    public $timestamps = false;
     public function products()
     {
         return $this->belongsToMany(Product::class, 'cart_product')

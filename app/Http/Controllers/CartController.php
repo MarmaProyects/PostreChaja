@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Cart;
-use App\Models\Product;
 use App\Models\User;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use MercadoPago\MercadoPagoConfig;
+use MercadoPago\Client\Preference\PreferenceClient;
+use MercadoPago\Exceptions\MPApiException;
+use MercadoPago\Resources\Preference\Item;
 
 class CartController extends Controller
 {
@@ -78,86 +79,37 @@ class CartController extends Controller
         return redirect()->route('carrito.index');
     }
 
-    private function getCurrentCart()
-    {
-        if (Auth::check()) {
-            $user = Auth::user();
-            $cartModel = Cart::firstOrCreate(
-                ['user_id' => $user->id, 'status' => 'active'],
-                ['final_price' => 0]
-            );
-            $cart = $cartModel->products->pluck('pivot.quantity', 'id')->toArray();
-        } else {
-            $this->createGuestUser();
-            $cartModel = Cart::firstOrCreate(
-                ['user_id' => session('guest_user_id'), 'status' => 'active'],
-                ['final_price' => 0]
-            );
-            $cart = $cartModel->products->pluck('pivot.quantity', 'id')->toArray();
-        }
-
-        return $cart;
-    }
-
-    private function saveCart($cart)
-    {
-        $user = Auth::user();
-        $cartModel = Cart::firstOrCreate(
-            ['user_id' => $user->id, 'status' => 'active'],
-            ['final_price' => 0]
-        );
-
-        $total = 0;
-
-        foreach ($cart as $productId => $quantity) {
-            $product = Product::find($productId);
-            if ($product) {
-                $total += $product->price * $quantity;
-            }
-        }
-
-        $cartModel->final_price = $total;
-        $cartModel->save();
-        $cartModel->products()->sync($cart);
-    }
-    public function checkout(Request $request)
-    {
-        $cart = $this->getCurrentCartModel();
-
-        // Lógica para procesar el pago...
-
-        // Si el pago es exitoso:
-        $cart->status = 'completed';
-        $cart->save();
-
-        // Crear un nuevo carrito activo para el usuario
-        $newCart = Cart::create([
-            'user_id' => Auth::id(),
-            'final_price' => 0,
-            'status' => 'active'
-        ]);
-
-        return redirect()->route('carrito.index')->with('success', 'Compra completada exitosamente.');
-    }
-
     private function getCurrentCartModel()
     {
         if (Auth::check()) {
-            return Cart::where('user_id', Auth::id())->active()->first();
+            $cart = Cart::where('user_id', Auth::id())->active()->first();
+            if (!$cart) {
+                $cart = Cart::create([
+                    'user_id' => Auth::id(),
+                    'status' => 'active',
+                    'final_price' => 0,
+                ]);
+            }
         } else {
             $this->createGuestUser();
-            return Cart::firstOrCreate(
-                ['user_id' => session('guest_user_id'), 'status' => 'active'],
-                ['final_price' => 0]
-            );
+            $guestUserId = session('guest_user_id');
+            $cart = Cart::where('user_id', $guestUserId)->where('status', 'active')->first();
+            if (!$cart) {
+                $cart = Cart::create([
+                    'user_id' => $guestUserId,
+                    'status' => 'active',
+                    'final_price' => 0,
+                ]);
+            }
         }
+        return $cart;
     }
     public function historial()
     {
         $user = Auth::user();
         $completedCarts = $user->carts()->completed()->get();
 
-        return view('carrito.historial', compact('completedCarts'));
+        return view('cart.historial', compact('completedCarts'));
     }
     private function updateCartTotal($cartModel)
     {
@@ -208,5 +160,98 @@ class CartController extends Controller
 
             session(['guest_user_id' => $guestUser->id]);
         }
+    }
+
+    public function checkout()
+    {
+        $cart = $this->getCurrentCartModel();
+        $preferencia = $this->crearPreferencia($cart);
+        if ($preferencia) {
+            $init_point = $preferencia->init_point;
+            return redirect($init_point);
+        } else {
+            return redirect()->back()->with('error', 'No se pudo crear la preferencia de pago.');
+        }
+    }
+
+    private function crearPreferencia(Cart $cart)
+    {
+        MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
+        $preference = new PreferenceClient();
+        $items = [];
+        foreach ($cart->products as $product) {
+            $item = new Item();
+            $item->id = $product->id;
+            $item->title = $product->name;
+            $item->quantity = $product->pivot->quantity;
+            $item->description = $product->description;
+            $item->category_id = $product->category_id;
+            $item->unit_price = $product->price;
+            $items[] = $item;
+        }
+        $user = Auth::user();
+        $client = new PreferenceClient();
+
+        $payer = array(
+            "name" => $user->client->fullname,
+            "surname" => '',
+            "email" => $user->email,
+            "addres" => [  
+                "street_name" => $user->client->address,
+            ],
+        );
+        $request = $this->createPreferenceRequest($items, $payer);
+
+        try {
+            $preference = $client->create($request);
+            return $preference;
+        } catch (MPApiException $error) {
+            return null;
+        }
+    }
+
+    function createPreferenceRequest($items, $payer): array
+    {
+        $paymentMethods = [
+            "excluded_payment_methods" => [],
+            "installments" => 12,
+            "default_installments" => 1
+        ];
+
+        $backUrls = array(
+            'success' => route('mercadopago.success'),
+            'failure' => route('mercadopago.failed')
+        );
+
+        $request = [
+            "items" => $items,
+            "payer" => $payer,
+            "payment_methods" => $paymentMethods,
+            "back_urls" => $backUrls,
+            "statement_descriptor" => "NAME_DISPLAYED_IN_USER_BILLING",
+            "external_reference" => "1234567890",
+            "expires" => false,
+            "auto_return" => 'approved',
+        ];
+
+        return $request;
+    }
+
+    public function success()
+    {
+        $cart = $this->getCurrentCartModel();
+        $cart->status = 'completed';
+        $cart->save();
+        return view('cart.success');
+    }
+
+    public function failed()
+    {
+        return view('cart.failed');
+    }
+
+    public function pending()
+    {
+        return view('cart.pending');
     }
 }

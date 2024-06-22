@@ -9,6 +9,7 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "mercadopago/dx-php": "3.0.6",
         "spatie/laravel-permission": "^6.7",
         "twbs/bootstrap": "^3.4"
     },
