@@ -31,7 +31,7 @@
         </div>
     </div>
     @endif
-    <main class="{{Route::current()->uri() == 'productos/{id}' ? '' : 'container'}}">
+    <main class="{{Route::current()->uri() == 'productos/{id}' || Route::current()->uri() == '/' ? '' : 'container'}}">
         {{ $slot }}
     </main>
     @include('includes.footer')
