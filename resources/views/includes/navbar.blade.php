@@ -9,24 +9,53 @@
                     <nav class="navbar navbar-expand-lg navbar-light bg-white">
                         <div class="container justify-content-center justify-content-md-between">
                             <ul class="navbar-nav flex-row">
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link"
-                                        href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSections"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Categorías
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSections">
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [1]]) }}">Salados</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [2]]) }}">Coca cola</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [3]]) }}">Vinos</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [4]]) }}">Alfajores</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [5]]) }}">Postres</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link"
-                                        href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
-                                </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link"
-                                        href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
-                                </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link"
-                                        href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
-                                </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="#">Catering</a>
+                            </ul>
+                        </div>
+                        <div class="container justify-content-center justify-content-md-between">
+                            <ul class="navbar-nav flex-row">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSections"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Secciones
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSections">
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Catering</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -42,6 +71,7 @@
                                 </div>
                                 <div class="d-none">
                                     <select name="order" class="form-select">
+                                        <!-- Opciones de orden -->
                                         <option value="created_at_desc"
                                             {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
                                             Recientes</option>
@@ -52,7 +82,7 @@
                                             {{ request('order') == 'price_desc' ? 'selected' : '' }}>Mayor precio
                                         </option>
                                         <option value="category_asc"
-                                            {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoria
+                                            {{ request('order') == 'category_asc' ? 'selected' : '' }}>Categoría
                                         </option>
                                     </select>
                                 </div>
@@ -82,9 +112,12 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('perfil.edit') }}">Perfil</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('carrito.historial') }}">Historial de compras</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('carrito.historial') }}">Historial de compras</a>
+                                    </li>
                                     @if (Auth::user()->hasRole('Admin'))
-                                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                        </li>
                                     @endif
                                     <li><a class="dropdown-item" href="#">Configuración</a></li>
                                     <li>
@@ -92,7 +125,7 @@
                                             @csrf
                                             <a class="dropdown-item" :href="route('logout')"
                                                 onclick="event.preventDefault();
-                                                            this.closest('form').submit();">
+                                                                    this.closest('form').submit();">
                                                 Salir
                                             </a>
                                         </form>
