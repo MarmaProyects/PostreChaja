@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\IndexController;
@@ -22,6 +23,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'role:Admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/product/{product}/favorite', [FavoriteController::class, 'add_removeFavorites'])->name('productos.add_removeFavorite');
+    Route::get('/favoritos', [FavoriteController::class, 'show'])->name('favoritos');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('perfil.edit');
     Route::get('/preference', [CartController::class, 'checkout'])->name('cart.checkout'); 
     Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial'); 

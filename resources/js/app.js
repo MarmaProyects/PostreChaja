@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "https://code.jquery.com/jquery-3.6.0.min.js";
 import "bootstrap/dist/js/bootstrap";
 import "../js/products/";
 import Alpine from "alpinejs";

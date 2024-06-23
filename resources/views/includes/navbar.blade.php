@@ -67,7 +67,6 @@
                                 </div>
                                 <div class="d-none">
                                     <select name="order" class="form-select">
-                                        <!-- Opciones de orden -->
                                         <option value="created_at_desc" {{ request('order') == 'created_at_desc' ? 'selected' : '' }}>
                                             Recientes</option>
                                         <option value="price_asc" {{ request('order') == 'price_asc' ? 'selected' : '' }}>Menor precio
@@ -84,6 +83,11 @@
                 </div>
                 <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                     <div class="d-flex">
+                        <a href="/favoritos" class="cart-container">
+                            <button class="btn-navbar mx-1" type="button">
+                            <i class="bi bi-heart"></i>
+                            </button>
+                        </a>
                         <a href="/carrito" class="cart-container">
                             <button class="btn-navbar mx-1" type="button">
                                 <i class="bi bi-cart"></i>
