@@ -1,0 +1,15 @@
+.checkout-container{
+    margin: 50px;
+}
+
+.checkout-container a{
+    background-color: white;
+    color: #880a0a;
+    font-weight: bold;
+}
+
+.checkout-container a:hover{
+    background-color: rgba(145, 145, 145, 0.501);
+    color: black;
+    font-weight: bold;
+}

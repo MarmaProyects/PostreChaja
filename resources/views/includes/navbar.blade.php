@@ -9,20 +9,53 @@
                     <nav class="navbar navbar-expand-lg navbar-light bg-white">
                         <div class="container justify-content-center justify-content-md-between">
                             <ul class="navbar-nav flex-row">
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSections"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Categorías
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSections">
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [1]]) }}">Salados</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [2]]) }}">Coca cola</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [3]]) }}">Vinos</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [4]]) }}">Alfajores</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['categories' => [5]]) }}">Postres</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
-                                </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
-                                </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
-                                </li>
-                                <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
-                                    <a class="nav-link" href="#">Catering</a>
+                            </ul>
+                        </div>
+                        <div class="container justify-content-center justify-content-md-between">
+                            <ul class="navbar-nav flex-row">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSections"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Secciones
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownSections">
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [2]]) }}">Confitería</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [3]]) }}">Rotisería</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [4]]) }}">Panadería</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('productos.index', ['sections' => [5]]) }}">Cafetería</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Catering</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -69,28 +102,34 @@
                             <i class="bi bi-bell"></i>
                         </button>
                         @if (auth()->check())
-                        <div class="dropdown">
-                            <button class="btn-navbar dropdown-toggle" type="button" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person"></i>
-                                {{ Auth::user()->client->fullname }}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{ route('perfil.edit') }}">Perfil</a></li>
-                                @if (Auth::user()->hasRole('Admin'))
-                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
-                                @endif
-                                <li><a class="dropdown-item" href="#">Configuración</a></li>
-                                <li>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <a class="dropdown-item" :href="route('logout')" onclick="event.preventDefault();
-                                                            this.closest('form').submit();">
-                                            Salir
-                                        </a>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                            <div class="dropdown">
+                                <button class="btn-navbar dropdown-toggle" type="button" id="navbarDropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person"></i>
+                                    {{ Auth::user()->client->fullname }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="{{ route('perfil.edit') }}">Perfil</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('carrito.historial') }}">Historial de compras</a>
+                                    </li>
+                                    @if (Auth::user()->hasRole('Admin'))
+                                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                        </li>
+                                    @endif
+                                    <li><a class="dropdown-item" href="#">Configuración</a></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a class="dropdown-item" :href="route('logout')"
+                                                onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
+                                                Salir
+                                            </a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         @else
                         <a class="btn-navbar mx-1" href="{{ route('ingreso') }}">Mi cuenta</a>
                         @endif

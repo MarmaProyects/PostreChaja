@@ -49,7 +49,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function Client()
+    public function client()
     {
         return $this->hasOne(Client::class);
     }

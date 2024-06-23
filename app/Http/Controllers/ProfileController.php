@@ -21,12 +21,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        $userId = $request->user()->id;
-        $user = User::findOrFail($userId);
-        $client = Client::findOrFail($user->id);
-        return view('profile.edit', [
-            'user' => $request->user(), 
-        ], compact('client', 'user'));
+        $user = Auth::user();
+        $client = Client::findByUserId($user->id);
+        return view('profile.edit', compact('client', 'user'));
     }
 
     /**

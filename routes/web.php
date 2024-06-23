@@ -11,7 +11,6 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/login', function () {
     return redirect('/ingreso');
@@ -27,8 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/product/{product}/favorite', [FavoriteController::class, 'add_removeFavorites'])->name('productos.add_removeFavorite');
     Route::get('/favoritos', [FavoriteController::class, 'show'])->name('favoritos');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('perfil.edit');
+    Route::get('/preference', [CartController::class, 'checkout'])->name('cart.checkout'); 
+    Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial'); 
     Route::put('/perfil/{id}', [ProfileController::class, 'update'])->name('perfil.update');
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('perfil.destroy');
+    Route::get('/checkout/success', [CartController::class, 'success'])->name('mercadopago.success');
+    Route::get('/checkout/failed', [CartController::class, 'failed'])->name('mercadopago.failed');
+    Route::get('/checkout/pending', [CartController::class, 'pending'])->name('mercadopago.pending');
 });
 
 Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () { 
@@ -52,8 +56,7 @@ Route::resource('carrito', CartController::class);
 Route::post('/carrito/add', [CartController::class, 'add'])->name('carrito.add');
 Route::delete('/carrito/remove/{product}', [CartController::class, 'remove'])->name('carrito.remove');
 Route::post('/carrito/update/{product}', [CartController::class, 'update'])->name('carrito.update'); 
-Route::get('/historial', [CartController::class, 'historial'])->name('carrito.historial');
-Route::post('/checkout', [CartController::class, 'checkout'])->name('carrito.checkout');
+
 
 Route::fallback(function () {
     return redirect('/');

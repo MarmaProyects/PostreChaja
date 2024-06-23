@@ -25,4 +25,9 @@ class Client extends User
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function findByUserId($userId)
+    {
+        return self::where('user_id', $userId)->first();
+    }
 }
