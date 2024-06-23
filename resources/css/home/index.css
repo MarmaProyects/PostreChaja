@@ -9,7 +9,7 @@
 .banner-image {
     opacity: 40%;
     width: 100%;
-    height: 900px;
+    height: 100vh;
     object-fit: cover;
 }
 
@@ -52,10 +52,49 @@
     font-size: 1.5em;
 }
 
-.cake-home {
-    max-width: 600px;
+.home-card img {
+    max-width: 300px;
     max-height: 700px;
     border-radius: 20px;
+}
+
+.home-card{
+    background-color: white;
+    border-radius: 10px;
+}
+
+.home-card h2{
+    color: #880a0a;
+}
+
+.home-card p{
+    color: black;
+}
+
+.texto1_sobreNosotros{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15vw;
+}
+
+.image1_sobreNosotros{
+    display: flex;
+    justify-content: center;
+    margin-right: 15vw;
+}
+
+.texto2_sobreNosotros{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 15vw;
+}
+
+.image2_sobreNosotros{
+    display: flex;
+    justify-content: center;
+    margin-left: 15vw;
 }
 
 .home-presentation h1 {
@@ -63,26 +102,14 @@
 }
 
 .home-presentation p {
-    margin-top: 0;
     font-size: 1.1em;
-    max-width: 600px;
+    max-width: 30vw;
 }
 
-.home-section{
-    background-color: white;
+.home-presentation img{
+    max-width: 60vw;
+    max-height: 40vh;
     border-radius: 10px;
-}
-
-.home-section img{
-    max-width: 300px;
-}
-
-.home-section h2{
-    color: #880a0a;
-}
-
-.home-section p{
-    color: black;
 }
 
 main .banner {
@@ -97,6 +124,7 @@ main .banner {
 }
 
 swiper-container {
+    padding: 100px;
     width: 100%;
     height: 100%;
     margin-top: 40px;
@@ -125,4 +153,10 @@ swiper-slide img {
 
 swiper-slide .swiper-body {
     margin-top: 20px;
+}
+
+.titulo-swipper{
+    position: absolute;
+    margin-top: 5px;
+    left: 40vw;
 }
