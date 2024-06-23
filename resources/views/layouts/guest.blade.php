@@ -27,7 +27,9 @@
         <div class="banner-text">
             <h1>Descubre nuestros sabores</h1>
             <p>Preparamos los mejores postres de Uruguay. Ven y disfruta de una experiencia inolvidable.</p>
-            <button class="details-button">Ver más</button>
+            <a class="text-decoration-none" href="/#products-section">
+            <button class="details-button">Ver mas</button>
+        </a>
         </div>
     </div>
     @endif

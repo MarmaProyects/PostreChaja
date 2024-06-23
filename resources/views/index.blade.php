@@ -15,35 +15,35 @@
         </swiper-slide>
         @endforeach
     </swiper-container>
-    <section class="my-5">
+    <section id="products-section" class="my-5">
         <h1 class="d-flex justify-content-center mt-5">Nuestros productos y servicios</h1>
         <p class="d-flex justify-content-center mb-5">Si bien nuestra especialidad son los postres, también ofrecemos
             una amplia variedad de productos.</p>
         <div class="row justify-content-around mx-5">
-            <div class="col-md-2 home-card p-3 card-shadow">
+            <a href="{{ route('productos.index', ['sections' => [3]]) }}" class="col-md-2 home-card p-3 text-decoration-none card-shadow">
                 <img src="img/rotiseria.jpg" alt="Cake Image" class="img-fluid">
                 <h2 class="d-flex justify-content-center my-2">Rotisería</h2>
                 <p class="d-flex justify-content-center my-2">Descubre nuestro sabor casero y auténtico. Platos
                     tradicionales con un toque especial, preparados con amor y dedicación. ¡Una experiencia que te hará
                     sentir como en casa!</p>
-            </div>
-            <div class="col-md-2 home-card p-3">
+            </a>
+            <a href="{{ route('productos.index', ['sections' => [4]]) }}" class="col-md-2 home-card text-decoration-none p-3">
                 <img src="img/panaderia.jpg" alt="Cake Image" class="img-fluid">
                 <h2 class="d-flex justify-content-center my-2">Panadería</h2>
                 <p class="d-flex justify-content-center my-2">El arte del pan hecho realidad. Deliciosos panes y
                     pasteles recién horneados con ingredientes de calidad. ¡Disfruta de cada bocado con nosotros!</p>
-            </div>
-            <div class="col-md-2 home-card p-3">
+            </a>
+            <a href="{{ route('productos.index', ['sections' => [5]]) }}" class="col-md-2 home-card text-decoration-none p-3">
                 <img src="img/cafeteria.jpg" alt="Cake Image" class="img-fluid">
                 <h2 class="d-flex justify-content-center my-2">Cafetería</h2>
                 <p class="d-flex justify-content-center my-2">Un momento de placer en cada taza. Café fresco y
                     aromático, preparado con maestría. ¡Vive una experiencia sensorial única en nuestra cafetería!</p>
-            </div>
-            <div class="col-md-2 home-card p-3">
-                <img src="img/catering.jpg" alt="Cake Image" class="img-fluid">
-                <h2 class="d-flex justify-content-center my-2">Catering</h2>
-                <p class="d-flex justify-content-center my-2">Proximamente</p>
-            </div>
+            </a>
+            <a href="{{ route('productos.index', ['sections' => [2]]) }}" class="col-md-2 home-card text-decoration-none p-3">
+                <img src="img/confiteria.jpg" alt="Cake Image" class="img-fluid">
+                <h2 class="d-flex justify-content-center my-2">Confitería</h2>
+                <p class="d-flex justify-content-center my-2">Descubre pronto nuestra selección exquisita de dulces y postres, preparados con atención al detalle y amor por la tradición. Cada sabor te transportará a momentos de deleite inigualable.</p>
+            </a>
         </div>
         <br>
         <br>
