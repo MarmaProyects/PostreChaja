@@ -54,7 +54,7 @@
                         </div>
                         <div class="container justify-content-center justify-content-md-between">
                             <ul class="navbar-nav flex-row">
-                                <a class="nav-link" href="#about-section">Sobre nosotros</a>
+                                <a class="nav-link" href="/#about-section">Sobre nosotros</a>
                             </ul>
                         </div>
                         <div class="col-md-6">
