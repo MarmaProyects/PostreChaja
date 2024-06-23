@@ -1,14 +1,14 @@
 <x-guest-layout>
-    <h1 class="my-5 d-flex justify-content-center">Productos más vendidos</h1>
-    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="15" slides-per-view="5" autoplay-delay="2500" autoplay-disable-on-interaction="false">
+    <h1 class="titulo-swipper">Productos más vendidos</h1>
+    <swiper-container class="mySwiper px-5" pagination="true" pagination-clickable="true" space-between="20" slides-per-view="5" autoplay-delay="2500" autoplay-disable-on-interaction="false">
         @foreach ($products as $index => $product)
-        <swiper-slide>
-            <a href="{{ route('productos.show', $product->id) }}" class="card-button p-0 m-0">
-                <div class='col' style="background: #9e5353">
+        <swiper-slide class="card-shadow my-5">
+            <a href="{{ route('productos.show', $product->id) }}" class="card-button bg-white p-0 m-0 w-100">
+                <div class='col bg-white'>
                     <img src="data:image/jpg;base64, {{ $product->images()->first()->base64 }}" class="" alt="Images">
-                    <div class="swiper-body">
+                    <div class="col swiper-body align-content-center justify-content-center">
                         <h5>{{ ucfirst($product->name) }}</h5>
-                        <p class="text-white" style="font: bold">${{ $product->price }} </p>
+                        <p class="text-black" style="font: bold">${{ $product->price }} </p>
                     </div>
                 </div>
             </a>
@@ -45,10 +45,15 @@
                 <p class="d-flex justify-content-center my-2">Proximamente</p>
             </div>
         </div>
+        <br>
+        <br>
+        <a class="d-flex justify-content-center text-decoration-none" href="/productos">
+            <button class="details-button">Ver productos</button>
+        </a>
     </section>
-    <section>
-        <br>
-        <br>
+    <br>
+    <br>
+    <section id="about-section">
         <h1 class="d-flex justify-content-center my-5">Sobre nosotros</h1>
         <div class="row justify-content-center m-5 home-presentation">
             <div class="col texto1_sobreNosotros card-shadow p-5">
@@ -63,7 +68,7 @@
         </div>
         <div class="row justify-content-center m-5 home-presentation">
             <div class="col image2_sobreNosotros">
-                <img src="img/cake-home.jpg" alt="Cake Image" class="img-fluid card-shadow">
+                <img src="img/cake-home2.jpg" alt="Cake Image" class="img-fluid card-shadow">
             </div>
             <div class="col texto2_sobreNosotros card-shadow p-5">
                 <h2>Nuestro Equipo</h2>
@@ -80,7 +85,7 @@
                 <p>Mirando hacia adelante, aspiramos a expandir nuestra oferta de productos y a llegar a más personas que desean experimentar la autenticidad y el sabor único de Chajá. Nuestro compromiso con la calidad y la innovación nos guiará mientras seguimos creciendo y compartiendo nuestra pasión por la repostería uruguaya con el mundo.</p>
             </div>
             <div class="col image1_sobreNosotros">
-                <img src="img/cake-home.jpg" alt="Cake Image" class="img-fluid card-shadow">
+                <img src="img/cake-home3.jpg" alt="Cake Image" class="img-fluid card-shadow">
             </div>
         </div>
     </section>

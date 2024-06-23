@@ -75,26 +75,26 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 20vw;
+    margin-left: 15vw;
 }
 
 .image1_sobreNosotros{
     display: flex;
     justify-content: center;
-    margin-right: 10vw;
+    margin-right: 15vw;
 }
 
 .texto2_sobreNosotros{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 10vw;
+    margin-right: 15vw;
 }
 
 .image2_sobreNosotros{
     display: flex;
     justify-content: center;
-    margin-left: 20vw;
+    margin-left: 15vw;
 }
 
 .home-presentation h1 {
@@ -153,4 +153,10 @@ swiper-slide img {
 
 swiper-slide .swiper-body {
     margin-top: 20px;
+}
+
+.titulo-swipper{
+    position: absolute;
+    margin-top: 5px;
+    left: 40vw;
 }
