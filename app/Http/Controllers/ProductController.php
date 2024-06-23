@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -177,6 +178,11 @@ class ProductController extends Controller
         try {
             $product = Product::with(['section', 'category'])->findOrFail($id);
             $product->increment('visits');
+            $isFavorite = false;
+            if (Auth::check()) {
+                $user = Auth::user();
+                $isFavorite = $user->favorites()->where('product_id', $product->id)->exists();
+            }
 
             $productName = strtolower($product->name);
             $productSection = strtolower($product->section->name);
@@ -195,7 +201,7 @@ class ProductController extends Controller
             });
             $productsQuery->where('id', '!=', $id);
             $products = $productsQuery->get();
-            return view('products.show', compact('product', 'products'));
+            return view('products.show', compact('product', 'products', 'isFavorite'));
         } catch (\Exception $e) {
             Log::error('Error showing Product: ' . $e->getMessage());
             return redirect()->route('productos.index')->with('error', 'Product not found.');

@@ -59,6 +59,12 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id')
+                    ->withTimestamps();
+    }
+
     /**
      * Check if the user has an admin role.
      *
