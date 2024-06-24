@@ -53,45 +53,43 @@
 }
 
 .home-card img {
-    max-width: 300px;
-    max-height: 700px;
     border-radius: 20px;
 }
 
-.home-card{
+.home-card {
     background-color: white;
     border-radius: 10px;
 }
 
-.home-card h2{
+.home-card h2 {
     color: #880a0a;
 }
 
-.home-card p{
+.home-card p {
     color: black;
 }
 
-.texto1_sobreNosotros{
+.texto1_sobreNosotros {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-left: 15vw;
 }
 
-.image1_sobreNosotros{
+.image1_sobreNosotros {
     display: flex;
     justify-content: center;
     margin-right: 15vw;
 }
 
-.texto2_sobreNosotros{
+.texto2_sobreNosotros {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-right: 15vw;
 }
 
-.image2_sobreNosotros{
+.image2_sobreNosotros {
     display: flex;
     justify-content: center;
     margin-left: 15vw;
@@ -106,7 +104,7 @@
     max-width: 30vw;
 }
 
-.home-presentation img{
+.home-presentation img {
     max-width: 60vw;
     max-height: 40vh;
     border-radius: 10px;
@@ -155,7 +153,7 @@ swiper-slide .swiper-body {
     margin-top: 20px;
 }
 
-.titulo-swipper{
+.titulo-swipper {
     position: absolute;
     margin-top: 5px;
     left: 40vw;

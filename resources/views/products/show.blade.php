@@ -58,7 +58,7 @@
                         <p>$</p>
                         <span>{{ $product->price }}</span>
                     </div>
-                    <div class="size">
+                    <div class="size d-none">
                         <h3>Seleccionar tamaño</h3>
                         <ul>
                             <li><img src="https://w7.pngwing.com/pngs/369/94/png-transparent-strawberry-pie-fruitcake-tart-cheesecake-torte-cake-cream-food-strawberries.png" alt="green apple"></li>
