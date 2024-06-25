@@ -21,7 +21,7 @@ class ClientFactory extends Factory
         $user = User::firstOrCreate(
             ['email' => $this->faker->email],
             [
-                'password' => bcrypt('password'), 
+                'password' => bcrypt('password'),
             ]
         );
         $user->assignRole('Cliente');
@@ -30,7 +30,8 @@ class ClientFactory extends Factory
             'fullname' => $this->faker->name,
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,
-            'stars' => $this->faker->numberBetween(1, 5),
+            'total_stars' =>  $this->faker->numberBetween(1, 5),
+            'available_stars' =>  $this->faker->numberBetween(1, 5),
             'notifications' => $this->faker->boolean,
         ];
     }

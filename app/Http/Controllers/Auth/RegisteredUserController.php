@@ -46,7 +46,8 @@ class RegisteredUserController extends Controller
             'fullname' => $request->name,
             'phone' => $request->phone,
             'address' => "",
-            'stars' => 0,
+            'total_stars' => 0,
+            'available_stars' => 0,
             'notifications' => false,
         ]);
 
