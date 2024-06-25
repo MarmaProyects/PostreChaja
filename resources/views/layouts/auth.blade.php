@@ -79,6 +79,10 @@
                             <div class="sb-nav-link-icon"></div>
                             Clientes
                         </a>
+                        <a class="nav-link" href="{{ route('discounts.index') }}">
+                            <div class="sb-nav-link-icon"></div>
+                            Descuentos
+                        </a>
                     </div>
                 </div>
             </nav>

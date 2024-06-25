@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Cart;
+use App\Models\Discount;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -132,6 +133,7 @@ class CartController extends Controller
         } else {
             $cart->products()->attach($id, ['quantity' => 1]);
         }
+        $this->updateCartTotal($cart);
     }
 
     private function decrementProduct(int $id)
@@ -147,6 +149,7 @@ class CartController extends Controller
                 $cart->products()->detach($id);
             }
         }
+        $this->updateCartTotal($cart);
     }
 
     public function createGuestUser()
@@ -196,7 +199,7 @@ class CartController extends Controller
             "name" => $user->client->fullname,
             "surname" => '',
             "email" => $user->email,
-            "addres" => [  
+            "addres" => [
                 "street_name" => $user->client->address,
             ],
         );
@@ -242,6 +245,12 @@ class CartController extends Controller
         $cart = $this->getCurrentCartModel();
         $cart->status = 'completed';
         $cart->save();
+        $starsEarned = floor($cart->final_price / 100);
+        $user = Auth::user();
+        $client = $user->client;
+        $client->total_stars += $starsEarned;
+        $client->available_stars += $starsEarned;
+        $client->save();
         return view('cart.success');
     }
 
@@ -253,5 +262,43 @@ class CartController extends Controller
     public function pending()
     {
         return view('cart.pending');
+    }
+
+    public function applyDiscount(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'nullable|string|exists:discounts,code',
+            'stars' => 'nullable|integer|min:0|max:' . Auth::user()->client->available_stars,
+        ]);
+
+        $cart = $this->getCurrentCartModel();
+        $this->updateCartTotal($cart);
+        $totalPrice = $cart->final_price;
+
+        if ($request->has('coupon_code')) {
+            $discount = Discount::where('id', $request->input('coupon_code'))->first();
+            if ($discount) {
+                if ($discount->percentage) {
+                    $totalPrice -= ($totalPrice * ($discount->percentage / 100));
+                } else {
+                    $totalPrice -= $discount->amount;
+                }
+            }
+        }
+
+        if ($request->has('stars')) {
+            $stars = $request->input('stars');
+            $discountFromStars = $stars * 1;
+            $totalPrice -= $discountFromStars;
+
+            $user = Auth::user();
+            $user->client->available_stars -= $stars;
+            $user->client->save();
+        }
+
+        $cart->final_price = max($totalPrice, 0);
+        $cart->save();
+
+        return redirect()->route('cart.index')->with('success', 'Descuentos aplicados exitosamente.');
     }
 }

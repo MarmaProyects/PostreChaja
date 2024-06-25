@@ -75,22 +75,27 @@
                             <div class="col">Cantidad de productos: {{ $cart->products->count() }}</div>
                         </div>
                         <br>
-                        <form>
-                            <figure>
-                                <blockquote class="blockquote">
-                                    <p>Envío (no disponible)</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    Retiro en sucursal.
-                                </figcaption>
-                            </figure>
-                            <p>Código de descuento</p>
-                            <input placeholder="Ingresar código">
+                        <form action="{{ route('cart.applyDiscount') }}" method="POST" class="mb-3">
+                            @csrf
+                            <div class="form-group">
+                                <label for="coupon_code">Código de descuento</label>
+                                <input type="text" class="form-control w-100" id="coupon_code" name="coupon_code"
+                                    placeholder="Ingresar código">
+                            </div>
+                            <div class="form-group">
+                                <label for="stars">Estrellas disponibles:
+                                    {{ Auth::user()->client->available_stars }}</label>
+                                <input type="number" class="form-control w-100" id="stars" name="stars"
+                                    min="0" max="{{ Auth::user()->client->available_stars }}"
+                                    placeholder="Cantidad de estrellas">
+                            </div>
+                            <button type="submit" class="btn mt-2">Aplicar Descuentos</button>
                         </form>
                         <div class="row mt-5 mb-3">
                             <div class="col d-flex">Precio total: ${{ $cart->final_price }}</div>
                         </div>
-                        <button onclick="window.location.href='{{ route('cart.checkout') }}'" class="btn">Pagar</button>
+                        <button onclick="window.location.href='{{ route('cart.checkout') }}'"
+                            class="btn">Pagar</button>
                     </div>
                 @else
                     <p class="text-center">No hay productos en el carrito.</p>

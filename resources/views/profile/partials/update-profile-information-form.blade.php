@@ -7,6 +7,7 @@
         @method('PUT')
         <div class="card-body pt-5">
             <h2 class="text-uppercase text-center text-red mb-5">{{ __('Profile Information') }}</h2>
+            <p class="cliente-estrellas">Tus estrellas acumuladas: <span>{{ $client->available_stars }}</span> <i class="bi bi-star-fill"></i></p>
             <p class=" ">
                 {{ __("Update your account's profile information and email address.") }}
             </p>
