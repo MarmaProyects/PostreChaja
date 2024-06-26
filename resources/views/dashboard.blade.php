@@ -1,15 +1,39 @@
 <x-auth-layout>
-    <div class="row dashboard">
-        <div class="contenedor col-6">
-            <h2>Productos más visitados</h2>
-            <div class="chart-container">
-                <canvas id="mostVisitedProductsChart"></canvas>
+    <div class="dashboard">
+        <div class="d-flex">
+            <div class="contenedor ">
+                <h2>Productos más visitados</h2>
+                <div class="chart-container">
+                    <canvas id="mostVisitedProductsChart"></canvas>
+                </div>
+            </div>
+            <div class="contenedor ">
+                <h2>Productos por Categoría</h2>
+                <div class="chart-container">
+                    <canvas id="productsByCategoryChart" style="display:flex; text-align:center"></canvas>
+                </div>
             </div>
         </div>
-        <div class="contenedor col-6">
-            <h2>Productos por Categoría</h2>
-            <div class="chart-container">
-                <canvas id="productsByCategoryChart" style="display:flex; text-align:center"></canvas>
+        <div class="d-flex">
+            <div class="contenedor ">
+                <h2>Productos favoritos de los clientes</h2>
+                <div class="chart-container">
+                    <canvas id="favoriteChart" style="display:flex; text-align:center"></canvas>
+                </div>
+            </div>
+            <div class="contenedor ">
+                <h2>Compras Mensuales</h2>
+                <div class="chart-container">
+                    <canvas id="monthlyPurchasesChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="contenedor ">
+                <h2>Productos más vendidos</h2>
+                <div class="chart-container">
+                    <canvas id="mostSoldProductsChart"></canvas>
+                </div>
             </div>
         </div>
         <div class="contenedor col-6">
