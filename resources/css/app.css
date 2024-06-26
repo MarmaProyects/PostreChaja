@@ -87,3 +87,11 @@ body {
     min-width: 20px;  
     height: 20px;
 }
+
+.cliente-estrellas{
+    font-size: 25px;
+}
+
+.cliente-estrellas span{
+    font-weight: bold;
+}

@@ -75,22 +75,46 @@
                             <div class="col">Cantidad de productos: {{ $cart->products->count() }}</div>
                         </div>
                         <br>
-                        <form>
-                            <figure>
-                                <blockquote class="blockquote">
-                                    <p>Envío (no disponible)</p>
-                                </blockquote>
-                                <figcaption class="blockquote-footer">
-                                    Retiro en sucursal.
-                                </figcaption>
-                            </figure>
-                            <p>Código de descuento</p>
-                            <input placeholder="Ingresar código">
+                        <form action="{{ route('cart.applyDiscount') }}" method="POST" class="mb-3">
+                            @csrf
+                            @if (!$cart->discount_code)
+                                <div class="form-group">
+                                    <label for="coupon_code">Código de descuento</label>
+                                    <input type="text" class="form-control w-100" id="coupon_code" name="coupon_code"  value="{{ $cart->discount_code }}"
+                                        placeholder="Ingresar código">
+                                </div>
+                            @endif
+                            <div class="form-group">
+                                <label for="stars">Estrellas disponibles:
+                                    {{ Auth::user()->client->available_stars }}</label>
+                                <input type="number" class="form-control w-100" id="stars" name="stars"
+                                    min="0" max="{{ Auth::user()->client->available_stars }}"
+                                    placeholder="Cantidad de estrellas">
+                            </div>
+                            <button type="submit" class="btn mt-2">Aplicar Descuentos</button>
                         </form>
+                        @if ($cart->discount_code)
+                            <div class="row mt-2">
+                                <div class="col">Código de descuento: {{ $cart->discount_code }}</div>
+                            </div>
+                            <form action="{{ route('cart.applyDiscount') }}" method="POST" class="mb-3">
+                                @csrf
+                                <input class="d-none" name="coupon_code" id="coupon_code" value="">
+                                <input type="number" class="d-none" id="stars" name="stars"
+                                    value="{{ $cart->used_stars }}" placeholder="Cantidad de estrellas">
+                                <button type="submit" class="btn mt-2">Quitar Cupón</button>
+                            </form>
+                        @endif
+                        @if ($cart->used_stars)
+                            <div class="row mt-2">
+                                <div class="col">Estrellas que se usaran: {{ $cart->used_stars }}</div>
+                            </div>
+                        @endif
                         <div class="row mt-5 mb-3">
                             <div class="col d-flex">Precio total: ${{ $cart->final_price }}</div>
                         </div>
-                        <button onclick="window.location.href='{{ route('cart.checkout') }}'" class="btn">Pagar</button>
+                        <button onclick="window.location.href='{{ route('cart.checkout') }}'"
+                            class="btn">Pagar</button>
                     </div>
                 @else
                     <p class="text-center">No hay productos en el carrito.</p>

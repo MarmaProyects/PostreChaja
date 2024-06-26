@@ -6,6 +6,12 @@
             <div class="cart-item">
                 <p>Fecha: {{ $cart->updated_at->format('d/m/Y') }}</p>
                 <p>Orden #{{ $cart->id }}</p>
+                @if ($cart->used_stars)
+                    <p>Estrellas usadas: <span> {{ $cart->used_stars }}</span> <i class="bi bi-star-fill"></i></p>
+                @endif
+                @if ($cart->discount_code)
+                    <p>Código utilizado: <span> {{ $cart->discount_code }}</span></p>
+                @endif
                 <p>Precio final: ${{ $cart->final_price }}</p>
                 <p class="cart-estado  {{ $cart->status == 'completed' ? 'background-green' : 'background-orange' }}">
                     {{ $cart->status == 'completed' ? 'Completado' : 'En espera' }}</p>
