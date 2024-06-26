@@ -21,15 +21,20 @@
                         <div data-mdb-input-init class="form-outline mb-4">
                             <x-input-label class="form-label" for="amount" value="Monto de Descuento" />
                             <x-text-input type="number" step="0.01" class="form-control" id="amount"
-                                name="amount" min="0" :value="old('amount')" autofocus
-                                autocomplete="amount" />
+                                name="amount" min="0" :value="old('amount')" autofocus autocomplete="amount" />
                             <x-input-error :messages="$errors->get('amount')" class="mt-2" />
                         </div>
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <x-input-label class="form-label" for="description" value="Nueva contraseña" />
+                            <x-input-label class="form-label" for="description" value="Descripción" />
                             <x-text-input type="text" class="form-control" id="description" name="description"
                                 :value="old('description')" required />
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                        </div>
+                        <div data-mdb-input-init class="form-outline mb-2">
+                            <x-input-label class="form-label" for="uses" value="Usos" />
+                            <x-text-input type="number" step="1" class="form-control" id="uses"
+                                name="uses" min="0" :value="old('uses')" autofocus autocomplete="uses" />
+                            <x-input-error :messages="$errors->get('uses')" class="mt-2" />
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="active" name="active">

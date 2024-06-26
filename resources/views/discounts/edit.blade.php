@@ -13,6 +13,12 @@
                             </div>
                         @endif
                         <div data-mdb-input-init class="form-outline mb-2">
+                            <x-input-label class="form-label" for="code" value="Código" />
+                            <x-text-input type="text" class="form-control" id="code" name="code"
+                                :value="old('code', $discount->code)" autofocus autocomplete="code" />
+                            <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                        </div>
+                        <div data-mdb-input-init class="form-outline mb-2">
                             <x-input-label class="form-label" for="percentage" value="Porcentaje de Descuento" />
                             <x-text-input type="number" step="0.01" class="form-control" id="percentage"
                                 name="percentage" min="0" max="100" :value="old('percentage', $discount->percentage)" autofocus
@@ -31,6 +37,12 @@
                             <x-text-input type="text" class="form-control" id="description" name="description"
                                 :value="old('description', $discount->description)" required />
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                        </div>
+                        <div data-mdb-input-init class="form-outline mb-2">
+                            <x-input-label class="form-label" for="uses" value="Usos" />
+                            <x-text-input type="number" step="1" class="form-control" id="uses"
+                                name="uses" min="0" :value="old('uses', $discount->uses)" autofocus autocomplete="uses" />
+                            <x-input-error :messages="$errors->get('uses')" class="mt-2" />
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="active" name="active"

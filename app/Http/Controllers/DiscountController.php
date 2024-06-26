@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DiscountController extends Controller
 {
@@ -41,11 +42,20 @@ class DiscountController extends Controller
         $discount->amount = $request->input('amount');
         $discount->active = $request->has('active');
         $discount->description = $request->input('description');
+        $discount->uses = $request->input('uses');
+        $discount->code = $this->generateUniqueCode();
         $discount->save();
 
         return redirect()->route('discounts.index')->with('success', 'Descuento creado exitosamente.');
     }
+    private function generateUniqueCode()
+    {
+        do {
+            $code = strtoupper(Str::random(15)); 
+        } while (Discount::where('code', $code)->exists());
 
+        return $code;
+    }
     /**
      * Show the form for editing the specified discount.
      */
@@ -71,6 +81,8 @@ class DiscountController extends Controller
         $discount->amount = $request->input('amount');
         $discount->active = $request->has('active');
         $discount->description = $request->input('description');
+        $discount->uses = $request->input('uses');
+        $discount->code = $request->input('code');
         $discount->save();
 
         return redirect()->route('discounts.index')->with('success', 'Descuento actualizado exitosamente.');

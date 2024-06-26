@@ -108,7 +108,7 @@ class CartController extends Controller
     public function historial()
     {
         $user = Auth::user();
-        $completedCarts = $user->carts()->completed()->get();
+        $completedCarts = $user->carts()->completed()->orderBy('updated_at', 'desc')->get();
 
         return view('cart.historial', compact('completedCarts'));
     }
@@ -118,7 +118,34 @@ class CartController extends Controller
             return $product->price * $product->pivot->quantity;
         });
 
-        $cartModel->final_price = $total;
+        if ($cartModel->discount_code) {
+            $discount = Discount::where('code', $cartModel->discount_code)->first();
+            if ($discount && $discount->active && $discount->uses > 0) {
+                if ($discount->percentage) {
+                    $appliedDiscount = $total * ($discount->percentage / 100);
+                    $total -= $appliedDiscount;
+                } else {
+                    $appliedDiscount = $discount->amount;
+                    $total -= $appliedDiscount;
+                }
+            } else {
+                $cartModel->discount_code = '';
+            }
+        }
+
+        if ($cartModel->used_stars) {
+            $usedStars = $cartModel->used_stars;
+            $user = Auth::user();
+            $available_stars = $user->client->available_stars;
+            if ($available_stars < $usedStars) {
+                $usedStars = $available_stars;
+
+                $cartModel->used_stars = $usedStars;
+            }
+            $total -= $usedStars;
+        }
+
+        $cartModel->final_price = $total > 0 ? $total : 0;
         $cartModel->save();
     }
 
@@ -168,6 +195,7 @@ class CartController extends Controller
     public function checkout()
     {
         $cart = $this->getCurrentCartModel();
+        $this->updateCartTotal($cart);
         $preferencia = $this->crearPreferencia($cart);
         if ($preferencia) {
             $init_point = $preferencia->init_point;
@@ -182,6 +210,18 @@ class CartController extends Controller
         MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
         $preference = new PreferenceClient();
         $items = [];
+
+        $discount = Discount::where('code', $cart->discount_code)->first();
+        $cantProducts = 0;
+        foreach ($cart->products as $product) {;
+            $cantProducts += $product->pivot->quantity;
+        }
+        $priceToDiscount = $cart->used_stars / $cantProducts;
+        if ($discount && $discount->active && $discount->uses > 0) {
+            if (!$discount->percentage) {
+                $priceToDiscount += $discount->amount / $cart->products->count();
+            }
+        }
         foreach ($cart->products as $product) {
             $item = new Item();
             $item->id = $product->id;
@@ -189,9 +229,18 @@ class CartController extends Controller
             $item->quantity = $product->pivot->quantity;
             $item->description = $product->description;
             $item->category_id = $product->category_id;
-            $item->unit_price = $product->price;
+            $price = $product->price;
+            if ($discount && $discount->active && $discount->uses > 0) {
+                if ($discount->percentage) {
+                    $appliedDiscount = $price * ($discount->percentage / 100);
+                    $price -= $appliedDiscount;
+                }
+            }
+            $price -= $priceToDiscount;
+            $item->unit_price = $price > 0 ? $price : 1;
             $items[] = $item;
         }
+
         $user = Auth::user();
         $client = new PreferenceClient();
 
@@ -245,10 +294,19 @@ class CartController extends Controller
         $cart = $this->getCurrentCartModel();
         $cart->status = 'completed';
         $cart->save();
+        $discount = Discount::where('code', $cart->discount_code)->first();
+        if ($discount) {
+            $discount->uses -= 1;
+            if ($discount->uses == 0) {
+                $discount->active = false;
+            }
+            $discount->save();
+        }
         $starsEarned = floor($cart->final_price / 100);
         $user = Auth::user();
         $client = $user->client;
         $client->total_stars += $starsEarned;
+        $client->available_stars -= $cart->used_stars;
         $client->available_stars += $starsEarned;
         $client->save();
         return view('cart.success');
@@ -274,31 +332,36 @@ class CartController extends Controller
         $cart = $this->getCurrentCartModel();
         $this->updateCartTotal($cart);
         $totalPrice = $cart->final_price;
+        $discount_code = $request->input('coupon_code');
+        $usedStars = 0;
 
         if ($request->has('coupon_code')) {
-            $discount = Discount::where('id', $request->input('coupon_code'))->first();
-            if ($discount) {
-                if ($discount->percentage) {
-                    $totalPrice -= ($totalPrice * ($discount->percentage / 100));
-                } else {
-                    $totalPrice -= $discount->amount;
-                }
-            }
+            $discount = Discount::where('code', $request->input('coupon_code'))->first();
+            if ($discount && $discount->active && $discount->uses > 0) {
+                $cart->discount_code = $discount_code;
+            } else $cart->discount_code = "";
         }
 
         if ($request->has('stars')) {
-            $stars = $request->input('stars');
-            $discountFromStars = $stars * 1;
-            $totalPrice -= $discountFromStars;
+            $usedStars = $request->input('stars');
 
             $user = Auth::user();
-            $user->client->available_stars -= $stars;
-            $user->client->save();
+            $available_stars = $user->client->available_stars;
+
+            if ($available_stars <= $usedStars) {
+                $usedStars = $available_stars;
+            }
+
+            if ($cart->final_price + $cart->used_stars <= $usedStars) {
+                $usedStars = $cart->final_price + $cart->used_stars;
+            }
         }
 
         $cart->final_price = max($totalPrice, 0);
+        $cart->used_stars = $usedStars;
         $cart->save();
+        $this->updateCartTotal($cart);
 
-        return redirect()->route('cart.index')->with('success', 'Descuentos aplicados exitosamente.');
+        return redirect()->route('carrito.index')->with('success', 'Descuentos aplicados exitosamente.');
     }
 }

@@ -36,17 +36,19 @@
                     <th>Porcentaje</th>
                     <th>Monto</th>
                     <th>Activo</th>
+                    <th>Usos</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($discounts as $discount)
                     <tr>
-                        <td>{{ $discount->id }}</td>
+                        <td>{{ $discount->code }}</td>
                         <td>{{ $discount->description }}</td>
                         <td>{{ $discount->percentage ? $discount->percentage . '%' : 'N/A' }}</td>
                         <td>{{ $discount->amount ? '$' . $discount->amount : 'N/A' }}</td>
                         <td>{{ $discount->active ? 'Sí' : 'No' }}</td>
+                        <td>{{ $discount->uses }}</td>
                         <td> 
                             <a href="{{ route('discounts.edit', $discount->id) }}"><button
                                     class="dashboard-btn">{{ __('Edit') }} <i class="bi bi-pencil"></i></button></a>

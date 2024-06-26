@@ -77,11 +77,13 @@
                         <br>
                         <form action="{{ route('cart.applyDiscount') }}" method="POST" class="mb-3">
                             @csrf
-                            <div class="form-group">
-                                <label for="coupon_code">Código de descuento</label>
-                                <input type="text" class="form-control w-100" id="coupon_code" name="coupon_code"
-                                    placeholder="Ingresar código">
-                            </div>
+                            @if (!$cart->discount_code)
+                                <div class="form-group">
+                                    <label for="coupon_code">Código de descuento</label>
+                                    <input type="text" class="form-control w-100" id="coupon_code" name="coupon_code"  value="{{ $cart->discount_code }}"
+                                        placeholder="Ingresar código">
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="stars">Estrellas disponibles:
                                     {{ Auth::user()->client->available_stars }}</label>
@@ -91,6 +93,23 @@
                             </div>
                             <button type="submit" class="btn mt-2">Aplicar Descuentos</button>
                         </form>
+                        @if ($cart->discount_code)
+                            <div class="row mt-2">
+                                <div class="col">Código de descuento: {{ $cart->discount_code }}</div>
+                            </div>
+                            <form action="{{ route('cart.applyDiscount') }}" method="POST" class="mb-3">
+                                @csrf
+                                <input class="d-none" name="coupon_code" id="coupon_code" value="">
+                                <input type="number" class="d-none" id="stars" name="stars"
+                                    value="{{ $cart->used_stars }}" placeholder="Cantidad de estrellas">
+                                <button type="submit" class="btn mt-2">Quitar Cupón</button>
+                            </form>
+                        @endif
+                        @if ($cart->used_stars)
+                            <div class="row mt-2">
+                                <div class="col">Estrellas que se usaran: {{ $cart->used_stars }}</div>
+                            </div>
+                        @endif
                         <div class="row mt-5 mb-3">
                             <div class="col d-flex">Precio total: ${{ $cart->final_price }}</div>
                         </div>

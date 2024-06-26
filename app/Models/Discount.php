@@ -14,5 +14,6 @@ class Discount extends Model
         'active', 
         'code',
         'description',
+        'uses'
     ];
 }
