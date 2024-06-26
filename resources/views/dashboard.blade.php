@@ -1,13 +1,13 @@
 <x-auth-layout>
     <div class="dashboard">
         <div class="d-flex">
-            <div class="contenedor ">
+            <div class="contenedor">
                 <h2>Productos más visitados</h2>
                 <div class="chart-container">
                     <canvas id="mostVisitedProductsChart"></canvas>
                 </div>
             </div>
-            <div class="contenedor ">
+            <div class="contenedor">
                 <h2>Productos por Categoría</h2>
                 <div class="chart-container">
                     <canvas id="productsByCategoryChart" style="display:flex; text-align:center"></canvas>
@@ -15,13 +15,13 @@
             </div>
         </div>
         <div class="d-flex">
-            <div class="contenedor ">
+            <div class="contenedor">
                 <h2>Productos favoritos de los clientes</h2>
                 <div class="chart-container">
                     <canvas id="favoriteChart" style="display:flex; text-align:center"></canvas>
                 </div>
             </div>
-            <div class="contenedor ">
+            <div class="contenedor">
                 <h2>Compras Mensuales</h2>
                 <div class="chart-container">
                     <canvas id="monthlyPurchasesChart"></canvas>
@@ -29,33 +29,21 @@
             </div>
         </div>
         <div class="d-flex">
-            <div class="contenedor ">
+            <div class="contenedor">
                 <h2>Productos más vendidos</h2>
                 <div class="chart-container">
                     <canvas id="mostSoldProductsChart"></canvas>
                 </div>
             </div>
-        </div>
-        <div class="contenedor col-6">
-            <h2>Productos favoritos de los clientes</h2>
-            <div class="chart-container">
-                <canvas id="favoriteChart" style="display:flex; text-align:center"></canvas>
-            </div>
-        </div>
-        <div class="contenedor col-6">
-            <h2>Compras Mensuales</h2>
-            <div class="chart-container">
-                <canvas id="monthlyPurchasesChart"></canvas>
-            </div>
-        </div>
-        <div class="contenedor col-6">
-            <h2>Productos más vendidos</h2>
-            <div class="chart-container">
-                <canvas id="mostSoldProductsChart"></canvas>
+            <div class="contenedor">
+                <h2>Clientes con más estrellas</h2>
+                <div class="chart-container">
+                    <canvas id="topClientsChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('mostVisitedProductsChart').getContext('2d');
@@ -197,7 +185,6 @@
                             beginAtZero: true,
                             ticks: {
                                 callback: function(value, index, values) {
-                                    // Formatear el valor con "$" delante
                                     return '$' + value.toFixed(2);
                                 }
                             }
@@ -228,6 +215,38 @@
                         title: {
                             display: true,
                             text: 'Productos Más Vendidos'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            const ctx6 = document.getElementById('topClientsChart').getContext('2d');
+            const topClientsChart = new Chart(ctx6, {
+                type: 'bar',
+                data: {
+                    labels: {!! json_encode($clients_with_stars->pluck('fullname')) !!},
+                    datasets: [{
+                        label: 'Total de Estrellas',
+                        data: {!! json_encode($clients_with_stars->pluck('total_stars')) !!},
+                        backgroundColor: 'rgba(255, 206, 86, 0.4)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Clientes con Más Estrellas'
                         }
                     },
                     scales: {
