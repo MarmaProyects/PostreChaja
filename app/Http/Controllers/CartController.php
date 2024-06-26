@@ -219,7 +219,7 @@ class CartController extends Controller
         $priceToDiscount = $cart->used_stars / $cantProducts;
         if ($discount && $discount->active && $discount->uses > 0) {
             if (!$discount->percentage) {
-                $priceToDiscount += $discount->amount / $cart->products->count();
+                $priceToDiscount += $discount->amount / $cantProducts;
             }
         }
         foreach ($cart->products as $product) {
