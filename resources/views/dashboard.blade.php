@@ -2,37 +2,37 @@
     <div class="dashboard">
         <div class="d-flex">
             <div class="contenedor">
+                <h2>Compras Mensuales</h2>
+                <div class="chart-container">
+                    <canvas id="monthlyPurchasesChart"></canvas>
+                </div>
+            </div>
+            <div class="contenedor">
+                <h2>Productos más vendidos</h2>
+                <div class="chart-container">
+                    <canvas id="mostSoldProductsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="contenedor">
                 <h2>Productos más visitados</h2>
                 <div class="chart-container">
                     <canvas id="mostVisitedProductsChart"></canvas>
                 </div>
             </div>
             <div class="contenedor">
-                <h2>Productos por Categoría</h2>
-                <div class="chart-container">
-                    <canvas id="productsByCategoryChart" style="display:flex; text-align:center"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex">
-            <div class="contenedor">
                 <h2>Productos favoritos de los clientes</h2>
                 <div class="chart-container">
                     <canvas id="favoriteChart" style="display:flex; text-align:center"></canvas>
                 </div>
             </div>
-            <div class="contenedor">
-                <h2>Compras Mensuales</h2>
-                <div class="chart-container">
-                    <canvas id="monthlyPurchasesChart"></canvas>
-                </div>
-            </div>
         </div>
         <div class="d-flex">
             <div class="contenedor">
-                <h2>Productos más vendidos</h2>
+                <h2>Productos por Categoría</h2>
                 <div class="chart-container">
-                    <canvas id="mostSoldProductsChart"></canvas>
+                    <canvas id="productsByCategoryChart" style="display:flex; text-align:center"></canvas>
                 </div>
             </div>
             <div class="contenedor">
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('mostVisitedProductsChart').getContext('2d');
@@ -156,18 +156,22 @@
                 data: {
                     labels: {!! json_encode($monthly_data->pluck('month')) !!},
                     datasets: [{
-                        label: 'Cantidad de Compras',
-                        data: {!! json_encode($monthly_data->pluck('total_purchases')) !!},
-                        backgroundColor: 'rgba(75, 192, 192, 0.4)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }, {
-                        label: 'Ganancias Totales',
-                        data: {!! json_encode($monthly_data->pluck('total_revenue')) !!},
-                        backgroundColor: 'rgba(255, 99, 132, 0.4)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
+                            label: 'Ganancias Totales',
+                            data: {!! json_encode($monthly_data->pluck('total_revenue')) !!},
+                            backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Cantidad de Compras',
+                            data: {!! json_encode($monthly_data->pluck('total_purchases')) !!},
+                            backgroundColor: 'rgba(255, 99, 132, 0.4)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y1'
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -182,11 +186,28 @@
                     },
                     scales: {
                         y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
                             beginAtZero: true,
                             ticks: {
                                 callback: function(value, index, values) {
                                     return '$' + value.toFixed(2);
                                 }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return value;
+                                }
+                            },
+                            grid: {
+                                drawOnChartArea: false
                             }
                         }
                     }

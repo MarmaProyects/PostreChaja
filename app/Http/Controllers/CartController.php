@@ -194,14 +194,18 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $cart = $this->getCurrentCartModel();
-        $this->updateCartTotal($cart);
-        $preferencia = $this->crearPreferencia($cart);
-        if ($preferencia) {
-            $init_point = $preferencia->init_point;
-            return redirect($init_point);
-        } else {
-            return redirect()->back()->with('error', 'No se pudo crear la preferencia de pago.');
+        try {
+            $cart = $this->getCurrentCartModel();
+            $this->updateCartTotal($cart);
+            $preferencia = $this->crearPreferencia($cart);
+            if ($preferencia) {
+                $init_point = $preferencia->init_point;
+                return redirect($init_point);
+            } else {
+                return redirect()->back()->with('error', 'No se pudo crear la preferencia de pago.');
+            }
+        } catch (\Error $e) {
+            $this->failed();
         }
     }
 
@@ -258,7 +262,7 @@ class CartController extends Controller
             $preference = $client->create($request);
             return $preference;
         } catch (MPApiException $error) {
-            return null;
+            $this->failed();
         }
     }
 
@@ -326,7 +330,7 @@ class CartController extends Controller
     {
         $request->validate([
             'coupon_code' => 'nullable|string|exists:discounts,code',
-            'stars' => 'nullable|integer|min:0|max:' . Auth::user()->client->available_stars,
+            'stars' => 'nullable|integer|min:0|max:' . (Auth::user() ? Auth::user()->client->available_stars : 0),
         ]);
 
         $cart = $this->getCurrentCartModel();
@@ -342,7 +346,7 @@ class CartController extends Controller
             } else $cart->discount_code = "";
         }
 
-        if ($request->has('stars')) {
+        if ($request->has('stars') && Auth::user()) {
             $usedStars = $request->input('stars');
 
             $user = Auth::user();

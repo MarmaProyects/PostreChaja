@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 body: formData,
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'  // Este encabezado es crucial
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             })
                 .then((response) => response.json())

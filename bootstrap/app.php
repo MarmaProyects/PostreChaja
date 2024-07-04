@@ -14,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->ValidateCsrfTokens(except: [
-            '/productos'
+            '/productos',
+            '/ingreso'
         ]);
         $middleware->alias([
             'role' => \App\Http\Middleware\RedirectIfNoRole::class,

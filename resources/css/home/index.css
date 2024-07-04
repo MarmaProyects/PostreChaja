@@ -122,11 +122,9 @@ main .banner {
 }
 
 swiper-container {
-    padding: 100px;
+    padding: 25px;
     width: 100%;
     height: 100%;
-    margin-top: 40px;
-    margin-bottom: 40px;
 }
 
 swiper-slide {
@@ -154,7 +152,7 @@ swiper-slide .swiper-body {
 }
 
 .titulo-swipper {
-    position: absolute;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: 15px;
     left: 40vw;
 }
