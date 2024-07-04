@@ -80,16 +80,25 @@
                             @if (!$cart->discount_code)
                                 <div class="form-group">
                                     <label for="coupon_code">Código de descuento</label>
-                                    <input type="text" class="form-control w-100" id="coupon_code" name="coupon_code"  value="{{ $cart->discount_code }}"
-                                        placeholder="Ingresar código">
+                                    <input type="text" class="form-control w-100" id="coupon_code" name="coupon_code"
+                                        value="{{ $cart->discount_code }}" placeholder="Ingresar código">
                                 </div>
                             @endif
                             <div class="form-group">
-                                <label for="stars">Estrellas disponibles:
-                                    {{ Auth::user()->client->available_stars }}</label>
-                                <input type="number" class="form-control w-100" id="stars" name="stars"
-                                    min="0" max="{{ Auth::user()->client->available_stars }}"
-                                    placeholder="Cantidad de estrellas">
+                                @if (Auth::user() != null)
+                                    <label for="stars">Estrellas disponibles:
+                                        {{ Auth::user()->client->available_stars }}
+                                    </label>
+                                    <input type="number" class="form-control w-100" id="stars" name="stars"
+                                        min="0" max="{{ Auth::user()->client->available_stars }}"
+                                        placeholder="Cantidad de estrellas">
+                                @else
+                                    <label for="stars">Estrellas disponibles:
+                                        0
+                                    </label>
+                                    <input type="number" class="form-control w-100" id="stars" name="stars"
+                                        min="0" max="0" placeholder="Cantidad de estrellas">
+                                @endif
                             </div>
                             <button type="submit" class="btn mt-2">Aplicar Descuentos</button>
                         </form>
@@ -113,8 +122,9 @@
                         <div class="row mt-5 mb-3">
                             <div class="col d-flex">Precio total: ${{ $cart->final_price }}</div>
                         </div>
-                        <button onclick="window.location.href='{{ route('cart.checkout') }}'"
-                            class="btn">Pagar</button>
+                        <button onclick="window.location.href='{{ route('cart.checkout') }}'" class="btn"
+                            style="background-color: rgb(0, 177, 234)">Pagar con <img src="img/mercadopago.png"
+                                alt="" style="width: 75px"></button>
                     </div>
                 @else
                     <p class="text-center">No hay productos en el carrito.</p>
