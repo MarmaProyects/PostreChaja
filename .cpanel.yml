@@ -2,5 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home2/maledux/public_html/postrechaja/
-    - /bin/cp public/ $DEPLOYPATH
-    - /bin/cp resources/ $DEPLOYPATH
+    - /bin/rsync -av public/ $DEPLOYPATH
+    - /bin/rsync -av resources/ $DEPLOYPATH
