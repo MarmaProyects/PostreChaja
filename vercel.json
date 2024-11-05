@@ -10,7 +10,7 @@
     }],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://marmadux.maledux.uy/",
         "APP_KEY": "base64:cdW7S+j784FQWodBgIuWpHEECRHZf4K/WPVYpSeeLcQ=",
 
