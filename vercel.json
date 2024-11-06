@@ -24,5 +24,6 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
-    }
+    },
+    "buildCommand": "composer install && npm install && npm run build && php artisan migrate --force && php artisan db:seed"
 }
